@@ -1,0 +1,16 @@
+[
+{
+	"speechId": "SPEECH_0001",
+	"statement1": "定型文1-1",
+	"statement2": "定型文1-2",
+	"statement3": "定型文1-3",
+	"confidence": ".93"
+},
+{
+	"speechId": "SPEECH_0002",
+	"statement1": "定型文2-1",
+	"statement2": "定型文2-2",
+	"statement3": "定型文2-3",
+	"confidence": ".93"
+}
+]

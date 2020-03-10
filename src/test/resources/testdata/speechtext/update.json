@@ -1,0 +1,20 @@
+{
+  "id": 28,
+  "speechId": "SPEECH_0002",
+  "caseId": "M2020",
+  "notEvaluationFlg": true,
+  "recommendedText": [
+    {
+    "id": 3,
+    "speechId": "SPEECH_0002",
+    "finalClassification": true,
+    "isCorrect": true
+    },
+    {
+    "id": 18,
+    "speechId": "SPEECH_0002",
+    "finalClassification": true,
+    "isCorrect": true
+    }
+  ]
+}

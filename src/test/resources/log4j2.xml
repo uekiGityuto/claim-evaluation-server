@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration>
+<Configuration status="OFF" packages="jp.co.tokiomarine_nichido.util">
+	<Properties>
+		<Property name="logLayout">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %l (%t) %m%n</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console">
+			<PatternLayout pattern="${logLayout}" />
+		</Console>
+		<RollingFile name="file" fileName="log/log4j2.log"
+			filePattern="log/%d{yyyyMM}/log4j2_%d{yyyyMMdd}_%i.log">
+			<PatternLayout pattern="${logLayout}" />
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="2 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="file" />
+		</Root>
+	</Loggers>
+</Configuration>

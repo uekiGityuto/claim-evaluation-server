@@ -1,0 +1,159 @@
+{
+ "authorizationScope": "DIV1/TOKYO",
+ "connectedPartyPhoneNumbers": [
+ "0451233001"
+ ],
+ "duration": 799,
+ "externalSourceIds": [
+ "EXTERNAL_SOURCE_ID_0001"
+ ],
+ "memo": "00:02:30 あおり運転をされたご本人です。",
+ "ownPhoneIpAddresses": [
+ "192.168.240.240"
+ ],
+ "ownPhoneNumber": "5001",
+ "ownPhoneNumbers": [
+ "5001","6002"
+ ],
+ "speakerId": "user-005",
+ "speechId": "SPEECH_0002",
+ "speechStarted": "2019-04-05T15:00:00.000Z",
+ "tags": [
+ {
+ "category": "ATTENTION_WORD",
+ "type": "OPENING_TALK"
+ },
+ {
+ "category": "ATTENTION_WORD",
+ "type": "CHANCE"
+ }
+ ],
+ "text": [
+ {
+ "channelId": "R",
+ "text": "はい。お電話ありがとうございます。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+ {
+ "channelId": "L",
+ "text": "バイクをぶつけちゃって。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "それは大変でございましたね。お怪我はありませんか。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "それがかすり傷で済んだんです。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "それはおめでとうございました。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "ところで、バイクの修理代を保険で支払えるのか確認したいのですが。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "かしこまりました。ご契約内容を確認します。ご契約番号をお伺いしてよろしいでしょうか。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "はい。７７７－１２３４です。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "お客様は、車両保険に加入されています。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "確かそうです。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "車両保険の上限は１０億円に設定されています。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "確かそうです。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "しかしながら、５万円までは自己負担です。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "確かそうです。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "お客様のおバイクはどのような故障でしょうか。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "チェーンが外れたのと、パンクしました。バイク屋で見積もりを出してもらったところ、４９,９９０円でした。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "大変申し上げにくいのですが、その場合ですと全額自己負担になる可能性が高いです。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "１円も出ないってこと？こっちは事故をして、バイクだけでなく心に傷も付いてるんですよ。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "R",
+ "text": "お客様のバイクの修理代につきましては、バイク修理店様にお支払いしますので、バイク店様にご確認頂ますようお願い申し上げます。",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+  {
+ "channelId": "L",
+ "text": "わかりました。ご対応ありがとうございました",
+ "utteranceEndTime": 5090,
+ "utteranceStartTime": 0
+ },
+ {
+ "channelId": "R",
+ "text": "損害保険バイク事故担当、山田が承りました。",
+ "utteranceEndTime": 9500,
+ "utteranceStartTime": 6530
+ }
+ ]
+}
