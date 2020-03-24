@@ -60,10 +60,41 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.thetransactioncompany</groupId>
+		    <artifactId>cors-filter</artifactId>
+		    <version>2.9</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 			<scope>provided</scope>
+		</dependency>
+<!-- 		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-rs-extension-rx</artifactId>
+		    <version>3.3.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jboss.resteasy</groupId>
+		    <artifactId>resteasy-rxjava2</artifactId>
+		    <version>4.5.2.Final</version>
+		</dependency> -->
+<!-- 		<dependency>
+		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		    <artifactId>jackson-jaxrs-json-provider</artifactId>
+		    <version>2.10.3</version>
+		</dependency> -->
+ 		<dependency>
+		    <groupId>org.glassfish.jersey.ext.rx</groupId>
+		    <artifactId>jersey-rx-client-rxjava</artifactId>
+		    <version>2.25.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -139,6 +170,34 @@
 			<version>2.2.0.Final</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.4.12.Final</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>5.3.6.Final</version>
+		    <scope>provided</scope>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>dom4j</groupId>
+		            <artifactId>dom4j</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>1.6.1</version>
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -169,12 +228,12 @@
 				</executions>
 			</plugin>
 			<!-- TODO: 【中山】Wildfly 14をダウンロードできるようにする。 -->
-			<!-- <plugin> <artifactId>maven-dependency-plugin</artifactId> <version>3.1.1</version> 
-				<executions> <execution> <id>unpack</id> <phase>process-test-classes</phase> 
-				<goals> <goal>unpack</goal> </goals> <configuration> <artifactItems> <artifactItem> 
-				<groupId>org.jboss.as</groupId> <artifactId>jboss-as-dist</artifactId> <version>7.1.1.Final</version> 
-				<type>zip</type> <overWrite>false</overWrite> <outputDirectory>target</outputDirectory> 
-				</artifactItem> </artifactItems> </configuration> </execution> </executions> 
+			<!-- <plugin> <artifactId>maven-dependency-plugin</artifactId> <version>3.1.1</version>
+				<executions> <execution> <id>unpack</id> <phase>process-test-classes</phase>
+				<goals> <goal>unpack</goal> </goals> <configuration> <artifactItems> <artifactItem>
+				<groupId>org.jboss.as</groupId> <artifactId>jboss-as-dist</artifactId> <version>7.1.1.Final</version>
+				<type>zip</type> <overWrite>false</overWrite> <outputDirectory>target</outputDirectory>
+				</artifactItem> </artifactItems> </configuration> </execution> </executions>
 				</plugin> -->
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -189,10 +248,12 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.8.2</version>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>2.0.1.Final</version>
+                <configuration>
+                </configuration>
 				<executions>
 					<execution>
 						<id>deploy-postgresql</id>
@@ -222,14 +283,14 @@
 										<connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url>
 										<driver-name>postgresql-42.2.6.jar</driver-name>
 										<user-name>postgres</user-name>
-										<password>postgres</password>
+										<password>postgre1234</password>
 									</properties>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 	<reporting>

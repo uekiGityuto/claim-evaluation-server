@@ -10,19 +10,18 @@ import jp.co.tokiomarine_nichido.models.Feedback;
 import jp.co.tokiomarine_nichido.services.FeedbackService;
 
 /**
- * リアルタイムで蓄積される音声テキスト。
- * 
+ *　推論結果取得
  * @author SKK229873 中山真吾
- *
+ * @modify SKK231099 李
  */
 @Path("/feedback")
 public class FeedbackResource {
 	@Inject
 	private FeedbackService fbs;
-	
+
 	/**
 	 * speechIdをキーに、累積されている音声テキストを返す。
-	 * 
+	 *
 	 * @param feedback
 	 * @return
 	 */
