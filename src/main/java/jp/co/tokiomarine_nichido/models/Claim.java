@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import jp.co.tokiomarine_nichido.util.DateUtil;
 
 /**
  * Claim Model
@@ -23,25 +26,38 @@ public class Claim {
 
     private List<Comment> commentList;
 
+    private DateUtil dateUtil;
+
     public Claim () {
     	commentList = new ArrayList<Comment>();
     }
-    public Claim (	String claim_id,
-					String user_name,
+    public Claim (	String claimId,
+					String userName,
 					String name,
 				    String kind,
 				    Date birthday,
-				    Timestamp occurence_date,
-				    Timestamp create_date,
-				    Timestamp update_date) {
-    	this.claimId = claim_id;
-    	this.userName = user_name;
+				    Timestamp occurenceDate,
+				    Timestamp createDate,
+				    Timestamp updateDate) {
+    	this.claimId = claimId;
+    	this.userName = userName;
     	this.name = name;
     	this.kind = kind;
     	this.birthday = birthday;
-    	this.occurenceDate = occurence_date;
-    	this.createDate = create_date;
-    	this.updateDate = update_date;
+    	this.occurenceDate = occurenceDate;
+    	this.createDate = createDate;
+    	this.updateDate = updateDate;
+    }
+    public Claim (Map<String, Object> obj) {
+    	this.claimId = String.valueOf(obj.get("claimId"));
+    	this.userName = String.valueOf(obj.get("userName"));;
+    	this.name = String.valueOf(obj.get("name"));;
+    	this.kind = String.valueOf(obj.get("kind"));;
+		dateUtil = new DateUtil();
+    	this.birthday = dateUtil.toDate(String.valueOf(obj.get("birthday")));
+    	this.occurenceDate = dateUtil.toTimestamp(String.valueOf(obj.get("occurenceDate")));
+    	this.createDate = dateUtil.toTimestamp(String.valueOf(obj.get("createDate")));
+    	this.updateDate = dateUtil.toTimestamp(String.valueOf(obj.get("updateDate")));
     }
 
 
@@ -98,6 +114,9 @@ public class Claim {
 	}
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
+	}
+	public void addComment(Comment comment) {
+		this.commentList.add(comment);
 	}
 
 }

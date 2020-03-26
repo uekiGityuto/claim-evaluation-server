@@ -13,7 +13,7 @@ import jp.co.tokiomarine_nichido.services.SAMLService;
 
 /***
  * 損害担当者のユーザー情報を取得、追加するサービスクラス
- * 
+ *
  * @author SKK229873 中山真吾
  */
 @ApplicationScoped
@@ -23,7 +23,7 @@ public class UserResource {
 	private SAMLService ss;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_FORM_URLENCODED)
 	public User getUser(@QueryParam("id") String userId) throws Exception {
 		if (userId == null || userId == "") {
 			return null;

@@ -1,4 +1,4 @@
-package jp.co.tokiomarine_nichido.services;
+package jp.co.tokiomarine_nichido.services.db;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,16 +10,16 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.transaction.Transaction;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.classmate.AnnotationConfiguration;
+
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * DB connection service for WebServer
- * with JPA
+ * DataService with JPA
  * @author SKK231099 李
  *
  */
@@ -29,7 +29,7 @@ public class DataService {
 	private EntityManager em;
 	private EntityTransaction tx;
 
-	public DataService() {
+	protected DataService() {
 		PropertyManager pm = new PropertyManager();
 		String unit_name = pm.get("db_unit_name");
 		String url = pm.get("db_url");
@@ -46,10 +46,7 @@ public class DataService {
 			em = emf.createEntityManager();
 			tx = em.getTransaction();
 
-			tx.begin();
-			em.createNativeQuery("CREATE TABLE IF NOT EXISTS Comment").executeUpdate();
-			em.createNativeQuery("CREATE TABLE IF NOT EXISTS Feedback").executeUpdate();
-			tx.commit();
+//			AnnotationConfiguration config = new AnnotationConfiguration();
 
 		} catch(Exception e) {
 			log.info(e);
@@ -57,7 +54,7 @@ public class DataService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> getList(String sql, Class<T> type) {
+	protected <T> List<T> getList(String sql, Class<T> type) {
 		List<T> list = null;
 		try {
 			Query q = this.em.createQuery(sql);
@@ -69,7 +66,7 @@ public class DataService {
 		return list;
 	}
 
-	public <T> T getObject(String id, Class<T> type) {
+	protected <T> T getObject(String id, Class<T> type) {
 		T objClass = null;
 		try {
 			objClass = (T) em.find(type, id);

@@ -11,15 +11,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.ext.Provider;
 
 /**
  * CORSFilter
  * Enable it for Servlet 3.x implementations
  * @author SKK231099 李
  */
-//@Provider
-@WebFilter(urlPatterns = "/*")
+//@WebFilter(urlPatterns = "/*")
 public class CORSFilter implements Filter {
 
 	public CORSFilter() {}
@@ -32,16 +30,20 @@ public class CORSFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) rq;
 		HttpServletResponse response = (HttpServletResponse) rp;
 
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST, DELETE");
-		response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Accept-Language, Authorization");
-
-		if (request.getMethod().equals("OPTIONS")) {
-			response.setStatus(HttpServletResponse.SC_OK);
-			return;
+		if (!response.containsHeader("Access-Control-Allow-Origin")) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST, DELETE");
+			response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+			response.addHeader("Access-Control-Allow-Credentials", "true");
 		}
 
-		fc.doFilter(request, rp);
+		switch (request.getMethod()) {
+			case "OPTIONS":
+				response.setStatus(HttpServletResponse.SC_OK);
+				return;
+		}
+
+		fc.doFilter(request, response);
 	}
 
     @Override

@@ -12,9 +12,9 @@ import jp.co.tokiomarine_nichido.models.Log;
 
 /**
  * ログリソース。
- * 
+ *
  * ブラウザのログを、サーバーに集約するために使用する。
- * 
+ *
  * @author SKK229873 中山真吾
  *
  */
@@ -23,7 +23,7 @@ public class LogResource {
 	private static final Logger logger = LogManager.getLogger();
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void log(Log log) {
 		logger.log(log.getLogLevel(), log.logMessage);
 	}

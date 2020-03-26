@@ -1,8 +1,4 @@
 package jp.co.tokiomarine_nichido.services;
-import jp.co.tokiomarine_nichido.models.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
@@ -11,9 +7,10 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.client.rx.rxjava.RxObservable;
+
 import rx.Observable;
-import com.google.gson.Gson;
 
 
 /**
@@ -22,16 +19,13 @@ import com.google.gson.Gson;
  */
 public class ObservableClientService {
 	private String SAMLAuth = "";
-	Gson gson = null;
 
 	public ObservableClientService() {
-		gson = new Gson();
 	}
 
-	public Result rxCient(String method, String url, MultivaluedMap<String, Object> params) {
+	public Observable<Response> rxCient(String method, String url, MultivaluedMap<String, Object> params) {
 
-		Result result = new Result();
-		Map<String, String> errMsgList = new HashMap<String, String>();
+		Observable<Response> ob = null;
 
 		if (method != null && url != null) {
 
@@ -39,8 +33,8 @@ public class ObservableClientService {
 			// TODO: getAuthKey()
 //			SAMLAuth =
 			headerMap.add("Authorization", SAMLAuth);
+			headerMap.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED);
 
-			Observable<Response> ob = null;
 
 			String lMethod = method.toLowerCase();
 			if (lMethod.equals("get")) {
@@ -55,10 +49,9 @@ public class ObservableClientService {
 				});
 				url += urlParam;
 				ob = RxObservable
-						.newClient()
+						.from(new JerseyClientBuilder().build())
 						.target(url)
 						.request()
-						.accept(MediaType.APPLICATION_JSON)
 						.headers(headerMap)
 						.rx()
 						.get();
@@ -69,32 +62,15 @@ public class ObservableClientService {
 				});
 				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
 				ob = RxObservable
-						.newClient()
+						.from(new JerseyClientBuilder().build())
 						.target(url)
 						.request()
-						.accept(MediaType.APPLICATION_JSON)
 						.headers(headerMap)
 						.rx()
 						.post(entity);
 			}
-
-			ob.subscribe(rp -> {
-//				gson.fromJson(rp.getEntity(), type)
-				result.setData(rp);
-				result.setSuccess(true);
-				if (!result.isSuccess()) {
-					errMsgList.put("status(" + rp.getStatus() + "): ", String.valueOf(rp.getStatusInfo()));
-				}
-			});
 		}
 
-		if (!result.isSuccess()) {
-			if (errMsgList.size() == 0) {
-				errMsgList.put("0", "Please Check method and url");
-			}
-		}
-		result.setErrMsgList(errMsgList);
-		return result;
-
+		return ob;
 	}
 }
