@@ -1,22 +1,19 @@
 package jp.co.tokiomarine_nichido.resources;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.ejb.Asynchronous;
-import javax.enterprise.context.Dependent;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
 
 import com.google.gson.Gson;
 
+import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.services.ScoreService;
 
 /**
@@ -26,35 +23,39 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
  */
 
 @Path("score")
-//@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//@Produces(MediaType.APPLICATION_FORM_URLENCODED)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+@Produces(MediaType.APPLICATION_FORM_URLENCODED)
 public class ScoreResource {
 	private ScoreService ss = null;
+	private Gson gson = null;
 
 	public ScoreResource() {
 		ss = new ScoreService();
+		gson = new Gson();
 	}
 
 	@GET
 	@Path("/list")
-	@Asynchronous
-	public void getScoreList(@Suspended final AsyncResponse ar) {
-		String test = "wefasdfasdf";
-		ar.resume(test);
-//		ss.getScoreList(ar);
-//		ar.setTimeout(10, SECONDS);
+	public String getScoreList() {
+		Map<String, List<Score>> map = new HashMap<String, List<Score>>();
+		List<Score> scoreList = ss.getScoreList();
+		map.put("scoreList", scoreList);
+		return gson.toJson(map);
 	}
 
 	@GET
 	@Path("/detail")
-	public void getScore(@Suspended final AsyncResponse ar, @QueryParam("claimId") String claimId) {
-		ss.getScore(ar, claimId);
+	public String getScore(@QueryParam("claimId") String claimId) {
+		Map<String, Score> map = new HashMap<String, Score>();
+		Score score = ss.getScore(claimId);
+		map.put("score", score);
+		return gson.toJson(map);
+
 	}
 
 	@GET
 	@Path("/test")
 	public String getTest() {
-		Gson gson = new Gson();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("test", "value");
 		map.put("key", "val2!!!!!");

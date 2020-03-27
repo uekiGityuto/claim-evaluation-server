@@ -47,6 +47,7 @@ public class Claim {
     	this.occurenceDate = occurenceDate;
     	this.createDate = createDate;
     	this.updateDate = updateDate;
+    	commentList = new ArrayList<Comment>();
     }
     public Claim (Map<String, Object> obj) {
     	this.claimId = String.valueOf(obj.get("claimId"));
@@ -58,6 +59,7 @@ public class Claim {
     	this.occurenceDate = dateUtil.toTimestamp(String.valueOf(obj.get("occurenceDate")));
     	this.createDate = dateUtil.toTimestamp(String.valueOf(obj.get("createDate")));
     	this.updateDate = dateUtil.toTimestamp(String.valueOf(obj.get("updateDate")));
+    	commentList = new ArrayList<Comment>();
     }
 
 

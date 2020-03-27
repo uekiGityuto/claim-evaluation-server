@@ -50,8 +50,15 @@ public class Score {
 		String createDate = String.valueOf(obj.get("createDate"));
 		String claimId = String.valueOf(obj.get("claimId"));
 		@SuppressWarnings("unchecked")
-		Map<String, Object> map = (Map<String, Object>) obj.get("claim");
-		Claim claim = new Claim(map);
+		Map<String, Object> claimMap = (Map<String, Object>) obj.get("claim");
+		Claim claim = new Claim(claimMap);
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> reasonList = (List<Map<String, Object>>) obj.get("reasons");
+		List<Reason> reasons = new ArrayList<Reason>();
+		for (Map<String, Object> reasonMap : reasonList) {
+			Reason reason = new Reason(reasonMap);
+			reasons.add(reason);
+		}
 
 		this.fraudScoreId = fraudScoreId;
 		this.score = (int) Math.round(Double.valueOf(scoreStr));
@@ -59,6 +66,7 @@ public class Score {
 		this.createDate = dateUtil.toTimestamp(createDate);
 		this.claimId = claimId;
 		this.claim = claim;
+		this.reasons = reasons;
 	}
 
 

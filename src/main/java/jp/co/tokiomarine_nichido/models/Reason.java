@@ -1,5 +1,7 @@
 package jp.co.tokiomarine_nichido.models;
 
+import java.util.Map;
+
 /**
  * Scoreに影響を与えた要因情報
  * @author SKK231099 李
@@ -9,6 +11,13 @@ public class Reason {
 	private String idx;
 	private String factor;
 	private Short effect;
+
+	public Reason (Map<String, Object> obj) {
+    	this.fraudScoreId = String.valueOf(obj.get("fraudScoreId"));
+    	this.idx = String.valueOf(obj.get("idx"));;
+    	this.factor = String.valueOf(obj.get("factor"));;
+    	this.effect = Short.valueOf(String.valueOf(Math.round(Double.valueOf(String.valueOf(obj.get("effect"))))));
+    }
 
 
 	public String getFraudScoreId() {

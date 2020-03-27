@@ -1,5 +1,8 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.util.Map;
+
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
@@ -17,10 +20,55 @@ import rx.Observable;
  * 非同期通信Service
  * @author SKK231099 李
  */
-public class ObservableClientService {
+public class ClientService {
 	private String SAMLAuth = "";
 
-	public ObservableClientService() {
+	public ClientService() {
+	}
+
+	public Response client(String method, String url, Map<String, Object> params) {
+		Response rs = null;
+
+		if (method != null && url != null) {
+			MultivaluedMap<String, Object> headerMap = new MultivaluedHashMap<String, Object>();
+			// TODO: getAuthKey()
+//			SAMLAuth =
+			headerMap.add("Authorization", SAMLAuth);
+			headerMap.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED);
+
+
+			String lMethod = method.toLowerCase();
+			if (lMethod.equals("get")) {
+				StringBuilder urlParam = new StringBuilder();
+				params.forEach((key, value) -> {
+					if (urlParam.length() == 0) {
+						urlParam.append("?");
+					} else {
+						urlParam.append("&");
+					}
+					urlParam.append(key + "=" + value);
+				});
+				url += urlParam;
+				rs = ClientBuilder.newClient()
+								  .target(url)
+								  .request(MediaType.APPLICATION_FORM_URLENCODED)
+								  .headers(headerMap)
+								  .get();
+			} else if (lMethod.equals("post")) {
+				Form form = new Form();
+				params.forEach((key, value) -> {
+					form.param(key, String.valueOf(value));
+				});
+				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+				rs = ClientBuilder.newClient()
+								  .target(url)
+								  .request(MediaType.APPLICATION_FORM_URLENCODED)
+								  .headers(headerMap)
+								  .post(entity);
+			}
+		}
+
+		return rs;
 	}
 
 	public Observable<Response> rxCient(String method, String url, MultivaluedMap<String, Object> params) {

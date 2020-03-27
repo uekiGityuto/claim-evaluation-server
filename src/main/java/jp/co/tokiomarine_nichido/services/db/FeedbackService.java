@@ -23,8 +23,7 @@ public class FeedbackService extends DataService {
 
 	public Feedback getFeedback(String fraudScoreId) {
 		if (fraudScoreId.length() > 0) {
-			String sql_feedback = "select i from Feedback i where fraud_score_id = '" + fraudScoreId + "'";
-			return (Feedback) super.getObject(sql_feedback, Feedback.class);
+			return (Feedback) super.getObject(fraudScoreId, Feedback.class);
 		}
 		return new Feedback();
 	}
