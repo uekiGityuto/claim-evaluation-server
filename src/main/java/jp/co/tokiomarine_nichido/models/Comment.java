@@ -1,6 +1,8 @@
 package jp.co.tokiomarine_nichido.models;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +22,7 @@ import org.hibernate.annotations.Immutable;
 @IdClass(PK_Comment.class)
 @Table(name="comment",
        indexes= {@Index(name="idx_comment", columnList="claim_id, idx", unique=true)})
-public class Comment {
+public class Comment extends BasicClass {
 	@Id
 	@Column(name="claim_id", nullable = false)
 	private String claimId;
@@ -35,7 +37,6 @@ public class Comment {
 	private Timestamp createDate;
 	@Column(name="update_date")
 	private Timestamp updateDate;
-
 
 	public String getClaimId() {
 		return claimId;
@@ -74,4 +75,26 @@ public class Comment {
 		this.updateDate = updateDate;
 	}
 
+	@Override
+	public String getPrimaryKey() {
+		return this.claimId;
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idx", this.idx);
+		return map;
+	}
+
+	@Override
+	public void setParams(Object obj) {
+		Comment comment = (Comment) obj;
+		this.claimId = comment.getClaimId();
+		this.idx = comment.getIdx();
+		this.comment = comment.getComment();
+		this.userName = comment.getUserName();
+		this.createDate = comment.getCreateDate();
+		this.updateDate = comment.getUpdateDate();
+	}
 }

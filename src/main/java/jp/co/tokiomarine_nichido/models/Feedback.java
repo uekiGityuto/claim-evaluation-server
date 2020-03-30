@@ -1,5 +1,8 @@
 package jp.co.tokiomarine_nichido.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +21,7 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 @Table(name="feedback",
        indexes= {@Index(name="idx_feedback", columnList= "fraud_score_id", unique=true)})
-public class Feedback {
+public class Feedback extends BasicClass {
 
 	@Id
 	@Column(name="fraud_score_id", nullable = false)
@@ -30,6 +33,15 @@ public class Feedback {
 
 	@Column(name="comment")
 	private String comment;
+
+	public Feedback() {}
+	public Feedback(String fraudScoreId,
+			        String isCorrect,
+			        String comment) {
+		this.fraudScoreId = fraudScoreId;
+		this.isCorrect = Boolean.valueOf(isCorrect);
+		this.comment = comment;
+	}
 
 
 	public String getFraudScoreId() {
@@ -49,6 +61,24 @@ public class Feedback {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Override
+	public String getPrimaryKey() {
+		return this.fraudScoreId;
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		return null;
+	}
+
+	@Override
+	public void setParams(Object obj) {
+		Feedback feedback = (Feedback) obj;
+		this.fraudScoreId = feedback.getFraudScoreId();
+		this.isCorrect = Boolean.valueOf(feedback.getIsCorrect());
+		this.comment = feedback.getComment();
 	}
 
 }

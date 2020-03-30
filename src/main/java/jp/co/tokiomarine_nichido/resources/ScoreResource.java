@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import jp.co.tokiomarine_nichido.models.Feedback;
 import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.services.ScoreService;
 
@@ -23,8 +25,8 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
  */
 
 @Path("score")
-@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-@Produces(MediaType.APPLICATION_FORM_URLENCODED)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ScoreResource {
 	private ScoreService ss = null;
 	private Gson gson = null;
@@ -50,15 +52,24 @@ public class ScoreResource {
 		Score score = ss.getScore(claimId);
 		map.put("score", score);
 		return gson.toJson(map);
-
 	}
 
-	@GET
-	@Path("/test")
-	public String getTest() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("test", "value");
-		map.put("key", "val2!!!!!");
+	@POST
+	@Path("/updateFeedback")
+	public String updateFeedback(@QueryParam("feedback") String json) {
+		Feedback feedback = gson.fromJson(json, Feedback.class);
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		Boolean result = ss.updateFeedback(feedback);
+		map.put("update", result);
 		return gson.toJson(map);
 	}
+
+//	@GET
+//	@Path("/test")
+//	public String getTest() {
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("test", "value");
+//		map.put("key", "val2!!!!!");
+//		return gson.toJson(map);
+//	}
 }

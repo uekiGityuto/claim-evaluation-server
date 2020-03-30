@@ -3,6 +3,8 @@ package jp.co.tokiomarine_nichido.services.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.exception.DataException;
+
 import jp.co.tokiomarine_nichido.models.Feedback;
 
 /**
@@ -27,4 +29,9 @@ public class FeedbackService extends DataService {
 		}
 		return new Feedback();
 	}
+
+    public Boolean updateFeedback(Feedback feedback) {
+    	Boolean result = super.updateObject(feedback);
+    	return result;
+    }
 }

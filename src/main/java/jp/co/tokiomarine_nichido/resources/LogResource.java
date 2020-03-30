@@ -23,7 +23,7 @@ public class LogResource {
 	private static final Logger logger = LogManager.getLogger();
 
 	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void log(Log log) {
 		logger.log(log.getLogLevel(), log.logMessage);
 	}

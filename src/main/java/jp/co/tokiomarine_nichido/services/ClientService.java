@@ -34,7 +34,7 @@ public class ClientService {
 			// TODO: getAuthKey()
 //			SAMLAuth =
 			headerMap.add("Authorization", SAMLAuth);
-			headerMap.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED);
+			headerMap.add("Content-type", MediaType.APPLICATION_JSON);
 
 
 			String lMethod = method.toLowerCase();
@@ -51,7 +51,7 @@ public class ClientService {
 				url += urlParam;
 				rs = ClientBuilder.newClient()
 								  .target(url)
-								  .request(MediaType.APPLICATION_FORM_URLENCODED)
+								  .request(MediaType.APPLICATION_JSON)
 								  .headers(headerMap)
 								  .get();
 			} else if (lMethod.equals("post")) {
@@ -59,10 +59,10 @@ public class ClientService {
 				params.forEach((key, value) -> {
 					form.param(key, String.valueOf(value));
 				});
-				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_JSON_TYPE);
 				rs = ClientBuilder.newClient()
 								  .target(url)
-								  .request(MediaType.APPLICATION_FORM_URLENCODED)
+								  .request(MediaType.APPLICATION_JSON)
 								  .headers(headerMap)
 								  .post(entity);
 			}
@@ -81,7 +81,7 @@ public class ClientService {
 			// TODO: getAuthKey()
 //			SAMLAuth =
 			headerMap.add("Authorization", SAMLAuth);
-			headerMap.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED);
+			headerMap.add("Content-type", MediaType.APPLICATION_JSON);
 
 
 			String lMethod = method.toLowerCase();
@@ -108,7 +108,7 @@ public class ClientService {
 				params.forEach((key, values) -> {
 					form.param(key, String.valueOf(values.get(0)));
 				});
-				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+				Entity<Form> entity = Entity.entity(form, MediaType.APPLICATION_JSON_TYPE);
 				ob = RxObservable
 						.from(new JerseyClientBuilder().build())
 						.target(url)

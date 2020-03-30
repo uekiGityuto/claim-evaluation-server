@@ -135,4 +135,9 @@ public class ScoreService {
 		}
 		return score;
 	}
+
+	public Boolean updateFeedback(Feedback feedback) {
+		Boolean result = fs.updateFeedback(feedback);
+		return result;
+	}
 }

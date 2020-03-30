@@ -13,9 +13,9 @@ import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.DataException;
 
-import com.fasterxml.classmate.AnnotationConfiguration;
-
+import jp.co.tokiomarine_nichido.models.BasicClass;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -66,10 +66,14 @@ public class DataService {
 		return list;
 	}
 
-	protected <T> T getObject(String id, Class<T> type) {
+	protected <T> T getObject(String primaryKey, Map<String, Object> properties, Class<T> type) {
 		T objClass = null;
 		try {
-			objClass = (T) em.find(type, id);
+			if (properties != null) {
+				objClass = (T) em.find(type, primaryKey, properties);
+			} else {
+				objClass = (T) em.find(type, primaryKey);
+			}
 		} catch (Exception e) {
 			// new object class
 		}
@@ -77,10 +81,22 @@ public class DataService {
 
 	}
 
-//	public <T> T updateObject() {
-//		this.tx.begin();
-//		// do update;
-//		this.tx.commit();
-//	}
+	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
+		Boolean result = null;
+		try {
+			String primaryKey = bc.getPrimaryKey();
+			Map<String, Object> properties = bc.getProperties();
+			Object obj = (Object) getObject(primaryKey, properties, type);
+			bc.setParams(obj);
+			this.tx.begin();
+			em.merge(bc);
+			this.tx.commit();
+			result = true;
+		} catch(DataException e) {
+			this.tx.rollback();
+			result = false;
+		}
+		return result;
+	}
 
 }

@@ -1,12 +1,13 @@
 package jp.co.tokiomarine_nichido.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Scoreに影響を与えた要因情報
  * @author SKK231099 李
  */
-public class Reason {
+public class Reason extends BasicClass {
 	private String fraudScoreId;
 	private String idx;
 	private String factor;
@@ -43,6 +44,28 @@ public class Reason {
 	}
 	public void setEffect(Short effect) {
 		this.effect = effect;
+	}
+
+	@Override
+	public String getPrimaryKey() {
+		return this.fraudScoreId;
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idx", this.idx);
+		return map;
+	}
+
+	@Override
+	public void setParams(Object obj) {
+		Reason reason = (Reason) obj;
+		this.fraudScoreId = reason.getFraudScoreId();
+		this.idx = reason.getIdx();
+		this.factor = reason.getFactor();
+		this.effect = reason.getEffect();
+
 	}
 
 }

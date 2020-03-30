@@ -23,7 +23,7 @@ public class UserResource {
 	private SAMLService ss;
 
 	@GET
-	@Produces(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
 	public User getUser(@QueryParam("id") String userId) throws Exception {
 		if (userId == null || userId == "") {
 			return null;
