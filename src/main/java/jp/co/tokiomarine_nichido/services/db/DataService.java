@@ -46,8 +46,6 @@ public class DataService {
 			em = emf.createEntityManager();
 			tx = em.getTransaction();
 
-//			AnnotationConfiguration config = new AnnotationConfiguration();
-
 		} catch(Exception e) {
 			log.info(e);
 		}
@@ -70,9 +68,9 @@ public class DataService {
 		T objClass = null;
 		try {
 			if (properties != null) {
-				objClass = (T) em.find(type, primaryKey, properties);
+				objClass = (T) this.em.find(type, primaryKey, properties);
 			} else {
-				objClass = (T) em.find(type, primaryKey);
+				objClass = (T) this.em.find(type, primaryKey);
 			}
 		} catch (Exception e) {
 			// new object class
@@ -83,18 +81,27 @@ public class DataService {
 
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
 		Boolean result = null;
+		BasicClass entity = null;
 		try {
 			String primaryKey = bc.getPrimaryKey();
-			Map<String, Object> properties = bc.getProperties();
-			Object obj = (Object) getObject(primaryKey, properties, type);
-			bc.setParams(obj);
+//			Map<String, Object> properties = bc.getProperties();
+//			Feedback entity = (Feedback) getObject(primaryKey, properties, type);
+			entity = (BasicClass) this.em.find(type, primaryKey);
 			this.tx.begin();
-			em.merge(bc);
+			if (entity != null) {
+				entity.setParams(bc);
+				this.em.merge(entity);
+			} else {
+				entity = bc;
+				this.em.persist(entity);
+			}
 			this.tx.commit();
 			result = true;
 		} catch(DataException e) {
 			this.tx.rollback();
 			result = false;
+		} finally {
+
 		}
 		return result;
 	}

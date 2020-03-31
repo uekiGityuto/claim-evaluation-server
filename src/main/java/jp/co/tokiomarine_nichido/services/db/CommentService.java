@@ -13,11 +13,15 @@ import jp.co.tokiomarine_nichido.models.Comment;
 public class CommentService extends DataService{
 
 	public List<Comment> getComments(String claimIds) {
+		List<Comment> comments = null;
 		if (claimIds.length() > 0) {
 			// get comment by claim_id
 			String sql_claim = "select i from Comment i where claim_id in (" + claimIds + ")";
-			return super.getList(sql_claim, Comment.class);
+			comments = super.getList(sql_claim, Comment.class);
 		}
-		return new ArrayList<Comment>();
+		if (comments == null) {
+			comments = new ArrayList<Comment>();
+		}
+		return comments;
 	}
 }

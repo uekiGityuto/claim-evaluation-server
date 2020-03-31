@@ -90,8 +90,6 @@ public class Comment extends BasicClass {
 	@Override
 	public void setParams(Object obj) {
 		Comment comment = (Comment) obj;
-		this.claimId = comment.getClaimId();
-		this.idx = comment.getIdx();
 		this.comment = comment.getComment();
 		this.userName = comment.getUserName();
 		this.createDate = comment.getCreateDate();

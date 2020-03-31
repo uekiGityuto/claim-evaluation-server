@@ -61,8 +61,6 @@ public class Reason extends BasicClass {
 	@Override
 	public void setParams(Object obj) {
 		Reason reason = (Reason) obj;
-		this.fraudScoreId = reason.getFraudScoreId();
-		this.idx = reason.getIdx();
 		this.factor = reason.getFactor();
 		this.effect = reason.getEffect();
 

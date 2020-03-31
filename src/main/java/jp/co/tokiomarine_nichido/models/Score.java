@@ -127,7 +127,6 @@ public class Score extends BasicClass {
 	@Override
 	public void setParams(Object obj) {
 		Score scr = (Score)obj;
-		this.fraudScoreId = scr.getFraudScoreId();
 	    this.score = scr.getScore();
 	    this.createDate = scr.getCreateDate();
 		this.claimId = scr.getClaimId();

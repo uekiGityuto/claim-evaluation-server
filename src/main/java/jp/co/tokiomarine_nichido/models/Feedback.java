@@ -1,6 +1,5 @@
 package jp.co.tokiomarine_nichido.models;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -76,7 +75,6 @@ public class Feedback extends BasicClass {
 	@Override
 	public void setParams(Object obj) {
 		Feedback feedback = (Feedback) obj;
-		this.fraudScoreId = feedback.getFraudScoreId();
 		this.isCorrect = Boolean.valueOf(feedback.getIsCorrect());
 		this.comment = feedback.getComment();
 	}

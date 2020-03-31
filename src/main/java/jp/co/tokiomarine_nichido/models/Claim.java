@@ -135,7 +135,6 @@ public class Claim extends BasicClass {
 	@Override
 	public void setParams(Object obj) {
 		Claim claim = (Claim) obj;
-    	this.claimId = claim.getClaimId();
     	this.userName = claim.getUserName();
     	this.name = claim.getName();
     	this.kind = claim.getKind();
