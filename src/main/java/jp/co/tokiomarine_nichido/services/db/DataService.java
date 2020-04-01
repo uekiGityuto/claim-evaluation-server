@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.services.db;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,18 +81,51 @@ public class DataService {
 	}
 
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
-		Boolean result = null;
+	Boolean result = null;
 		BasicClass entity = null;
 		try {
 			String primaryKey = bc.getPrimaryKey();
-//			Map<String, Object> properties = bc.getProperties();
-//			Feedback entity = (Feedback) getObject(primaryKey, properties, type);
-			entity = (BasicClass) this.em.find(type, primaryKey);
+			Map<String, Object> properties = bc.getProperties();
 			this.tx.begin();
-			if (entity != null) {
-				entity.setParams(bc);
-				this.em.merge(entity);
-			} else {
+			T ettCls = getObject(primaryKey, properties, type);
+			if (ettCls != null) {
+				String className = ettCls.getClass().getName();
+				Field[] fields = ettCls.getClass().getDeclaredFields();
+				String fieldName = null;
+				String idNames = bc.getIdNames();
+				String and = " and ";
+				Map<String, Object> map = new HashMap<String, Object>();
+				Map<String, Object> idMap = new HashMap<String, Object>();
+				StringBuilder update = new StringBuilder("update " + className + " set ");
+				StringBuilder where = new StringBuilder(" where ");
+				String sql = null;
+				for (Field field : fields) {
+					fieldName = field.getName();
+					if (idNames.contains(fieldName)) {
+						where.append(fieldName + " = :" + fieldName + and);
+						idMap.put(fieldName, bc.getValue(fieldName));
+					} else {
+						update.append(fieldName + " = :" + fieldName + ",");
+						map.put(fieldName, bc.getValue(fieldName));
+					}
+				}
+				if (map.size() > 0) {
+					sql = update.substring(0, update.length() - 1) + where.substring(0, where.length() - and.length());
+				}
+				Query q = this.em.createQuery(sql);
+				map.forEach ((key, value) -> {
+					q.setParameter(key, value);
+				});
+				idMap.forEach((key, value) -> {
+					q.setParameter(key, value);
+				});
+				q.executeUpdate();
+
+				// 下記のcommandが効かないため上記の様に共通Update処理を実装
+//				entity = (BasicClass) ettCls;
+//				entity.setParams(bc);
+//				em.merge(ettCls);
+			} else if (bc != null){
 				entity = bc;
 				this.em.persist(entity);
 			}
@@ -101,7 +135,7 @@ public class DataService {
 			this.tx.rollback();
 			result = false;
 		} finally {
-
+			em.close();
 		}
 		return result;
 	}

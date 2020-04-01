@@ -3,7 +3,6 @@ package jp.co.tokiomarine_nichido.models;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import jp.co.tokiomarine_nichido.util.DateUtil;
  * @author SKK231099 李
  */
 
-public class Claim extends BasicClass {
+public class Claim {
 
     private String claimId;
 	private String userName;
@@ -120,30 +119,6 @@ public class Claim extends BasicClass {
 	}
 	public void addComment(Comment comment) {
 		this.commentList.add(comment);
-	}
-
-	@Override
-	public String getPrimaryKey() {
-		return this.claimId;
-	}
-
-	@Override
-	public Map<String, Object> getProperties() {
-		return null;
-	}
-
-	@Override
-	public void setParams(Object obj) {
-		Claim claim = (Claim) obj;
-    	this.userName = claim.getUserName();
-    	this.name = claim.getName();
-    	this.kind = claim.getKind();
-    	this.birthday = claim.getBirthday();
-    	this.occurenceDate = claim.getOccurenceDate();
-    	this.createDate = claim.getCreateDate();
-    	this.updateDate = claim.getUpdateDate();
-	    commentList = new ArrayList<Comment>();
-
 	}
 
 }

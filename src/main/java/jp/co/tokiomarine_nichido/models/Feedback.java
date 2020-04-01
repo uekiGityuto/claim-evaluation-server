@@ -63,6 +63,11 @@ public class Feedback extends BasicClass {
 	}
 
 	@Override
+	public String getIdNames() {
+		return "fraudScoreId";
+	}
+
+	@Override
 	public String getPrimaryKey() {
 		return this.fraudScoreId;
 	}
@@ -77,6 +82,24 @@ public class Feedback extends BasicClass {
 		Feedback feedback = (Feedback) obj;
 		this.isCorrect = Boolean.valueOf(feedback.getIsCorrect());
 		this.comment = feedback.getComment();
+	}
+
+	@Override
+	public Object getValue(String fieldName) {
+		Object rtn = "";
+		switch (fieldName) {
+		case "fraudScoreId":
+			rtn = this.fraudScoreId;
+			break;
+		case "isCorrect":
+			rtn = this.isCorrect;
+			break;
+		case "comment":
+			rtn = this.comment;
+			break;
+		}
+
+		return rtn;
 	}
 
 }

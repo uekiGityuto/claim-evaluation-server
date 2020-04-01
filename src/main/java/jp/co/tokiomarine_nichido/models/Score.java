@@ -2,7 +2,6 @@ package jp.co.tokiomarine_nichido.models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import jp.co.tokiomarine_nichido.util.DateUtil;
  *
  * @modify SKK231099 李　
  */
-public class Score extends BasicClass {
+public class Score {
 
 	private String fraudScoreId;
     private Integer score;
@@ -113,26 +112,4 @@ public class Score extends BasicClass {
 	public void setFeedback(Feedback feedback) {
 		this.feedback = feedback;
 	}
-
-	@Override
-	public String getPrimaryKey() {
-		return this.fraudScoreId;
-	}
-
-	@Override
-	public Map<String, Object> getProperties() {
-		return null;
-	}
-
-	@Override
-	public void setParams(Object obj) {
-		Score scr = (Score)obj;
-	    this.score = scr.getScore();
-	    this.createDate = scr.getCreateDate();
-		this.claimId = scr.getClaimId();
-        this.claim = scr.getClaim();
-		this.reasons = scr.getReasons();
-		this.feedback = scr.getFeedback();
-	}
-
 }

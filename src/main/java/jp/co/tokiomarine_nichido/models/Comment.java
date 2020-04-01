@@ -1,7 +1,9 @@
 package jp.co.tokiomarine_nichido.models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -76,6 +78,11 @@ public class Comment extends BasicClass {
 	}
 
 	@Override
+	public String getIdNames() {
+		return "claimId,idx";
+	}
+
+	@Override
 	public String getPrimaryKey() {
 		return this.claimId;
 	}
@@ -94,5 +101,26 @@ public class Comment extends BasicClass {
 		this.userName = comment.getUserName();
 		this.createDate = comment.getCreateDate();
 		this.updateDate = comment.getUpdateDate();
+	}
+
+	@Override
+	public Object getValue(String fieldName) {
+		Object rtn = "";
+		switch (fieldName) {
+		case "claimId":
+			rtn = this.claimId;
+			break;
+		case "idx":
+			rtn = this.idx;
+			break;
+		case "comment":
+			rtn = this.comment;
+			break;
+		case "userName":
+			rtn = this.userName;
+			break;
+		}
+
+		return rtn;
 	}
 }
