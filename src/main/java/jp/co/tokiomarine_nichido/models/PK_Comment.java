@@ -6,11 +6,11 @@ public class PK_Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String claimId;
-	private String idx;
+	private Integer idx;
 
 	public PK_Comment() {}
 
-	public PK_Comment(String claimId, String idx) {
+	public PK_Comment(String claimId, Integer idx) {
 		this.claimId = claimId;
 		this.idx = idx;
 	}
@@ -21,19 +21,19 @@ public class PK_Comment implements Serializable {
 	public void setClaimId(String claimId) {
 		this.claimId = claimId;
 	}
-	public String getIdx() {
+	public Integer getIdx() {
 		return idx;
 	}
-	public void setIdx(String idx) {
+	public void setIdx(Integer idx) {
 		this.idx = idx;
 	}
 	public int hashCode() {
-        return (int)this.claimId.hashCode();
+        return this.claimId.hashCode();
     }
 	public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof PK_Comment)) return false;
         PK_Comment pk = (PK_Comment) obj;
-        return pk.claimId.equals(this.claimId) && pk.idx.equals(this.idx);
+        return pk.claimId.equals(this.claimId) && pk.idx == this.idx;
     }
 }

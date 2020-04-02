@@ -136,8 +136,17 @@ public class ScoreService {
 		return score;
 	}
 
+	public Comment getComment(Comment comment) {
+		return cs.getComment(comment);
+	}
+
 	public Boolean updateFeedback(Feedback feedback) {
 		Boolean result = fs.updateFeedback(feedback);
+		return result;
+	}
+
+	public Boolean updateComment(Comment comment) {
+		Boolean result = cs.updateComment(comment);
 		return result;
 	}
 }

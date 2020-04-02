@@ -21,14 +21,12 @@ import org.hibernate.annotations.Immutable;
  */
 @Entity
 @Immutable
-@IdClass(PK_Comment.class)
-@Table(name="comment",
-       indexes= {@Index(name="idx_comment", columnList="claim_id, idx", unique=true)})
-public class Comment extends BasicClass {
+@Table(name="CommentTest",
+       indexes= {@Index(name="idx_comment", columnList="claim_id", unique=true)})
+public class CommentTest extends BasicClass {
 	@Id
 	@Column(name="claim_id", columnDefinition="varchar(11)", nullable = false)
 	private String claimId;
-	@Id
 	@Column(name="idx", columnDefinition="integer", nullable = false)
 	private Integer idx;
 	@Column(name="comment", columnDefinition="varchar(512)")

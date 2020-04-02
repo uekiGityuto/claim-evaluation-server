@@ -23,14 +23,14 @@ import org.hibernate.annotations.Immutable;
 public class Feedback extends BasicClass {
 
 	@Id
-	@Column(name="fraud_score_id", nullable = false)
+	@Column(name="fraud_score_id", columnDefinition="varchar(11)", nullable = false)
 	private String fraudScoreId;
 
 	// 未評価の場合、null
 	@Column(name="is_correct")
 	private Boolean isCorrect;
 
-	@Column(name="comment")
+	@Column(name="comment", columnDefinition="varchar(300)")
 	private String comment;
 
 	public Feedback() {}

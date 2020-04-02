@@ -65,6 +65,21 @@ public class DataService {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	protected <T> List<T> getList(String primaryKey, Map<String, Object> properties, Class<T> type) {
+		List<T> list = null;
+		try {
+			if (properties != null) {
+				list = (List<T>) this.em.find(type, primaryKey, properties);
+			} else {
+				list = (List<T>) this.em.find(type, primaryKey);
+			}
+		} catch (Exception e) {
+			// new object class
+		}
+		return list;
+	}
+
 	protected <T> T getObject(String primaryKey, Map<String, Object> properties, Class<T> type) {
 		T objClass = null;
 		try {
@@ -77,7 +92,6 @@ public class DataService {
 			// new object class
 		}
 		return objClass;
-
 	}
 
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {

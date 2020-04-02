@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.models.Feedback;
+import jp.co.tokiomarine_nichido.models.Comment;
 import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.services.ScoreService;
 
@@ -61,6 +62,21 @@ public class ScoreResource {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		Boolean result = ss.updateFeedback(feedback);
 		map.put("update", result);
+		return gson.toJson(map);
+	}
+
+	@POST
+	@Path("/updateComment")
+	public String updateComment(@QueryParam("comment") String json) {
+		Comment comment = gson.fromJson(json, Comment.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		Boolean result = ss.updateComment(comment);
+		if (result) {
+			Comment cmt = ss.getComment(comment);
+			map.put("update", cmt);
+		} else {
+			map.put("update", false);
+		}
 		return gson.toJson(map);
 	}
 
