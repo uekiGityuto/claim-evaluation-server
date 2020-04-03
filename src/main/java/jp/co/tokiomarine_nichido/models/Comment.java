@@ -91,15 +91,13 @@ public class Comment extends BasicClass {
 	}
 
 	@Override
-	public String getPrimaryKey() {
-		return this.claimId;
+	public PK_Comment getPrimaryKey() {
+        return new PK_Comment(this.claimId, this.idx);
 	}
 
 	@Override
 	public Map<String, Object> getProperties() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("idx", this.idx);
-		return map;
+		return null;
 	}
 
 	@Override

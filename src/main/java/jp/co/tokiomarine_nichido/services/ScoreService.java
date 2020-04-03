@@ -49,9 +49,9 @@ public class ScoreService {
 				@SuppressWarnings("unused")
 				String claimId;
 				String fraudScoreId;
-				StringBuilder claimIds = new StringBuilder();
 				StringBuilder fraudScoreIds = new StringBuilder();
-				List<Comment> commentList = new ArrayList<Comment>();
+//				StringBuilder claimIds = new StringBuilder();
+//				List<Comment> commentList = new ArrayList<Comment>();
 				List<Feedback> feedbackList = new ArrayList<Feedback>();
 				String json = rs.readEntity(String.class);
 				@SuppressWarnings("unchecked")
@@ -60,27 +60,27 @@ public class ScoreService {
 				for (Map<String, Object> obj : objList) {
 					Score score =  new Score(obj);
 					scoreList.add(score);
-					claimIds.append("'" + score.getClaimId() + "',");
 					fraudScoreIds.append("'" + score.getFraudScoreId() + "',");
+//					claimIds.append("'" + score.getClaimId() + "',");
 				}
-				if (claimIds.length() > 0) {
-					claimIds = new StringBuilder(claimIds.substring(0, claimIds.length() - 1));
-					commentList = cs.getComments(String.valueOf(claimIds));
-				}
+//				if (claimIds.length() > 0) {
+//					claimIds = new StringBuilder(claimIds.substring(0, claimIds.length() - 1));
+//					commentList = cs.getComments(String.valueOf(claimIds));
+//				}
 				if (fraudScoreIds.length() > 0) {
 					fraudScoreIds = new StringBuilder(fraudScoreIds.substring(0, fraudScoreIds.length() - 1));
 					feedbackList = fs.getFeedbacks(String.valueOf(fraudScoreIds));
 				}
 
 				for (Score score : scoreList) {
-					claimId = score.getClaimId();
 					fraudScoreId = score.getFraudScoreId();
-					Claim claim = score.getClaim();
-					for (Comment comment : commentList) {
-						if (comment.getClaimId().equals(claim.getClaimId())) {
-							claim.addComment(comment);
-						}
-					}
+//					claimId = score.getClaimId();
+//					Claim claim = score.getClaim();
+//					for (Comment comment : commentList) {
+//						if (comment.getClaimId().equals(claim.getClaimId())) {
+//							claim.addComment(comment);
+//						}
+//					}
 					for (Feedback feedback : feedbackList) {
 						if (fraudScoreId.equals(feedback.getFraudScoreId())) {
 							score.setFeedback(feedback);
@@ -119,7 +119,7 @@ public class ScoreService {
 
 //				score = gzon.fromJson(json, Score.class);
 
-				List<Comment> commentList = cs.getComments("'" + score.getClaimId() + "'");
+				List<Comment> commentList = cs.getComments(score.getClaimId());
 				score.getClaim().setCommentList(commentList);
 				Feedback feedback = fs.getFeedback(score.getFraudScoreId());
 				score.setFeedback(feedback);

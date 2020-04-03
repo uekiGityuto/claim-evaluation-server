@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.DataException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
@@ -66,7 +67,7 @@ public class DataService {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T> List<T> getList(String primaryKey, Map<String, Object> properties, Class<T> type) {
+	protected <T> List<T> getList(Object primaryKey, Map<String, Object> properties, Class<T> type) {
 		List<T> list = null;
 		try {
 			if (properties != null) {
@@ -80,76 +81,96 @@ public class DataService {
 		return list;
 	}
 
-	protected <T> T getObject(String primaryKey, Map<String, Object> properties, Class<T> type) {
+	@SuppressWarnings("unchecked")
+	protected <T> T getObject(Object primaryKey, Map<String, Object> properties, Class<T> type) {
 		T objClass = null;
 		try {
-			if (properties != null) {
-				objClass = (T) this.em.find(type, primaryKey, properties);
+			if ("java.lang.String".equals(primaryKey.getClass().getTypeName())) {
+				if (properties != null) {
+					objClass = (T) this.em.find(type, primaryKey, properties);
+				} else {
+					objClass = (T) this.em.find(type, primaryKey);
+				}
 			} else {
-				objClass = (T) this.em.find(type, primaryKey);
+				final ObjectMapper om = new ObjectMapper();
+				Map<String, Object> map = om.convertValue(primaryKey, Map.class);
+				if (map.size() > 0) {
+					String className = type.getName();
+					className = className.substring(className.lastIndexOf(".") + 1,className.length());
+					final String and = " and ";
+					StringBuilder select = new StringBuilder("select i from " + className + " i where ");
+					map.forEach((key, value) -> {
+						select.append("i." + key + " = '" + value + "'" + and);
+					});
+					String sql = String.valueOf(select.substring(0, select.length() - and.length()));
+					Query q = this.em.createQuery(sql);
+					objClass = (T) q.getSingleResult();
+				}
 			}
 		} catch (Exception e) {
-			// new object class
+			log.info(e);
 		}
 		return objClass;
 	}
 
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
-	Boolean result = null;
-		BasicClass entity = null;
-		try {
-			String primaryKey = bc.getPrimaryKey();
-			Map<String, Object> properties = bc.getProperties();
-			this.tx.begin();
-			T ettCls = getObject(primaryKey, properties, type);
-			if (ettCls != null) {
-				String className = ettCls.getClass().getName();
-				Field[] fields = ettCls.getClass().getDeclaredFields();
-				String fieldName = null;
-				String idNames = bc.getIdNames();
-				String and = " and ";
-				Map<String, Object> map = new HashMap<String, Object>();
-				Map<String, Object> idMap = new HashMap<String, Object>();
-				StringBuilder update = new StringBuilder("update " + className + " set ");
-				StringBuilder where = new StringBuilder(" where ");
-				String sql = null;
-				for (Field field : fields) {
-					fieldName = field.getName();
-					if (idNames.contains(fieldName)) {
-						where.append(fieldName + " = :" + fieldName + and);
-						idMap.put(fieldName, bc.getValue(fieldName));
-					} else {
-						update.append(fieldName + " = :" + fieldName + ",");
-						map.put(fieldName, bc.getValue(fieldName));
+		Boolean result = null;
+		if (bc != null) {
+			try {
+				final Object primaryKey = bc.getPrimaryKey();
+				Map<String, Object> properties = bc.getProperties();
+				this.tx.begin();
+				T ettCls = getObject(primaryKey, properties, type);
+				if (ettCls != null) {
+					final String className = bc.getClass().getName();
+					final Field[] fields = ettCls.getClass().getDeclaredFields();
+					String fieldName = null;
+					final String idNames = bc.getIdNames();
+					final String and = " and ";
+					Map<String, Object> map = new HashMap<String, Object>();
+					Map<String, Object> idMap = new HashMap<String, Object>();
+					StringBuilder update = new StringBuilder("update " + className + " set ");
+					StringBuilder where = new StringBuilder(" where ");
+					String sql = null;
+					for (Field field : fields) {
+						fieldName = field.getName();
+						if (idNames.contains(fieldName)) {
+							where.append(fieldName + " = :" + fieldName + and);
+							idMap.put(fieldName, bc.getValue(fieldName));
+						} else {
+							update.append(fieldName + " = :" + fieldName + ",");
+							map.put(fieldName, bc.getValue(fieldName));
+						}
 					}
-				}
-				if (map.size() > 0) {
-					sql = update.substring(0, update.length() - 1) + where.substring(0, where.length() - and.length());
-				}
-				Query q = this.em.createQuery(sql);
-				map.forEach ((key, value) -> {
-					q.setParameter(key, value);
-				});
-				idMap.forEach((key, value) -> {
-					q.setParameter(key, value);
-				});
-				q.executeUpdate();
+					if (map.size() > 0) {
+						sql = update.substring(0, update.length() - 1) + where.substring(0, where.length() - and.length());
+					}
+					Query q = this.em.createQuery(sql);
+					map.forEach ((key, value) -> {
+						q.setParameter(key, value);
+					});
+					idMap.forEach((key, value) -> {
+						q.setParameter(key, value);
+					});
+					q.executeUpdate();
 
-				// 下記のcommandが効かないため上記の様に共通Update処理を実装
-//				entity = (BasicClass) ettCls;
-//				entity.setParams(bc);
-//				em.merge(ettCls);
-			} else if (bc != null){
-				entity = bc;
-				this.em.persist(entity);
+					// 下記のcommandが効かないため上記の様に共通Update処理を実装
+	//				entity = (BasicClass) ettCls;
+	//				entity.setParams(bc);
+	//				em.merge(ettCls);
+				} else {
+					this.em.persist(bc);
+				}
+				this.tx.commit();
+				result = true;
+			} catch(DataException e) {
+				if (this.tx != null && tx.isActive()) {
+					this.tx.rollback();
+				}
+				result = false;
+			} finally {
+//				this.em.close();
 			}
-			this.tx.commit();
-			result = true;
-		} catch(DataException e) {
-			this.tx.rollback();
-			result = false;
-		} finally {
-			em.close();
 		}
 		return result;
 	}
