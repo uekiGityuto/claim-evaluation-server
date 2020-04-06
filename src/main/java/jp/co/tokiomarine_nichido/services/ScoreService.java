@@ -50,8 +50,6 @@ public class ScoreService {
 				String claimId;
 				String fraudScoreId;
 				StringBuilder fraudScoreIds = new StringBuilder();
-//				StringBuilder claimIds = new StringBuilder();
-//				List<Comment> commentList = new ArrayList<Comment>();
 				List<Feedback> feedbackList = new ArrayList<Feedback>();
 				String json = rs.readEntity(String.class);
 				@SuppressWarnings("unchecked")
@@ -61,12 +59,7 @@ public class ScoreService {
 					Score score =  new Score(obj);
 					scoreList.add(score);
 					fraudScoreIds.append("'" + score.getFraudScoreId() + "',");
-//					claimIds.append("'" + score.getClaimId() + "',");
 				}
-//				if (claimIds.length() > 0) {
-//					claimIds = new StringBuilder(claimIds.substring(0, claimIds.length() - 1));
-//					commentList = cs.getComments(String.valueOf(claimIds));
-//				}
 				if (fraudScoreIds.length() > 0) {
 					fraudScoreIds = new StringBuilder(fraudScoreIds.substring(0, fraudScoreIds.length() - 1));
 					feedbackList = fs.getFeedbacks(String.valueOf(fraudScoreIds));
@@ -74,13 +67,6 @@ public class ScoreService {
 
 				for (Score score : scoreList) {
 					fraudScoreId = score.getFraudScoreId();
-//					claimId = score.getClaimId();
-//					Claim claim = score.getClaim();
-//					for (Comment comment : commentList) {
-//						if (comment.getClaimId().equals(claim.getClaimId())) {
-//							claim.addComment(comment);
-//						}
-//					}
 					for (Feedback feedback : feedbackList) {
 						if (fraudScoreId.equals(feedback.getFraudScoreId())) {
 							score.setFeedback(feedback);
@@ -100,7 +86,6 @@ public class ScoreService {
 		return scoreList;
 	}
 
-//	public void getScore(AsyncResponse ar, String claimId) {
 	public Score getScore(String claimId) {
 		Score score = null;
 		Map<String, String> errMsgList = new HashMap<String, String>();
@@ -112,6 +97,7 @@ public class ScoreService {
 			try {
 				String json = rs.readEntity(String.class);
 
+				// TODO: remove this code for json-server after set GNetAPI
 				// for json-server
 				@SuppressWarnings("unchecked")
 				List<Map<String, Object>> list = (ArrayList<Map<String, Object>>) gson.fromJson(json, ArrayList.class);

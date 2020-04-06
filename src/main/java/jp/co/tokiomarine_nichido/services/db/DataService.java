@@ -1,6 +1,8 @@
 package jp.co.tokiomarine_nichido.services.db;
 
 import java.lang.reflect.Field;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.DataException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
@@ -76,9 +79,21 @@ public class DataService {
 				list = (List<T>) this.em.find(type, primaryKey);
 			}
 		} catch (Exception e) {
-			// new object class
+			// fail
 		}
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T> T getObjectByNativeQuery(String sql, Class<T> type) {
+		T objClass = null;
+		try {
+			Query q = this.em.createNativeQuery(sql);
+			objClass = (T) q.getSingleResult();
+		} catch (Exception e) {
+			// fail
+		}
+		return objClass;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,8 +137,11 @@ public class DataService {
 				this.tx.begin();
 				T ettCls = getObject(primaryKey, properties, type);
 				if (ettCls != null) {
-					final String className = bc.getClass().getName();
 					final Field[] fields = ettCls.getClass().getDeclaredFields();
+					if (isNotSameDateTimeForUpdate(fields, ettCls, bc)) {
+						throw new DataException("古いDataから更新しようとしています。画面を更新しやり直してください。", null);
+					}
+					final String className = bc.getClass().getName();
 					String fieldName = null;
 					final String idNames = bc.getIdNames();
 					final String and = " and ";
@@ -169,10 +187,72 @@ public class DataService {
 				}
 				result = false;
 			} finally {
-//				this.em.close();
 			}
 		}
 		return result;
+	}
+
+	private <T> Boolean isNotSameDateTimeForUpdate(Field[] fields, T ettCls, BasicClass bc) {
+		Boolean bChecked = null;
+		StringBuilder sb = new StringBuilder();
+		ObjectMapper om = new ObjectMapper();
+		final BasicClass origin = (BasicClass) ettCls;
+		Map<String, String> map = new HashMap<String, String>();
+		for(int i=0; i<fields.length; i++) {
+			Field f = fields[i];
+			final String fullTypeName = f.getType().getName();
+			final String typeName = fullTypeName.substring(fullTypeName.lastIndexOf(".") + 1, fullTypeName.length()).toLowerCase();
+			switch (typeName) {
+			case "timestamp":
+			case "date":
+				map.put(f.getName(), typeName);
+				break;
+			}
+
+
+		}
+
+		map.forEach((fieldName, typeName) -> {
+			switch (typeName) {
+			case "timestamp":
+				Timestamp ts1 = om.convertValue(origin.getValue(fieldName), Timestamp.class);
+				Timestamp ts2 = om.convertValue(bc.getValue(fieldName), Timestamp.class);
+				if (ts1 != null && ts2 != null) {
+				  if (!ts1.equals(ts2)) {
+					  sb.append("1");
+				  }
+				}
+				break;
+			case "date":
+				Date dt1 = om.convertValue(origin.getValue(fieldName), Date.class);
+				Date dt2 = om.convertValue(bc.getValue(fieldName), Date.class);
+				if (dt1 != null && dt2 != null) {
+				  if (!dt1.equals(dt2)) {
+					  sb.append("1");
+				  }
+				}
+				break;
+			}
+		});
+
+		bChecked = sb.length() == 0 ? false : true;
+
+		if (!bChecked) {
+			String cName = "update,edit,modify";
+			String noName = "create,new,make";
+			map.forEach((fieldName, typeName) -> {
+				final String fName = fieldName.toLowerCase();
+				if (cName.contains(fName) && !noName.contains(fName)) {
+					java.util.Date date = new java.util.Date();
+					Timestamp now = new Timestamp(date.getTime());
+
+					// Todo: make setValue function
+					// bc.setValue(fieldName, now);
+				}
+			});
+		}
+
+		return bChecked;
 	}
 
 }

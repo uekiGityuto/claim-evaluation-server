@@ -13,9 +13,10 @@ import jp.co.tokiomarine_nichido.models.Comment;
  *
  */
 public class CommentService extends DataService{
+	final String className = "Comment";
+	final String tableName = "comment";
 
 	public List<Comment> getComments(String claimIds) {
-		String className = "Comment";
 		List<Comment> comments = null;
 		if (claimIds.length() > 0) {
 			String sql = null;
@@ -40,9 +41,16 @@ public class CommentService extends DataService{
 		if (comment.getCreateDate() == null) {
 			Timestamp now = new Timestamp((new Date()).getTime());
 			comment.setCreateDate(now);
-		} else {
-			Timestamp now = new Timestamp((new Date()).getTime());
-			comment.setUpdateDate(now);
+		}
+		if (comment.getIdx() == null && comment.getClaimId() != null) {
+			final String sql ="select i.idx from " + tableName + " i where i.claim_id = '" + comment.getClaimId() + "' order by i.idx desc limit 1";
+			Integer idx = super.getObjectByNativeQuery(sql, Integer.class);
+			if (idx == null) {
+				idx = 1;
+			} else {
+				idx += 1;
+			}
+			comment.setIdx(idx);
 		}
 		return super.updateObject(comment, Comment.class);
 	}
