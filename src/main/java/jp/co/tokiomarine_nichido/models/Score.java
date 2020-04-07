@@ -10,13 +10,13 @@ import jp.co.tokiomarine_nichido.util.DateUtil;
 /**
  * 推論結果Score
  *
- * @modify SKK231099 李　
+ * @modify SKK231099 李
  */
 public class Score {
 
 	private String fraudScoreId;
-    private Integer score;
-    private Timestamp createDate;
+	private Integer score;
+	private Timestamp createDate;
 	private String claimId;
 
 	private Claim claim;
@@ -31,11 +31,8 @@ public class Score {
 		feedback = new Feedback();
 
 	}
-	public Score(String fraudScoreId,
-		         Integer score,
-		         Timestamp createDate,
-		         String claimId,
-		         Claim claim) {
+
+	public Score(String fraudScoreId, Integer score, Timestamp createDate, String claimId, Claim claim) {
 		this.fraudScoreId = fraudScoreId;
 		this.score = score;
 		this.createDate = createDate;
@@ -44,6 +41,7 @@ public class Score {
 		reasons = new ArrayList<Reason>();
 		feedback = new Feedback();
 	}
+
 	public Score(Map<String, Object> obj) {
 		String fraudScoreId = String.valueOf(obj.get("fraudScoreId"));
 		String scoreStr = String.valueOf(obj.get("score"));
@@ -69,46 +67,58 @@ public class Score {
 		this.reasons = reasons;
 	}
 
-
 	public String getFraudScoreId() {
 		return fraudScoreId;
 	}
+
 	public void setFraudScoreId(String fraudScoreId) {
 		this.fraudScoreId = fraudScoreId;
 	}
+
 	public Integer getScore() {
 		return score;
 	}
+
 	public void setScore(Integer score) {
 		this.score = score;
 	}
+
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+
 	public String getClaimId() {
 		return claimId;
 	}
+
 	public void setClaimId(String claimId) {
 		this.claimId = claimId;
 	}
+
 	public Claim getClaim() {
 		return claim;
 	}
+
 	public void setClaim(Claim claim) {
 		this.claim = claim;
 	}
+
 	public List<Reason> getReasons() {
 		return reasons;
 	}
+
 	public void setReasons(List<Reason> reasons) {
 		this.reasons = reasons;
 	}
+
 	public Feedback getFeedback() {
 		return feedback;
 	}
+
 	public void setFeedback(Feedback feedback) {
 		this.feedback = feedback;
 	}

@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
+import jp.co.tokiomarine_nichido.util.DateUtil;
 
 /**
  * DataService with JPA
@@ -31,6 +32,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
 public class DataService {
 	private final Logger log = LogManager.getLogger();
 
+	private EntityManagerFactory emf;
 	private EntityManager em;
 	private EntityTransaction tx;
 
@@ -47,9 +49,9 @@ public class DataService {
 			props.put("javax.persistence.jdbc.user", user);
 			props.put("javax.persistence.jdbc.password", password);
 			props.put("javax.persistence.jdbc.driver", driver);
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory(unit_name, props);
-			em = emf.createEntityManager();
-			tx = em.getTransaction();
+			this.emf = Persistence.createEntityManagerFactory(unit_name, props);
+			this.em = this.emf.createEntityManager();
+			this.tx = this.em.getTransaction();
 
 		} catch(Exception e) {
 			log.info(e);
@@ -128,6 +130,28 @@ public class DataService {
 		return objClass;
 	}
 
+	protected Boolean updateObject(String sql, Map<String, Object> param) {
+		Boolean result = null;
+		if (String.valueOf(sql).length() > 0) {
+			try {
+				this.tx.begin();
+				Query q = this.em.createQuery(sql);
+				param.forEach((key, value) -> {
+					q.setParameter(key, value);
+				});
+				q.executeUpdate();
+				this.tx.commit();
+				result = true;
+			} catch(Exception e) {
+				if (this.tx != null && tx.isActive()) {
+					this.tx.rollback();
+				}
+			}
+		}
+
+		return result;
+	}
+
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
 		Boolean result = null;
 		if (bc != null) {
@@ -187,17 +211,19 @@ public class DataService {
 				}
 				result = false;
 			} finally {
+//				em.close();
 			}
 		}
 		return result;
 	}
 
 	private <T> Boolean isNotSameDateTimeForUpdate(Field[] fields, T ettCls, BasicClass bc) {
-		Boolean bChecked = null;
+		Boolean isErr = null;
 		StringBuilder sb = new StringBuilder();
 		ObjectMapper om = new ObjectMapper();
+		final String[] updateNames = {"update","edit","modify"};
 		final BasicClass origin = (BasicClass) ettCls;
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> updateTimestampMap = new HashMap<String, String>();
 		for(int i=0; i<fields.length; i++) {
 			Field f = fields[i];
 			final String fullTypeName = f.getType().getName();
@@ -205,14 +231,18 @@ public class DataService {
 			switch (typeName) {
 			case "timestamp":
 			case "date":
-				map.put(f.getName(), typeName);
+				for (int j=0; j<updateNames.length; j++) {
+					if (f.getName().toLowerCase().contains(updateNames[j])) {
+						updateTimestampMap.put(f.getName(), typeName);
+					}
+				}
 				break;
 			}
 
 
 		}
 
-		map.forEach((fieldName, typeName) -> {
+		updateTimestampMap.forEach((fieldName, typeName) -> {
 			switch (typeName) {
 			case "timestamp":
 				Timestamp ts1 = om.convertValue(origin.getValue(fieldName), Timestamp.class);
@@ -228,31 +258,24 @@ public class DataService {
 				Date dt2 = om.convertValue(bc.getValue(fieldName), Date.class);
 				if (dt1 != null && dt2 != null) {
 				  if (!dt1.equals(dt2)) {
-					  sb.append("1");
+					  sb.append("2");
 				  }
 				}
 				break;
 			}
 		});
 
-		bChecked = sb.length() == 0 ? false : true;
+		isErr = sb.length() == 0 ? false : true;
 
-		if (!bChecked) {
-			String cName = "update,edit,modify";
-			String noName = "create,new,make";
-			map.forEach((fieldName, typeName) -> {
-				final String fName = fieldName.toLowerCase();
-				if (cName.contains(fName) && !noName.contains(fName)) {
-					java.util.Date date = new java.util.Date();
-					Timestamp now = new Timestamp(date.getTime());
-
-					// Todo: make setValue function
-					// bc.setValue(fieldName, now);
-				}
+		if (!isErr) {
+			DateUtil du = new DateUtil();
+			Timestamp now = du.getNewTimestamp();
+			updateTimestampMap.forEach((fieldName, typeName) -> {
+				bc.setValue(fieldName, now);
 			});
 		}
 
-		return bChecked;
+		return isErr;
 	}
 
 }

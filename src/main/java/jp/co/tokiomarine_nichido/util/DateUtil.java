@@ -1,9 +1,8 @@
 package jp.co.tokiomarine_nichido.util;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /*
 Letter  Date or Time Component  Presentation        Examples
@@ -34,25 +33,55 @@ X       Time zone               ISO 8601 time zone  -08; -0800; -08:00
 
 /**
  * DateUtil
+ *
  * @author SKK231099 李
  */
 public class DateUtil {
 	String formatDate = "yyyy/MM/dd";
 	String formatTimestamp = "yyyy/MM/dd HH:mm:ss";
+	String formatFullTimestamp = "yyyy/MM/dd HH:mm:ss.SSS";
 
-	public Date toDate(String strDate) {
+	private SimpleDateFormat getSimpleDateFormat(String strDate) {
+		String format = strDate.contains(":") ? (strDate.contains(".") ? formatFullTimestamp : formatTimestamp)
+				: formatDate;
+		if (strDate.contains("-")) {
+			strDate = strDate.replaceAll("-", "/");
+		}
+		if (format.contains(".")) {
+			int len = strDate.substring(strDate.indexOf(".") + 1, strDate.length()).length();
+			if (len == 1) {
+				strDate += "00";
+			} else if (len == 2) {
+				strDate += "0";
+			}
+		}
+		return new SimpleDateFormat(format);
+	}
+
+	public java.sql.Date toDate(String strDate) {
+		if (strDate != null && strDate.length() == 0) {
+			return null;
+		}
+		java.sql.Date date = new java.sql.Date(0);
+		try {
+			SimpleDateFormat df = getSimpleDateFormat(strDate);
+			date.setTime(df.parse(strDate).getTime());
+		} catch (Exception e) {
+			date = null;
+		}
+
+		return date;
+	}
+
+	public Date toDateTime(String strDate) {
 		if (strDate != null && strDate.length() == 0) {
 			return null;
 		}
 		Date date = new Date(0);
 		try {
-			String format = strDate.contains(":") ? formatTimestamp : formatDate;
-			if (format.contains("-")) {
-				format = format.replaceAll("-", "/");
-			}
-			SimpleDateFormat df = new SimpleDateFormat(format);
+			SimpleDateFormat df = getSimpleDateFormat(strDate);
 			date.setTime(df.parse(strDate).getTime());
-		} catch(Exception e) {
+		} catch (Exception e) {
 			date = null;
 		}
 
@@ -65,9 +94,16 @@ public class DateUtil {
 		}
 		Timestamp ts = null;
 		try {
-			ts = new Timestamp(toDate(strDate).getTime());
-		} catch(Exception e) {}
+			ts = new Timestamp(toDateTime(strDate).getTime());
+		} catch (Exception e) {
+		}
 
 		return ts;
+	}
+
+	public Timestamp getNewTimestamp() {
+		java.util.Date date = new java.util.Date();
+		Timestamp now = new Timestamp(date.getTime());
+		return now;
 	}
 }

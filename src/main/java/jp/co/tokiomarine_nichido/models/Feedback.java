@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Immutable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 推論結果に対するフィードバック。
@@ -17,47 +17,52 @@ import org.hibernate.annotations.Immutable;
  * @modifier SKK231099 李 : JPA連携
  */
 @Entity
-@Immutable
-@Table(name="feedback",
-       indexes= {@Index(name="idx_feedback", columnList= "fraud_score_id", unique=true)})
+@Table(name = "feedback", indexes = { @Index(name = "idx_feedback", columnList = "fraud_score_id", unique = true) })
 public class Feedback extends BasicClass {
 
 	@Id
-	@Column(name="fraud_score_id", columnDefinition="varchar(11)", nullable = false)
+	@Column(name = "fraud_score_id", columnDefinition = "varchar(11)", nullable = false)
+	@JsonProperty("fraudScoreId")
 	private String fraudScoreId;
 
 	// 未評価の場合、null
-	@Column(name="is_correct")
+	@Column(name = "is_correct")
+	@JsonProperty("isCorrect")
 	private Boolean isCorrect;
 
-	@Column(name="comment", columnDefinition="varchar(300)")
+	@Column(name = "comment", columnDefinition = "varchar(300)")
+	@JsonProperty("comment")
 	private String comment;
 
-	public Feedback() {}
-	public Feedback(String fraudScoreId,
-			        String isCorrect,
-			        String comment) {
+	public Feedback() {
+	}
+
+	public Feedback(String fraudScoreId, String isCorrect, String comment) {
 		this.fraudScoreId = fraudScoreId;
 		this.isCorrect = Boolean.valueOf(isCorrect);
 		this.comment = comment;
 	}
 
-
 	public String getFraudScoreId() {
 		return fraudScoreId;
 	}
+
 	public void setFraudScoreId(String fraudScoreId) {
 		this.fraudScoreId = fraudScoreId;
 	}
+
 	public Boolean getIsCorrect() {
 		return isCorrect;
 	}
+
 	public void setIsCorrect(Boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
+
 	public String getComment() {
 		return comment;
 	}
+
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
@@ -100,6 +105,21 @@ public class Feedback extends BasicClass {
 		}
 
 		return rtn;
+	}
+
+	@Override
+	public void setValue(String fieldName, Object value) {
+		switch (fieldName) {
+		case "fraudScoreId":
+			this.fraudScoreId = value == null ? null : String.valueOf(value);
+			break;
+		case "isCorrect":
+			this.isCorrect = value == null ? null : Boolean.valueOf(String.valueOf(value));
+			break;
+		case "comment":
+			this.comment = value == null ? null : String.valueOf(value);
+			break;
+		}
 	}
 
 }

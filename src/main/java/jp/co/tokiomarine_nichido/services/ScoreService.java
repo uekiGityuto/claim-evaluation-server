@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import jp.co.tokiomarine_nichido.models.Claim;
 import jp.co.tokiomarine_nichido.models.Comment;
 import jp.co.tokiomarine_nichido.models.Feedback;
 import jp.co.tokiomarine_nichido.models.Score;
@@ -20,6 +18,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * ScoreService
+ *
  * @author SKK231099 李
  *
  */
@@ -46,35 +45,15 @@ public class ScoreService {
 		Response rs = cService.client("get", gnetApiUri, new HashMap<String, Object>());
 		if (rs != null) {
 			try {
-				@SuppressWarnings("unused")
-				String claimId;
-				String fraudScoreId;
-				StringBuilder fraudScoreIds = new StringBuilder();
-				List<Feedback> feedbackList = new ArrayList<Feedback>();
 				String json = rs.readEntity(String.class);
 				@SuppressWarnings("unchecked")
 				List<Map<String, Object>> objList = (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
 
 				for (Map<String, Object> obj : objList) {
-					Score score =  new Score(obj);
+					Score score = new Score(obj);
 					scoreList.add(score);
-					fraudScoreIds.append("'" + score.getFraudScoreId() + "',");
 				}
-				if (fraudScoreIds.length() > 0) {
-					fraudScoreIds = new StringBuilder(fraudScoreIds.substring(0, fraudScoreIds.length() - 1));
-					feedbackList = fs.getFeedbacks(String.valueOf(fraudScoreIds));
-				}
-
-				for (Score score : scoreList) {
-					fraudScoreId = score.getFraudScoreId();
-					for (Feedback feedback : feedbackList) {
-						if (fraudScoreId.equals(feedback.getFraudScoreId())) {
-							score.setFeedback(feedback);
-							break;
-						}
-					}
-				}
-			} catch(Exception e) {
+			} catch (Exception e) {
 				errMsgList.put("status(" + rs.getStatus() + "): ", String.valueOf(rs.getStatusInfo()));
 			}
 		} else {
@@ -110,8 +89,7 @@ public class ScoreService {
 				Feedback feedback = fs.getFeedback(score.getFraudScoreId());
 				score.setFeedback(feedback);
 
-
-			} catch(Exception e) {
+			} catch (Exception e) {
 				errMsgList.put("status(" + rs.getStatus() + "): ", String.valueOf(rs.getStatusInfo()));
 			}
 		} else {
@@ -126,8 +104,13 @@ public class ScoreService {
 		return cs.getComment(comment);
 	}
 
-	public Boolean updateFeedback(Feedback feedback) {
-		Boolean result = fs.updateFeedback(feedback);
+	public Boolean updateFeedbackIsCorrect(Feedback feedback) {
+		Boolean result = fs.updateFeedbackIsCorrect(feedback);
+		return result;
+	}
+
+	public Boolean updateFeedbackComment(Feedback feedback) {
+		Boolean result = fs.updateFeedbackComment(feedback);
 		return result;
 	}
 
