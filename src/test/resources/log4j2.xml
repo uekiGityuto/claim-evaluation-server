@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration>
-<Configuration status="OFF" packages="jp.co.tokiomarine_nichido.util">
+<Configuration status="OFF"
+	packages="jp.co.tokiomarine_nichido.util">
 	<Properties>
 		<Property name="logLayout">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %l (%t) %m%n</Property>
 	</Properties>

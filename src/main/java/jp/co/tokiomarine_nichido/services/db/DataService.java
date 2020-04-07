@@ -21,11 +21,12 @@ import org.hibernate.exception.DataException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
-import jp.co.tokiomarine_nichido.util.PropertyManager;
 import jp.co.tokiomarine_nichido.util.DateUtil;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * DataService with JPA
+ * 
  * @author SKK231099 李
  *
  */
@@ -53,7 +54,7 @@ public class DataService {
 			this.em = this.emf.createEntityManager();
 			this.tx = this.em.getTransaction();
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			log.info(e);
 		}
 	}
@@ -113,7 +114,7 @@ public class DataService {
 				Map<String, Object> map = om.convertValue(primaryKey, Map.class);
 				if (map.size() > 0) {
 					String className = type.getName();
-					className = className.substring(className.lastIndexOf(".") + 1,className.length());
+					className = className.substring(className.lastIndexOf(".") + 1, className.length());
 					final String and = " and ";
 					StringBuilder select = new StringBuilder("select i from " + className + " i where ");
 					map.forEach((key, value) -> {
@@ -142,7 +143,7 @@ public class DataService {
 				q.executeUpdate();
 				this.tx.commit();
 				result = true;
-			} catch(Exception e) {
+			} catch (Exception e) {
 				if (this.tx != null && tx.isActive()) {
 					this.tx.rollback();
 				}
@@ -185,10 +186,11 @@ public class DataService {
 						}
 					}
 					if (map.size() > 0) {
-						sql = update.substring(0, update.length() - 1) + where.substring(0, where.length() - and.length());
+						sql = update.substring(0, update.length() - 1)
+								+ where.substring(0, where.length() - and.length());
 					}
 					Query q = this.em.createQuery(sql);
-					map.forEach ((key, value) -> {
+					map.forEach((key, value) -> {
 						q.setParameter(key, value);
 					});
 					idMap.forEach((key, value) -> {
@@ -197,15 +199,15 @@ public class DataService {
 					q.executeUpdate();
 
 					// 下記のcommandが効かないため上記の様に共通Update処理を実装
-	//				entity = (BasicClass) ettCls;
-	//				entity.setParams(bc);
-	//				em.merge(ettCls);
+					// entity = (BasicClass) ettCls;
+					// entity.setParams(bc);
+					// em.merge(ettCls);
 				} else {
 					this.em.persist(bc);
 				}
 				this.tx.commit();
 				result = true;
-			} catch(DataException e) {
+			} catch (DataException e) {
 				if (this.tx != null && tx.isActive()) {
 					this.tx.rollback();
 				}
@@ -221,24 +223,24 @@ public class DataService {
 		Boolean isErr = null;
 		StringBuilder sb = new StringBuilder();
 		ObjectMapper om = new ObjectMapper();
-		final String[] updateNames = {"update","edit","modify"};
+		final String[] updateNames = { "update", "edit", "modify" };
 		final BasicClass origin = (BasicClass) ettCls;
 		Map<String, String> updateTimestampMap = new HashMap<String, String>();
-		for(int i=0; i<fields.length; i++) {
+		for (int i = 0; i < fields.length; i++) {
 			Field f = fields[i];
 			final String fullTypeName = f.getType().getName();
-			final String typeName = fullTypeName.substring(fullTypeName.lastIndexOf(".") + 1, fullTypeName.length()).toLowerCase();
+			final String typeName = fullTypeName.substring(fullTypeName.lastIndexOf(".") + 1, fullTypeName.length())
+					.toLowerCase();
 			switch (typeName) {
 			case "timestamp":
 			case "date":
-				for (int j=0; j<updateNames.length; j++) {
+				for (int j = 0; j < updateNames.length; j++) {
 					if (f.getName().toLowerCase().contains(updateNames[j])) {
 						updateTimestampMap.put(f.getName(), typeName);
 					}
 				}
 				break;
 			}
-
 
 		}
 
@@ -248,18 +250,18 @@ public class DataService {
 				Timestamp ts1 = om.convertValue(origin.getValue(fieldName), Timestamp.class);
 				Timestamp ts2 = om.convertValue(bc.getValue(fieldName), Timestamp.class);
 				if (ts1 != null && ts2 != null) {
-				  if (!ts1.equals(ts2)) {
-					  sb.append("1");
-				  }
+					if (!ts1.equals(ts2)) {
+						sb.append("1");
+					}
 				}
 				break;
 			case "date":
 				Date dt1 = om.convertValue(origin.getValue(fieldName), Date.class);
 				Date dt2 = om.convertValue(bc.getValue(fieldName), Date.class);
 				if (dt1 != null && dt2 != null) {
-				  if (!dt1.equals(dt2)) {
-					  sb.append("2");
-				  }
+					if (!dt1.equals(dt2)) {
+						sb.append("2");
+					}
 				}
 				break;
 			}

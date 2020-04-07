@@ -22,5 +22,5 @@ public class SAMLService {
 		// TODO: 実装する
 		return null;
 	}
-	
+
 }

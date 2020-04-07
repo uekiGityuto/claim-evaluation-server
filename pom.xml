@@ -59,16 +59,16 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
- 		<dependency>
+		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 			<scope>provided</scope>
 		</dependency>
- 		<dependency>
-		    <groupId>org.glassfish.jersey.ext.rx</groupId>
-		    <artifactId>jersey-rx-client-rxjava</artifactId>
-		    <version>2.25.1</version>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext.rx</groupId>
+			<artifactId>jersey-rx-client-rxjava</artifactId>
+			<version>2.25.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -95,9 +95,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.10.3</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.3</version>
 		</dependency>
 		<!-- Wildflyの初回環境セットアップの際にデプロイするために必要。warに含まれないようにtest scopeに設定。 -->
 		<dependency>
@@ -160,22 +160,22 @@
 			<version>5.4.12.Final</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>5.3.6.Final</version>
-		    <scope>provided</scope>
-		    <exclusions>
-		        <exclusion>
-		            <groupId>dom4j</groupId>
-		            <artifactId>dom4j</artifactId>
-		        </exclusion>
-		    </exclusions>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.3.6.Final</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>dom4j</groupId>
+					<artifactId>dom4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-		    <groupId>dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
-		    <version>1.6.1</version>
-		    <scope>provided</scope>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -207,12 +207,12 @@
 				</executions>
 			</plugin>
 			<!-- TODO: 【中山】Wildfly 14をダウンロードできるようにする。 -->
-			<!-- <plugin> <artifactId>maven-dependency-plugin</artifactId> <version>3.1.1</version>
-				<executions> <execution> <id>unpack</id> <phase>process-test-classes</phase>
-				<goals> <goal>unpack</goal> </goals> <configuration> <artifactItems> <artifactItem>
-				<groupId>org.jboss.as</groupId> <artifactId>jboss-as-dist</artifactId> <version>7.1.1.Final</version>
-				<type>zip</type> <overWrite>false</overWrite> <outputDirectory>target</outputDirectory>
-				</artifactItem> </artifactItems> </configuration> </execution> </executions>
+			<!-- <plugin> <artifactId>maven-dependency-plugin</artifactId> <version>3.1.1</version> 
+				<executions> <execution> <id>unpack</id> <phase>process-test-classes</phase> 
+				<goals> <goal>unpack</goal> </goals> <configuration> <artifactItems> <artifactItem> 
+				<groupId>org.jboss.as</groupId> <artifactId>jboss-as-dist</artifactId> <version>7.1.1.Final</version> 
+				<type>zip</type> <overWrite>false</overWrite> <outputDirectory>target</outputDirectory> 
+				</artifactItem> </artifactItems> </configuration> </execution> </executions> 
 				</plugin> -->
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -227,49 +227,18 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.8.2</version>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>2.0.1.Final</version>
-                <configuration>
-                </configuration>
-				<executions>
-					<execution>
-						<id>deploy-postgresql</id>
-						<phase>install</phase>
-						<goals>
-							<goal>deploy-artifact</goal>
-						</goals>
-						<configuration>
-							<groupId>org.postgresql</groupId>
-							<artifactId>postgresql</artifactId>
-							<name>postgresql-42.2.6.jar</name>
-						</configuration>
-					</execution>
-					<execution>
-						<id>add-datasource</id>
-						<phase>install</phase>
-						<goals>
-							<goal>add-resource</goal>
-						</goals>
-						<configuration>
-							<address>subsystem=datasources,data-source=java:/PostgresDS</address>
-							<resources>
-								<resource>
-									<properties>
-										<jndi-name>java:/PostgresDS</jndi-name>
-										<enabled>true</enabled>
-										<connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url>
-										<driver-name>postgresql-42.2.6.jar</driver-name>
-										<user-name>postgres</user-name>
-										<password>postgre1234</password>
-									</properties>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.wildfly.plugins</groupId> <artifactId>wildfly-maven-plugin</artifactId> 
+				<version>2.0.1.Final</version> <configuration> </configuration> <executions> 
+				<execution> <id>deploy-postgresql</id> <phase>install</phase> <goals> <goal>deploy-artifact</goal> 
+				</goals> <configuration> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
+				<name>postgresql-42.2.6.jar</name> </configuration> </execution> <execution> 
+				<id>add-datasource</id> <phase>install</phase> <goals> <goal>add-resource</goal> 
+				</goals> <configuration> <address>subsystem=datasources,data-source=java:/PostgresDS</address> 
+				<resources> <resource> <properties> <jndi-name>java:/PostgresDS</jndi-name> 
+				<enabled>true</enabled> <connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url> 
+				<driver-name>postgresql-42.2.6.jar</driver-name> <user-name>postgres</user-name> 
+				<password>postgre1234</password> </properties> </resource> </resources> </configuration> 
+				</execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 	<reporting>
