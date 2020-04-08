@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,9 +31,7 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
  *
  */
 
-@Path("score")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Path("scores")
 public class ScoreResource {
 	@Inject
 	private ScoreService ss;
@@ -40,7 +39,7 @@ public class ScoreResource {
 	private ObjectMapper om = new ObjectMapper(); // gsonからjson変換時、timestampのmillisecondが消失される現象対応用
 
 	@GET
-	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
 	public String getScoreList() throws JsonProcessingException {
 		Map<String, List<Score>> map = new HashMap<String, List<Score>>();
 		List<Score> scoreList = ss.getScoreList();
@@ -49,8 +48,9 @@ public class ScoreResource {
 	}
 
 	@GET
-	@Path("/detail")
-	public String getScore(@QueryParam("claimId") String claimId) throws JsonProcessingException {
+	@Path("/{claimId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getScore(@PathParam("claimId") String claimId) throws JsonProcessingException {
 		Map<String, Score> map = new HashMap<String, Score>();
 		Score score = ss.getScore(claimId);
 		map.put("score", score);
@@ -58,7 +58,9 @@ public class ScoreResource {
 	}
 
 	@POST
-	@Path("/updateFeedbackIsCorrect")
+	@Path("/{claimId}/feedback")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String updateFeedbackIsCorrect(@QueryParam("feedback") String json)
 			throws JsonMappingException, JsonProcessingException {
 		Feedback feedback = gson.fromJson(json, Feedback.class);
@@ -68,45 +70,33 @@ public class ScoreResource {
 		return om.writeValueAsString(map);
 	}
 
-	@POST
-	@Path("/updateFeedbackComment")
-	public String updateFeedbackComment(@QueryParam("feedback") String json)
-			throws JsonMappingException, JsonProcessingException {
-		Feedback feedback = gson.fromJson(json, Feedback.class);
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		Boolean result = ss.updateFeedbackComment(feedback);
-		map.put("update", result);
-		return om.writeValueAsString(map);
-	}
+	// TODO: 【李】POST /{claimId}/Feedbackと統合する。
+//	@POST
+//	@Path("/updateFeedbackComment")
+//	public String updateFeedbackComment(@QueryParam("feedback") String json)
+//			throws JsonMappingException, JsonProcessingException {
+//		Feedback feedback = gson.fromJson(json, Feedback.class);
+//		Map<String, Boolean> map = new HashMap<String, Boolean>();
+//		Boolean result = ss.updateFeedbackComment(feedback);
+//		map.put("update", result);
+//		return om.writeValueAsString(map);
+//	}
 
 	@POST
-	@Path("/updateComment")
-//	public Response updateComment(@QueryParam("comment") String json)
+	@Path("/{claimId}/comment")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String updateComment(@QueryParam("comment") String json)
 			throws JsonMappingException, JsonProcessingException {
-//		Status status = null;
 		Comment comment = om.readValue(json, Comment.class);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Boolean result = ss.updateComment(comment);
 		if (result) {
 			map.put("update", comment);
-//			status = Response.Status.OK;
 		} else {
 			map.put("update", false);
-//			status = Response.Status.;
 		}
 
-//		return Response.status(status)
-//				       .entity(map);
 		return om.writeValueAsString(map);
 	}
-
-//	@GET
-//	@Path("/test")
-//	public String getTest() {
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("test", "value");
-//		map.put("key", "val2!!!!!");
-//		return om.writeValueAsString(map);
-//	}
 }
