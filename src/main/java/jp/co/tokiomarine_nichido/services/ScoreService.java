@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
@@ -22,13 +23,14 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  *
  */
+@ApplicationScoped
 public class ScoreService {
 	private ClientService cService = null;
 	private String gnetApiUri = "";
 	private Gson gson = null;
 	private CommentService cs = null;
 	private FeedbackService fs = null;
-
+	
 	public ScoreService() {
 		cService = new ClientService();
 		PropertyManager pm = new PropertyManager();

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,15 +34,10 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ScoreResource {
-	private ScoreService ss = null;
-	private Gson gson = null;
-	private ObjectMapper om = null;
-
-	public ScoreResource() {
-		ss = new ScoreService();
-		gson = new Gson();
-		om = new ObjectMapper(); // gsonからjson変換時、timestampのmillisecondが消失される現象対応用
-	}
+	@Inject
+	private ScoreService ss;
+	private Gson gson = new Gson();
+	private ObjectMapper om = new ObjectMapper(); // gsonからjson変換時、timestampのmillisecondが消失される現象対応用
 
 	@GET
 	@Path("/list")
