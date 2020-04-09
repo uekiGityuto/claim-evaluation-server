@@ -2,6 +2,7 @@ package jp.co.tokiomarine_nichido.util;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +20,12 @@ public class PropertyManager {
 	private static final Logger logger = LogManager.getLogger();
 
 	public PropertyManager() {
-		// TODO: 【中山】ApplicationScopeなのに、アプリケーションサーバ起動時に何回も呼ばれる。理由を調査。
+	}
+	
+	@PostConstruct
+	public void init() {
 		bundle = ResourceBundle.getBundle("config");
-
+		
 		logger.info("config.propertiesから設定値を読み込み。");
 		for (String key : bundle.keySet()) {
 			logger.info("          {}:{}", key, bundle.getObject(key));
