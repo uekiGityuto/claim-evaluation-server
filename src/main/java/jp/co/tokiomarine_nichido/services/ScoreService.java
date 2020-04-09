@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
@@ -25,39 +27,34 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  */
 @ApplicationScoped
 public class ScoreService {
-	private ClientService cService = null;
 	private String gnetApiUri = "";
-	private Gson gson = null;
+	private Gson gson = new Gson();
+
+	@Inject
+	private PropertyManager pm;
+	@Inject
+	private ClientService cService;
 	private CommentService cs = null;
 	private FeedbackService fs = null;
-	
+
 	public ScoreService() {
-		cService = new ClientService();
-		PropertyManager pm = new PropertyManager();
-		gnetApiUri = pm.get("url_gnetapi");
-		gson = new Gson();
+	}
+
+	@PostConstruct
+	public void init() {
+		gnetApiUri = pm.get("url.scores");
 		cs = new CommentService();
 		fs = new FeedbackService();
 	}
 
 	public List<Score> getScoreList() {
-		List<Score> scoreList = new ArrayList<Score>();
+		// TODO:【李】接続エラーのときに空リストを返すのではなく、Exceptionを投げてDefaultExceptionMapperでエラーのHTTPリスポンスを返すようにする。
 		Map<String, String> errMsgList = new HashMap<String, String>();
 
+		List<Score> scoreList = null;
 		Response rs = cService.client("get", gnetApiUri, new HashMap<String, Object>());
 		if (rs != null) {
-			try {
-				String json = rs.readEntity(String.class);
-				@SuppressWarnings("unchecked")
-				List<Map<String, Object>> objList = (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
-
-				for (Map<String, Object> obj : objList) {
-					Score score = new Score(obj);
-					scoreList.add(score);
-				}
-			} catch (Exception e) {
-				errMsgList.put("status(" + rs.getStatus() + "): ", String.valueOf(rs.getStatusInfo()));
-			}
+			scoreList = rs.readEntity(List.class);
 		} else {
 			if (errMsgList.size() == 0) {
 				errMsgList.put("0", "Please Check method and url");
@@ -81,7 +78,7 @@ public class ScoreService {
 				// TODO: remove this code for json-server after set GNetAPI
 				// for json-server
 				@SuppressWarnings("unchecked")
-				List<Map<String, Object>> list = (ArrayList<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
+				List<Map<String, Object>> list = gson.fromJson(json, ArrayList.class);
 				score = new Score(list.get(0));
 
 //				score = gzon.fromJson(json, Score.class);
