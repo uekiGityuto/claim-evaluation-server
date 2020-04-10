@@ -20,16 +20,12 @@ public class Score {
 	private String claimId;
 
 	private Claim claim;
-	private List<Reason> reasons;
+	private List<Reason> reasons = new ArrayList<>();
 	private Feedback feedback;
 
 	private DateUtil dateUtil;
 
 	public Score() {
-		claim = new Claim();
-		reasons = new ArrayList<Reason>();
-		feedback = new Feedback();
-
 	}
 
 	public Score(String fraudScoreId, Integer score, Timestamp createDate, String claimId, Claim claim) {
