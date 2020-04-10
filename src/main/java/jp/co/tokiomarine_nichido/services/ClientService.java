@@ -1,19 +1,22 @@
 package jp.co.tokiomarine_nichido.services;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
+import jp.co.tokiomarine_nichido.util.GsonMessageBodyReaderWriter;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -29,7 +32,21 @@ public class ClientService {
 	private PropertyManager pm;
 	private String url;
 
+	private Client restClient;
+	private WebTarget base_wt;
+
 	public ClientService() {
+	}
+
+	/**
+	 * RESTクライアントのデフォルト設定。
+	 */
+	@PostConstruct
+	private void init() {
+		// TODO:【李】デフォルトタイムアウトをconfig.propertiesから読み込む
+		this.restClient = ClientBuilder.newBuilder().register(GsonMessageBodyReaderWriter.class).build();
+
+		this.base_wt = this.restClient.target(pm.get("url.scores"));
 	}
 
 	/**
@@ -40,9 +57,10 @@ public class ClientService {
 	 * @return
 	 */
 	public <T> T findById(String id, Class<T> type) {
-		Response response = client("get", String.join("/", pm.get("url.scores"), id), new HashMap<String, Object>());
-
-		return response.readEntity(type);
+		// TODO: 【李】ヘッダーの内容は別途検討。API Gateway経由になる予定で、トークン認証があるかも。
+		try (Response response = base_wt.path(id).request(MediaType.APPLICATION_JSON).get()) {
+			return response.readEntity(type);
+		}
 	}
 
 	/**
@@ -52,7 +70,9 @@ public class ClientService {
 	 * @return
 	 */
 	public <T> List<T> findAll(Class<T> type) {
-		return client("get", pm.get("url.scores"), new HashMap<String, Object>()).readEntity(List.class);
+		try (Response response = base_wt.request(MediaType.APPLICATION_JSON).get()) {
+			return response.readEntity(List.class);
+		}
 	}
 
 	public Response client(String method, String url, Map<String, Object> params) {
