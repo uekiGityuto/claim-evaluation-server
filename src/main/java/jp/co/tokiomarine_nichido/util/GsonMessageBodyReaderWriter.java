@@ -19,6 +19,7 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 /***
  * Gsonメッセージ変換（シリアライズ、デシリアライズ）クラス
  * @author SKK229873 中山真吾
@@ -33,7 +34,9 @@ public class GsonMessageBodyReaderWriter<T> implements MessageBodyReader<T>, Mes
 	private final Gson gson;
 
 	public GsonMessageBodyReaderWriter() {
-		gson = new Gson();
+		// ISO-8601でシリアライズ・デシリアライズ
+		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+	            .create();
 	}
 
 	@Override
