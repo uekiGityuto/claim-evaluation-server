@@ -171,12 +171,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<resources>
@@ -227,18 +227,49 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.8.2</version>
 			</plugin>
-			<!-- <plugin> <groupId>org.wildfly.plugins</groupId> <artifactId>wildfly-maven-plugin</artifactId> 
-				<version>2.0.1.Final</version> <configuration> </configuration> <executions> 
-				<execution> <id>deploy-postgresql</id> <phase>install</phase> <goals> <goal>deploy-artifact</goal> 
-				</goals> <configuration> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
-				<name>postgresql-42.2.6.jar</name> </configuration> </execution> <execution> 
-				<id>add-datasource</id> <phase>install</phase> <goals> <goal>add-resource</goal> 
-				</goals> <configuration> <address>subsystem=datasources,data-source=java:/PostgresDS</address> 
-				<resources> <resource> <properties> <jndi-name>java:/PostgresDS</jndi-name> 
-				<enabled>true</enabled> <connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url> 
-				<driver-name>postgresql-42.2.6.jar</driver-name> <user-name>postgres</user-name> 
-				<password>postgre1234</password> </properties> </resource> </resources> </configuration> 
-				</execution> </executions> </plugin> -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>2.0.1.Final</version>
+				<configuration>
+				</configuration>
+				<executions>
+					<execution>
+						<id>deploy-postgresql</id>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy-artifact</goal>
+						</goals>
+						<configuration>
+							<groupId>org.postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<name>postgresql-42.2.6.jar</name>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-datasource</id>
+						<phase>install</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<address>subsystem=datasources,data-source=java:/comp/env/jdbc/FraudDetectionDB</address>
+							<resources>
+								<resource>
+									<properties>
+										<jndi-name>java:/comp/env/jdbc/FraudDetectionDB</jndi-name>
+										<enabled>true</enabled>
+										<connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url>
+										<driver-name>postgresql-42.2.6.jar</driver-name>
+										<user-name>postgres</user-name>
+										<password>postgre1234</password>
+									</properties>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
