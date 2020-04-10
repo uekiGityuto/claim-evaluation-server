@@ -10,8 +10,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * comment for claim
  *
@@ -23,26 +21,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Comment extends BasicClass {
 	@Id
 	@Column(name = "claim_id", columnDefinition = "varchar(11)", nullable = false)
-	@JsonProperty("claimId")
 	private String claimId;
 	@Id
 	@Column(name = "idx", columnDefinition = "integer", nullable = false)
-	@JsonProperty("idx")
 	private Integer idx;
 	@Column(name = "comment", columnDefinition = "varchar(512)")
-	@JsonProperty("comment")
 	private String comment;
 	@Column(name = "user_id", columnDefinition = "varchar(11)")
-	@JsonProperty("userId")
 	private String userId;
 	@Column(name = "user_name", columnDefinition = "varchar(128)")
-	@JsonProperty("userName")
 	private String userName;
 	@Column(name = "create_date", columnDefinition = "timestamp default now()")
-	@JsonProperty("createDate")
 	private Timestamp createDate;
 	@Column(name = "update_date")
-	@JsonProperty("updateDate")
 	private Timestamp updateDate;
 
 	public String getClaimId() {

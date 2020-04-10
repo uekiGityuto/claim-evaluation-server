@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * 推論結果に対するフィードバック。
  *
@@ -22,16 +20,13 @@ public class Feedback extends BasicClass {
 
 	@Id
 	@Column(name = "fraud_score_id", columnDefinition = "varchar(11)", nullable = false)
-	@JsonProperty("fraudScoreId")
 	private String fraudScoreId;
 
 	// 未評価の場合、null
 	@Column(name = "is_correct")
-	@JsonProperty("isCorrect")
 	private Boolean isCorrect;
 
 	@Column(name = "comment", columnDefinition = "varchar(300)")
-	@JsonProperty("comment")
 	private String comment;
 
 	public Feedback() {
