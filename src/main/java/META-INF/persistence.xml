@@ -9,10 +9,16 @@
 		<class>jp.co.tokiomarine_nichido.models.Feedback</class>
 		<class>jp.co.tokiomarine_nichido.models.Comment</class>
 		<properties>
+			<!-- DB接続設定 -->
+			<property name="hibernate.connection.driver_class"
+				value="com.mysql.jdbc.Drvier" />
+			<property name="hibernate.connection.datasource"
+				value="java:/comp/env/jdbc/FraudDetectionDB" />
+
 			<property name="hibernate.archive.autodetection"
 				value="class" />
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
+				value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.default.schema"
 				value="tokiomarine_nichido" />
@@ -29,8 +35,9 @@
 				value="true" />
 			<property name="hibernate.enable_lazy_load_no_trans"
 				value="true" />
-			<!-- <property name="javax.persistence.schema-generation.database.action" 
-				value="update" /> -->
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="update" />
 		</properties>
 	</persistence-unit>
 </persistence>

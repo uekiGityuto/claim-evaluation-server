@@ -34,6 +34,7 @@ public class ScoreService {
 	private PropertyManager pm;
 	@Inject
 	private ClientService cService;
+
 	private CommentService cs = null;
 	private FeedbackService fs = null;
 
@@ -45,6 +46,14 @@ public class ScoreService {
 		gnetApiUri = pm.get("url.scores");
 		cs = new CommentService();
 		fs = new FeedbackService();
+	}
+
+	public List<Score> findAll() {
+		return cService.findAll(Score.class);
+	}
+	
+	public Score findById(String id) {
+		return cService.findById(id, Score.class);
 	}
 
 	public List<Score> getScoreList() {

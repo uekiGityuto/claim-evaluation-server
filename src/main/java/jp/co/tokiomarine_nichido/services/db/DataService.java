@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -30,33 +32,18 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  *
  */
+@ApplicationScoped
 public class DataService {
 	private final Logger log = LogManager.getLogger();
 
-	private EntityManagerFactory emf;
+	@Inject
+	private PropertyManager pm;
+
 	private EntityManager em;
-	private EntityTransaction tx;
 
-	protected DataService() {
-		PropertyManager pm = new PropertyManager();
-		String unit_name = pm.get("db_unit_name");
-		String url = pm.get("db_url");
-		String user = pm.get("db_user");
-		String password = pm.get("db_password");
-		String driver = pm.get("db_driver");
-		try {
-			Map<String, String> props = new HashMap<String, String>();
-			props.put("javax.persistence.jdbc.url", url);
-			props.put("javax.persistence.jdbc.user", user);
-			props.put("javax.persistence.jdbc.password", password);
-			props.put("javax.persistence.jdbc.driver", driver);
-			this.emf = Persistence.createEntityManagerFactory(unit_name, props);
-			this.em = this.emf.createEntityManager();
-			this.tx = this.em.getTransaction();
-
-		} catch (Exception e) {
-			log.info(e);
-		}
+	@PostConstruct
+	private void init() {
+		this.em = Persistence.createEntityManagerFactory(pm.get("db_unit_name")).createEntityManager();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -133,19 +120,20 @@ public class DataService {
 
 	protected Boolean updateObject(String sql, Map<String, Object> param) {
 		Boolean result = null;
+		EntityTransaction tx = em.getTransaction();
 		if (String.valueOf(sql).length() > 0) {
 			try {
-				this.tx.begin();
+				tx.begin();
 				Query q = this.em.createQuery(sql);
 				param.forEach((key, value) -> {
 					q.setParameter(key, value);
 				});
 				q.executeUpdate();
-				this.tx.commit();
+				tx.commit();
 				result = true;
 			} catch (Exception e) {
-				if (this.tx != null && tx.isActive()) {
-					this.tx.rollback();
+				if (tx != null && tx.isActive()) {
+					tx.rollback();
 				}
 			}
 		}
@@ -156,10 +144,11 @@ public class DataService {
 	protected <T> Boolean updateObject(BasicClass bc, Class<T> type) {
 		Boolean result = null;
 		if (bc != null) {
+			EntityTransaction tx = this.em.getTransaction();
 			try {
 				final Object primaryKey = bc.getPrimaryKey();
 				Map<String, Object> properties = bc.getProperties();
-				this.tx.begin();
+				tx.begin();
 				T ettCls = getObject(primaryKey, properties, type);
 				if (ettCls != null) {
 					final Field[] fields = ettCls.getClass().getDeclaredFields();
@@ -205,11 +194,11 @@ public class DataService {
 				} else {
 					this.em.persist(bc);
 				}
-				this.tx.commit();
+				tx.commit();
 				result = true;
 			} catch (DataException e) {
-				if (this.tx != null && tx.isActive()) {
-					this.tx.rollback();
+				if (tx != null && tx.isActive()) {
+					tx.rollback();
 				}
 				result = false;
 			} finally {

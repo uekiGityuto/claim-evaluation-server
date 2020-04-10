@@ -28,19 +28,20 @@ public class ScoreResource {
 	@Inject
 	private ScoreService ss;
 	// TODO: 【李】【中山】millisend問題は別途調査
-	//private ObjectMapper om = new ObjectMapper(); // gsonからjson変換時、timestampのmillisecondが消失される現象対応用
+	// private ObjectMapper om = new ObjectMapper(); //
+	// gsonからjson変換時、timestampのmillisecondが消失される現象対応用
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Score> getScoreList() {
-		return ss.getScoreList();
+		return ss.findAll();
 	}
 
 	@GET
 	@Path("/{claimId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Score getScore(@PathParam("claimId") String claimId) {
-		return ss.getScore(claimId);
+		return ss.findById(claimId);
 	}
 
 	@POST

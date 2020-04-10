@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Table;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import jp.co.tokiomarine_nichido.models.Comment;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * CommentService
@@ -15,15 +20,21 @@ import jp.co.tokiomarine_nichido.models.Comment;
  * @author SKK231099 李
  *
  */
+@ApplicationScoped
 public class CommentService extends DataService {
 	private String className = null;
 	private String tableName = null;
 
-	public CommentService() {
-		this.className = Comment.class.getName();
-		this.tableName = Comment.class.getAnnotation(Table.class).name();
+	@Inject
+	private PropertyManager pm;
+	
+	private EntityManager em;
+	
+	@PostConstruct
+	public void init() {
+		em = Persistence.createEntityManagerFactory(pm.get("db_unit_name")).createEntityManager();
 	}
-
+	
 	public String getClassName() {
 		return className;
 	}
@@ -32,6 +43,7 @@ public class CommentService extends DataService {
 		return tableName;
 	}
 
+	// TODO:【李】Stringではなく、Listでもらって、中でqueryに変換する
 	public List<Comment> getComments(String claimIds) {
 		List<Comment> comments = null;
 		if (claimIds.length() > 0) {

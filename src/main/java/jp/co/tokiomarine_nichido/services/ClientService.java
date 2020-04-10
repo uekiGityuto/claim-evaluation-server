@@ -1,7 +1,11 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
@@ -13,6 +17,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.client.rx.rxjava.RxObservable;
 
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 import rx.Observable;
 
 /**
@@ -20,15 +25,44 @@ import rx.Observable;
  * 
  * @author SKK231099 李
  */
+@ApplicationScoped
 public class ClientService {
 	private String SAMLAuth = "";
 
+	@Inject
+	private PropertyManager pm;
+	private String url;
+
 	public ClientService() {
+	}
+
+	/**
+	 * 
+	 * @param <T>
+	 * @param key
+	 * @param type
+	 * @return
+	 */
+	public <T> T findById(String id, Class<T> type) {
+		Response response = client("get", String.join("/", pm.get("url.scores"), id), new HashMap<String, Object>());
+
+		return response.readEntity(type);
+	}
+
+	/**
+	 * 
+	 * @param <T>
+	 * @param type
+	 * @return
+	 */
+	public <T> List<T> findAll(Class<T> type) {
+		return client("get", pm.get("url.scores"), new HashMap<String, Object>()).readEntity(List.class);
 	}
 
 	public Response client(String method, String url, Map<String, Object> params) {
 		Response rs = null;
 
+		// TODO: 【李】ネストが増えると可読性がさがるので、if(method == null || url == null) return nullにする。
 		if (method != null && url != null) {
 			MultivaluedMap<String, Object> headerMap = new MultivaluedHashMap<String, Object>();
 			// TODO: getAuthKey()
@@ -61,6 +95,11 @@ public class ClientService {
 		}
 
 		return rs;
+	}
+
+	private String createQueryParameter(Map<String, String> params) {
+		return params.entrySet().stream().map(e -> String.join("=", e.getKey(), e.getValue()))
+				.reduce((s1, s2) -> String.join("&", s1, s2)).map(s -> "?" + s).orElse("");
 	}
 
 	public Observable<Response> rxCient(String method, String url, MultivaluedMap<String, Object> params) {
