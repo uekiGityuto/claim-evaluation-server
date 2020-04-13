@@ -18,8 +18,12 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import jp.co.tokiomarine_nichido.models.Exclude;
 /***
  * Gsonメッセージ変換（シリアライズ、デシリアライズ）クラス
  * @author SKK229873 中山真吾
@@ -34,10 +38,24 @@ public class GsonMessageBodyReaderWriter<T> implements MessageBodyReader<T>, Mes
 	private final Gson gson;
 
 	public GsonMessageBodyReaderWriter() {
+		ExclusionStrategy exclusionStrategy = new ExclusionStrategy() {
+			@Override
+			public boolean shouldSkipClass(Class<?> clazz) {
+				return false;
+			}
+			
+			@Override
+			public boolean shouldSkipField(FieldAttributes f) {
+				return f.getAnnotation(Exclude.class) != null;
+			}
+		};
+		
 		// ISO-8601でシリアライズ・デシリアライズ
-		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+		gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+				.addSerializationExclusionStrategy(exclusionStrategy)
 	            .create();
-	}
+	 }
 
 	@Override
 	public long getSize(T t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
