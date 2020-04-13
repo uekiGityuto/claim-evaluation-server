@@ -27,6 +27,7 @@
 				<log.path>log</log.path>
 				<log.level>TRACE</log.level>
 				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
+				<hibernate.generate_statistics>true</hibernate.generate_statistics>
 			</properties>
 		</profile>
 		<profile>
@@ -37,6 +38,7 @@
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>TRACE</log.level>
 				<url.fraudScore></url.fraudScore>
+				<hibernate.generate_statistics>true</hibernate.generate_statistics>
 			</properties>
 		</profile>
 		<profile>
@@ -47,6 +49,7 @@
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>INFO</log.level>
 				<url.fraudScore></url.fraudScore>
+				<hibernate.generate_statistics>false</hibernate.generate_statistics>
 			</properties>
 		</profile>
 	</profiles>
@@ -92,9 +95,12 @@
 			<version>2.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- TODO:削除する -->
-		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
-			<version>2.10.3</version> </dependency> -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.3.6.Final</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Wildflyの初回環境セットアップの際にデプロイするために必要。warに含まれないようにtest scopeに設定。 -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -129,46 +135,6 @@
 			<version>3.13.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-container</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.shrinkwrap.resolver</groupId>
-			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.wildfly.arquillian</groupId>
-			<artifactId>wildfly-arquillian-container-embedded</artifactId>
-			<version>2.2.0.Final</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.2.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.12.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.3.6.Final</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>dom4j</groupId>
-					<artifactId>dom4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
-			<version>1.6.1</version> <scope>provided</scope> </dependency> -->
 	</dependencies>
 	<build>
 		<resources>
