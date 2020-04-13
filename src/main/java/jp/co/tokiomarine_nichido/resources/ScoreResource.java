@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import jp.co.tokiomarine_nichido.models.Comment;
@@ -33,15 +35,13 @@ public class ScoreResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Score> getScoreList() {
-		return ss.findAll();
-	}
-
-	@GET
-	@Path("/{claimId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Score getScore(@PathParam("claimId") String claimId) {
-		return ss.findById(claimId);
+	public List<Score> getScore(@QueryParam("claimId") @DefaultValue("") String claimId) {
+		if (claimId.isEmpty()) {
+			List<Score> findAll = ss.findAll();
+			return ss.findAll();
+		} else {
+			return ss.findByClaimId(claimId);
+		}
 	}
 
 	@POST
@@ -68,7 +68,10 @@ public class ScoreResource {
 	@Path("/{claimId}/comment")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean updateComment(Comment comment) {
+	public Comment updateComment(Comment comment, @PathParam("claimId") String claimId) {
+		// クライアント側でcomment.cliamIdを設定指定も、path parameterの値を優先する
+		comment.claimId = claimId;
+
 		return ss.updateComment(comment);
 	}
 }

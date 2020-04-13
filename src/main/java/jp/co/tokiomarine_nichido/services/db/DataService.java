@@ -8,19 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.DataException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
 import jp.co.tokiomarine_nichido.util.DateUtil;
@@ -32,7 +27,6 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  *
  */
-@ApplicationScoped
 public class DataService {
 	private final Logger log = LogManager.getLogger();
 
@@ -40,11 +34,6 @@ public class DataService {
 	private PropertyManager pm;
 
 	private EntityManager em;
-
-	@PostConstruct
-	private void init() {
-		this.em = Persistence.createEntityManagerFactory(pm.get("db_unit_name")).createEntityManager();
-	}
 
 	@SuppressWarnings("unchecked")
 	protected <T> List<T> getList(String sql, Class<T> type) {
@@ -97,8 +86,7 @@ public class DataService {
 					objClass = (T) this.em.find(type, primaryKey);
 				}
 			} else {
-				final ObjectMapper om = new ObjectMapper();
-				Map<String, Object> map = om.convertValue(primaryKey, Map.class);
+				Map<String, Object> map = null;
 				if (map.size() > 0) {
 					String className = type.getName();
 					className = className.substring(className.lastIndexOf(".") + 1, className.length());
@@ -211,7 +199,6 @@ public class DataService {
 	private <T> Boolean isNotSameDateTimeForUpdate(Field[] fields, T ettCls, BasicClass bc) {
 		Boolean isErr = null;
 		StringBuilder sb = new StringBuilder();
-		ObjectMapper om = new ObjectMapper();
 		final String[] updateNames = { "update", "edit", "modify" };
 		final BasicClass origin = (BasicClass) ettCls;
 		Map<String, String> updateTimestampMap = new HashMap<String, String>();
@@ -236,8 +223,8 @@ public class DataService {
 		updateTimestampMap.forEach((fieldName, typeName) -> {
 			switch (typeName) {
 			case "timestamp":
-				Timestamp ts1 = om.convertValue(origin.getValue(fieldName), Timestamp.class);
-				Timestamp ts2 = om.convertValue(bc.getValue(fieldName), Timestamp.class);
+				Timestamp ts1 = null;
+				Timestamp ts2 = null;
 				if (ts1 != null && ts2 != null) {
 					if (!ts1.equals(ts2)) {
 						sb.append("1");
@@ -245,8 +232,8 @@ public class DataService {
 				}
 				break;
 			case "date":
-				Date dt1 = om.convertValue(origin.getValue(fieldName), Date.class);
-				Date dt2 = om.convertValue(bc.getValue(fieldName), Date.class);
+				Date dt1 = null;
+				Date dt2 = null;
 				if (dt1 != null && dt2 != null) {
 					if (!dt1.equals(dt2)) {
 						sb.append("2");
@@ -268,5 +255,4 @@ public class DataService {
 
 		return isErr;
 	}
-
 }

@@ -26,6 +26,7 @@
 			<properties>
 				<log.path>log</log.path>
 				<log.level>TRACE</log.level>
+				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
 			</properties>
 		</profile>
 		<profile>
@@ -35,6 +36,7 @@
 			<properties>
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>TRACE</log.level>
+				<url.fraudScore></url.fraudScore>
 			</properties>
 		</profile>
 		<profile>
@@ -44,6 +46,7 @@
 			<properties>
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>INFO</log.level>
+				<url.fraudScore></url.fraudScore>
 			</properties>
 		</profile>
 	</profiles>
@@ -89,11 +92,9 @@
 			<version>2.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.10.3</version>
-		</dependency>
+		<!-- TODO:削除する -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+			<version>2.10.3</version> </dependency> -->
 		<!-- Wildflyの初回環境セットアップの際にデプロイするために必要。warに含まれないようにtest scopeに設定。 -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -166,12 +167,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- <dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-			<scope>provided</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+			<version>1.6.1</version> <scope>provided</scope> </dependency> -->
 	</dependencies>
 	<build>
 		<resources>
@@ -248,11 +245,11 @@
 							<goal>add-resource</goal>
 						</goals>
 						<configuration>
-							<address>subsystem=datasources,data-source=java:/comp/env/jdbc/FraudDetectionDB</address>
+							<address>subsystem=datasources,data-source=java:/jdbc/FraudDetectionDB</address>
 							<resources>
 								<resource>
 									<properties>
-										<jndi-name>java:/comp/env/jdbc/FraudDetectionDB</jndi-name>
+										<jndi-name>java:/jdbc/FraudDetectionDB</jndi-name>
 										<enabled>true</enabled>
 										<connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url>
 										<driver-name>postgresql-42.2.6.jar</driver-name>

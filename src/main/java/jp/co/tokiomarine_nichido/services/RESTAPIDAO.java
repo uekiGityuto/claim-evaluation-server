@@ -11,6 +11,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -25,7 +26,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  */
 @ApplicationScoped
-public class ClientService {
+public class RESTAPIDAO {
 	private String SAMLAuth = "";
 
 	@Inject
@@ -35,7 +36,7 @@ public class ClientService {
 	private Client restClient;
 	private WebTarget base_wt;
 
-	public ClientService() {
+	public RESTAPIDAO() {
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class ClientService {
 		// TODO:【李】デフォルトタイムアウトをconfig.propertiesから読み込む
 		this.restClient = ClientBuilder.newBuilder().register(GsonMessageBodyReaderWriter.class).build();
 
-		this.base_wt = this.restClient.target(pm.get("url.scores"));
+		this.base_wt = this.restClient.target(pm.get("url.fraudScore"));
 	}
 
 	/**
@@ -69,9 +70,16 @@ public class ClientService {
 	 * @param type
 	 * @return
 	 */
-	public <T> List<T> findAll(Class<T> type) {
+	public <T> List<T> findAll(GenericType<List<T>> type) {
 		try (Response response = base_wt.request(MediaType.APPLICATION_JSON).get()) {
-			return response.readEntity(List.class);
+			return response.readEntity(type);
+		}
+	}
+
+	public <T> List<T> findByRelation(String relationKey, String relationValue, GenericType<List<T>> type) {
+		try (Response response = base_wt.queryParam(relationKey, relationValue).request(MediaType.APPLICATION_JSON)
+				.get()) {
+			return response.readEntity(type);
 		}
 	}
 
