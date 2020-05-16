@@ -8,5 +8,9 @@ log/
 target/
 /bin/
 
+# Others
+node_modules
+.sts4-cache
+
 # Mac
 .DS_Store

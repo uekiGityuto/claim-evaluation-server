@@ -1,0 +1,36 @@
+{
+	"scores": [
+		{
+			"id": 1,
+			"fraudScoreId": "1",
+			"score": 1,
+			"claim": {
+				"claimId": "1",
+				"userName": "損害太郎"
+			},
+			"createDate": "2020-02-01T03:15:45.123Z",
+			"reasons": [
+				{
+					"factor": "請求履歴回数",
+					"effect": 2
+				}
+			]
+		},
+		{
+			"id": 2,
+			"fraudScoreId": "1",
+			"score": 1,
+			"claim": {
+				"claimId": "2",
+				"userName": "損害太郎"
+			},
+			"createDate": "2020-02-01T03:15:45.123Z",
+			"reasons": [
+				{
+					"factor": "請求履歴回数",
+					"effect": 2
+				}
+			]
+		}
+	]
+}

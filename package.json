@@ -1,0 +1,23 @@
+{
+  "name": "fraud-detection",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/tmnf-fraud-detection/server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/tmnf-fraud-detection/server/issues"
+  },
+  "homepage": "https://gitlab.com/tmnf-fraud-detection/server#readme"
+}
