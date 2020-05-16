@@ -6,6 +6,7 @@
 	<persistence-unit name="fraud_detection"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<!-- TODO: 【李】hibernate.archive.autodetectionで自動スキャンできるはずだが、正しく動作していないので要修正。 -->
 		<class>jp.co.tokiomarine_nichido.models.Comment</class>
 		<class>jp.co.tokiomarine_nichido.models.Feedback</class>
 

@@ -70,7 +70,8 @@ public class ScoreService {
 		List<Score> scoreList = null;
 		Response rs = cService.client("get", fraudScoreURL, new HashMap<String, Object>());
 		if (rs != null) {
-			scoreList = rs.readEntity(List.class);
+			scoreList = rs.readEntity(new GenericType<List<Score>>() {
+			});
 		} else {
 			if (errMsgList.size() == 0) {
 				errMsgList.put("0", "Please Check method and url");

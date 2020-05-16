@@ -2,6 +2,7 @@ package jp.co.tokiomarine_nichido.services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -31,7 +32,6 @@ public class RESTAPIDAO {
 
 	@Inject
 	private PropertyManager pm;
-	private String url;
 
 	private Client restClient;
 	private WebTarget base_wt;
@@ -45,7 +45,10 @@ public class RESTAPIDAO {
 	@PostConstruct
 	private void init() {
 		// TODO:【李】デフォルトタイムアウトをconfig.propertiesから読み込む
-		this.restClient = ClientBuilder.newBuilder().register(GsonMessageBodyReaderWriter.class).build();
+		this.restClient = ClientBuilder.newBuilder()
+				.connectTimeout(Long.parseLong(pm.get("restClient.connectTimeout")), TimeUnit.SECONDS)
+				.readTimeout(Long.parseLong(pm.get("restClient.readTimeout")), TimeUnit.SECONDS)
+				.register(GsonMessageBodyReaderWriter.class).build();
 
 		this.base_wt = this.restClient.target(pm.get("url.fraudScore"));
 	}
@@ -119,10 +122,5 @@ public class RESTAPIDAO {
 		}
 
 		return rs;
-	}
-
-	private String createQueryParameter(Map<String, String> params) {
-		return params.entrySet().stream().map(e -> String.join("=", e.getKey(), e.getValue()))
-				.reduce((s1, s2) -> String.join("&", s1, s2)).map(s -> "?" + s).orElse("");
 	}
 }

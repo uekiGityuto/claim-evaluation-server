@@ -29,15 +29,11 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
 public class ScoreResource {
 	@Inject
 	private ScoreService ss;
-	// TODO: 【李】【中山】millisend問題は別途調査
-	// private ObjectMapper om = new ObjectMapper(); //
-	// gsonからjson変換時、timestampのmillisecondが消失される現象対応用
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Score> getScore(@QueryParam("claimId") @DefaultValue("") String claimId) {
 		if (claimId.isEmpty()) {
-			List<Score> findAll = ss.findAll();
 			return ss.findAll();
 		} else {
 			return ss.findByClaimId(claimId);

@@ -3,7 +3,7 @@ package jp.co.tokiomarine_nichido.services.db;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -20,7 +20,7 @@ import jp.co.tokiomarine_nichido.models.Comment;
  * @author SKK231099 李
  *
  */
-@RequestScoped
+@ApplicationScoped
 public class CommentDAO {
 	// @PersistenceContext(name = "fd_persistence_unit", type =
 	// PersistenceContextType.TRANSACTION)

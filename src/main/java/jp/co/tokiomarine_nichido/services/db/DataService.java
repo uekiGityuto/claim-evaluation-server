@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -19,7 +18,6 @@ import org.hibernate.exception.DataException;
 
 import jp.co.tokiomarine_nichido.models.BasicClass;
 import jp.co.tokiomarine_nichido.util.DateUtil;
-import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * DataService with JPA
@@ -29,9 +27,6 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  */
 public class DataService {
 	private final Logger log = LogManager.getLogger();
-
-	@Inject
-	private PropertyManager pm;
 
 	private EntityManager em;
 
