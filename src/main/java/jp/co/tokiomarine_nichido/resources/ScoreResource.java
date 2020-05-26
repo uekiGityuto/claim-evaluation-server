@@ -13,11 +13,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.resteasy.annotations.Form;
+
 import jp.co.tokiomarine_nichido.models.Comment;
 import jp.co.tokiomarine_nichido.models.Feedback;
 import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.services.ScoreService;
-
 /**
  * for Angular 一覧画面、詳細画面 Data
  *
@@ -25,49 +26,45 @@ import jp.co.tokiomarine_nichido.services.ScoreService;
  *
  */
 
-@Path("scores")
+@Path("/scores")
 public class ScoreResource {
-	@Inject
-	private ScoreService ss;
+    @Inject
+    private ScoreService ss;
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Score> getScore(@QueryParam("claimId") @DefaultValue("") String claimId) {
-		if (claimId.isEmpty()) {
-			return ss.findAll();
-		} else {
-			return ss.findByClaimId(claimId);
-		}
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Score> getScores(@QueryParam("claimId") @DefaultValue("") String claimId) throws Exception {
+        if (claimId.isEmpty()) {
+            return ss.findAll();
+        } else {
+            return ss.findListByClaimId(claimId);
+        }
+    }
 
-	@POST
-	@Path("/{claimId}/feedback")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public boolean updateFeedbackIsCorrect(Feedback feedback) {
-		return ss.updateFeedbackIsCorrect(feedback);
-	}
+    @GET
+    @Path("/{claimId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Score getScore(@PathParam("claimId") @DefaultValue("") String claimId) throws Exception {
+        if (claimId.isEmpty()) {
+            return null;
+        }
+        return ss.findById(claimId);
+    }
 
-	// TODO: 【李】POST /{claimId}/Feedbackと統合する。
-//	@POST
-//	@Path("/updateFeedbackComment")
-//	public String updateFeedbackComment(@QueryParam("feedback") String json)
-//			throws JsonMappingException, JsonProcessingException {
-//		Feedback feedback = gson.fromJson(json, Feedback.class);
-//		Map<String, Boolean> map = new HashMap<String, Boolean>();
-//		Boolean result = ss.updateFeedbackComment(feedback);
-//		map.put("update", result);
-//		return om.writeValueAsString(map);
-//	}
+    @POST
+    @Path("{claimId}/updateFeedbackComment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Feedback updateFeedback(@Form Feedback feedback) throws Exception {
+    	return ss.updateFeedback(feedback);
+    }
 
-	@POST
-	@Path("/{claimId}/comment")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Comment updateComment(Comment comment, @PathParam("claimId") String claimId) {
-		// クライアント側でcomment.cliamIdを設定指定も、path parameterの値を優先する
-		comment.claimId = claimId;
+    @POST
+    @Path("{claimId}/updateComment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Comment updateComment(@Form Comment comment) throws Exception {
+    	return ss.updateComment(comment);
+    }
 
-		return ss.updateComment(comment);
-	}
 }
