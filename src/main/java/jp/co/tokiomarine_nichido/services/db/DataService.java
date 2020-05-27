@@ -1,6 +1,5 @@
 package jp.co.tokiomarine_nichido.services.db;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +18,9 @@ import org.hibernate.exception.SQLGrammarException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import jp.co.tokiomarine_nichido.util.DefaultExceptionMapper;
 import jp.co.tokiomarine_nichido.models.BaseEntity;
 import jp.co.tokiomarine_nichido.models.StatusCode;
+import jp.co.tokiomarine_nichido.util.DefaultExceptionMapper;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -44,22 +43,23 @@ public class DataService {
     @PostConstruct
     protected void init() {
         String unit_name = pm.get("db_unit_name");
-        String url = pm.get("db_url");
-        String user = pm.get("db_user");
-        String password = pm.get("db_password");
-        String driver = pm.get("db_driver");
-        try {
-            Map<String, String> props = new HashMap<String, String>();
-            props.put("javax.persistence.jdbc.url", url);
-            props.put("javax.persistence.jdbc.user", user);
-            props.put("javax.persistence.jdbc.password", password);
-            props.put("javax.persistence.jdbc.driver", driver);
-            this.emf = Persistence.createEntityManagerFactory(unit_name, props);
-            this.em = this.emf.createEntityManager();
-            this.tx = this.em.getTransaction();
-        } catch(Exception e) {
-            log.info(e);
-        }
+//        String url = pm.get("db_url");
+//        String user = pm.get("db_user");
+//        String password = pm.get("db_password");
+//        String driver = pm.get("db_driver");
+//        try {
+//            Map<String, String> props = new HashMap<String, String>();
+//            props.put("javax.persistence.jdbc.url", url);
+//            props.put("javax.persistence.jdbc.user", user);
+//            props.put("javax.persistence.jdbc.password", password);
+//            props.put("javax.persistence.jdbc.driver", driver);
+//            this.emf = Persistence.createEntityManagerFactory(unit_name, props);
+//            this.em = this.emf.createEntityManager();
+//            this.tx = this.em.getTransaction();
+//        } catch(Exception e) {
+//            log.info(e);
+//        }
+        this.em = Persistence.createEntityManagerFactory(unit_name).createEntityManager();
     }
 
     protected Integer getSequenceId(String name) {

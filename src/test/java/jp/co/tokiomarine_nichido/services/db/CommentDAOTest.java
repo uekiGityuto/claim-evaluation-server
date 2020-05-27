@@ -12,22 +12,22 @@ import jp.co.tokiomarine_nichido.models.Comment;
 
 @ExtendWith(WeldJunit5AutoExtension.class)
 public class CommentDAOTest {
-	
-	
-	@Inject
-	CommentDAO testSubject;
 
-	@Test
-	public void testGetComments() throws Exception {
-		List<Comment> comments = testSubject.getComments("1");
 
-		for (Comment comment : comments) {
-			System.out.println(comment.comment);
-		}
-	}
+    @Inject
+    CommentDAO testSubject;
 
-	@Test
-	public void testCreateOrUpdate() throws Exception {
-		throw new RuntimeException("not yet implemented");
-	}
+    @Test
+    public void testGetComments() throws Exception {
+        List<Comment> comments = testSubject.getComments("1");
+
+        for (Comment comment : comments) {
+            System.out.println(comment.getComment());
+        }
+    }
+
+    @Test
+    public void testCreateOrUpdate() throws Exception {
+        throw new RuntimeException("not yet implemented");
+    }
 }
