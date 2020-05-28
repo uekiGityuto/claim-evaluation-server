@@ -1,32 +1,47 @@
 package jp.co.tokiomarine_nichido.models;
 
-import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 
 /**
  * StatusCode
  * @author SKK231099 李
  */
+@Provider
 public class StatusCode {
 
     // 200
-    static public Integer SUCCESS = Integer.valueOf(Response.Status.OK.toString());
+    public final static Integer SUCCESS;
 
     // 400
-    static public Integer UNAUTHENTICATED = 401; // 未認証,Session
-    static public Integer UNAUTHORIZED = Integer.valueOf(Response.Status.UNAUTHORIZED.toString()); // 権限なし
-    static public Integer PRECONDITION_FAILED = Integer.valueOf(Response.Status.PRECONDITION_FAILED.toString()); // 412
+    public final static Integer UNAUTHENTICATED; // 未認証,Session
+    public final static Integer UNAUTHORIZED; // 権限なし
+    public final static Integer PRECONDITION_FAILED; // 412
 
     // 500
-    static public Integer INTERNAL_SERVER_ERROR = Integer.valueOf(Response.Status.INTERNAL_SERVER_ERROR.toString());
-    static public Integer EXTERNAL_SERVER_ERROR = 510;
-    static public Integer EXECUTE_EXCEPTION = 520;
-    static public Integer ENTITY_EXISTS_EXCEPTION = 521;
-    static public Integer ILLEGAL_STATE_EXCEPTION = 522;
-    static public Integer SQL_GRAMMAR_EXCEPTION = 523;
-    static public Integer TRANSACTION_EXCEPTION = 524;
-    static public Integer ROLLBACK_EXCEPTION = 525;
-    static public Integer EXCLUSIVE_EXCEPTION = 526;
+    public final static Integer INTERNAL_SERVER_ERROR;
+    public final static Integer EXTERNAL_SERVER_ERROR;
+    public final static Integer EXECUTE_EXCEPTION;
+    public final static Integer ENTITY_EXISTS_EXCEPTION;
+    public final static Integer ILLEGAL_STATE_EXCEPTION;
+    public final static Integer SQL_GRAMMAR_EXCEPTION;
+    public final static Integer TRANSACTION_EXCEPTION;
+    public final static Integer ROLLBACK_EXCEPTION;
+    public final static Integer EXCLUSIVE_EXCEPTION;
 
-    StatusCode() {
+    static {
+        SUCCESS = 200;//Integer.valueOf(Response.Status.OK.toString());
+        UNAUTHENTICATED = 401;
+        UNAUTHORIZED = 403; //Integer.valueOf(Response.Status.UNAUTHORIZED.toString());
+        PRECONDITION_FAILED = 412; //Integer.valueOf(Response.Status.PRECONDITION_FAILED.toString()); // 412
+        INTERNAL_SERVER_ERROR = 500; //Integer.valueOf(Response.Status.INTERNAL_SERVER_ERROR.toString());
+        EXTERNAL_SERVER_ERROR = 510;
+        EXECUTE_EXCEPTION = 520;
+        ENTITY_EXISTS_EXCEPTION = 521;
+        ILLEGAL_STATE_EXCEPTION = 522;
+        SQL_GRAMMAR_EXCEPTION = 523;
+        TRANSACTION_EXCEPTION = 524;
+        ROLLBACK_EXCEPTION = 525;
+        EXCLUSIVE_EXCEPTION = 526;
     }
+
 }

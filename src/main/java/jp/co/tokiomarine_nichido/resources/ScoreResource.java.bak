@@ -66,4 +66,5 @@ public class ScoreResource {
     public Comment updateComment(@Form Comment comment) throws Exception {
     	return ss.updateComment(comment);
     }
+
 }

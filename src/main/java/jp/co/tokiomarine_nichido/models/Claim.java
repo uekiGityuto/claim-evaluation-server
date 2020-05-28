@@ -34,24 +34,7 @@ public class Claim {
     public Claim () {
         commentList = new ArrayList<Comment>();
     }
-    public Claim (    String claimId,
-                    String userName,
-                    String name,
-                    String kind,
-                    Date birthday,
-                    Timestamp occurenceDate,
-                    Timestamp createDate,
-                    Timestamp updateDate) {
-        this.claimId = claimId;
-        this.userName = userName;
-        this.name = name;
-        this.kind = kind;
-        this.birthday = birthday;
-        this.occurenceDate = occurenceDate;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        commentList = new ArrayList<Comment>();
-    }
+
     public Claim (Map<String, Object> obj) {
         this.claimId = String.valueOf(obj.get("claimId"));
         this.userName = String.valueOf(obj.get("userName"));

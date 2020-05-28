@@ -30,7 +30,9 @@ public class CommentDAO extends DataService {
 
     public Comment updateComment(Comment comment) throws Exception {
         if (getComment(comment) != null) {
-            final String sql = super.pm.getSql("CommentDao.updateComment");
+            final String sql = "update " + comment.getClass().getName()
+                             + " set comment = :comment, updateDate = :updateDate"
+                             + " where id = :id and claimId = :claimId";
             Map<String, Object> param = new HashMap<String, Object>();
             param.put("id", comment.getId());
             param.put("claimId", comment.getClaimId());

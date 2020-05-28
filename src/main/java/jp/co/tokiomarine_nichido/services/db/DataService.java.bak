@@ -1,6 +1,5 @@
 package jp.co.tokiomarine_nichido.services.db;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class DataService {
     private EntityManagerFactory emf;
     private EntityManager em;
     private EntityTransaction tx;
-    protected PropertyManager pm;
+    private PropertyManager pm;
 
     protected DataService() {
         pm = new PropertyManager();
@@ -43,10 +42,6 @@ public class DataService {
 
     @PostConstruct
     protected void init() {
-        checkConnection();
-    }
-
-    private void connect() {
         String unit_name = pm.get("db_unit_name");
 //        String url = pm.get("db_url");
 //        String user = pm.get("db_user");
@@ -67,22 +62,10 @@ public class DataService {
         this.em = Persistence.createEntityManagerFactory(unit_name).createEntityManager();
     }
 
-    private void checkConnection() {
-        if (this.em == null) {
-            this.connect();
-        }
-    }
-
-//    private void close() {
-//        this.em.close();
-//    }
-
     protected Integer getSequenceId(String name) {
         String sql = "select nextval('" + name + "')";
-        checkConnection();
         Query q = this.em.createNativeQuery(sql);
         Integer sequence = Integer.parseUnsignedInt(String.valueOf(q.getSingleResult()));
-//        close();
         return sequence;
     }
 
@@ -90,13 +73,11 @@ public class DataService {
     protected <T> List<T> getListByQuery(Class<T> type, String sql, Map<String, String> params) throws Exception {
         List<T> list = null;
         try {
-            checkConnection();
             Query q = this.em.createQuery(sql);
             params.forEach((key, value) -> {
                 q.setParameter(key, value);
             });
             list = q.getResultList();
-//            close();
         } catch (IllegalStateException e) {
             DefaultExceptionMapper.status = StatusCode.ILLEGAL_STATE_EXCEPTION;
             throw new Exception("ILLEGAL_STATE_EXCEPTION");
@@ -116,10 +97,8 @@ public class DataService {
     @SuppressWarnings("unchecked")
     protected <T> T getObjectByNativeQuery(Class<T> type, String sql) throws Exception {
         try {
-            checkConnection();
             Query q = this.em.createNativeQuery(sql);
             Object obj = q.getSingleResult();
-//            close();
             if (obj != null) {
                 return (T) obj;
             }
@@ -145,9 +124,7 @@ public class DataService {
             String typeName = primaryKey.getClass().getTypeName();
             if ("java.lang.Integer".equals(typeName) || "java.lang.String".equals(typeName)) {
                 // for single primarykey
-                checkConnection();
                 Object obj = this.em.find(type, primaryKey);
-//                close();
                 if (obj != null) {
                     return (T) obj;
                 }
@@ -164,11 +141,8 @@ public class DataService {
                         select.append("i." + key + " = '" + value + "'" + and);
                     });
                     String sql = String.valueOf(select.substring(0, select.length() - and.length()));
-                    checkConnection();
                     Query q = this.em.createQuery(sql);
-                    Object obj = q.getSingleResult();
-//                    close();
-                    return (T) obj;
+                    return (T) q.getSingleResult();
                 }
             }
         } catch (IllegalStateException e) {
@@ -189,11 +163,9 @@ public class DataService {
 
     protected BaseEntity insertObject(BaseEntity be) throws Exception {
         try {
-            checkConnection();
             this.tx.begin();
             this.em.persist(be);
             this.tx.commit();
-//            close();
             return be;
         } catch (IllegalStateException e) {
             try {
@@ -242,7 +214,6 @@ public class DataService {
 
         if (String.valueOf(sql).length() > 0) {
             try {
-                checkConnection();
                 this.tx.begin();
                 Query q = this.em.createQuery(sql);
                 be.onUpdate();
@@ -252,7 +223,6 @@ public class DataService {
                 });
                 q.executeUpdate();
                 this.tx.commit();
-//                close();
                 return be;
             } catch (IllegalStateException e) {
                 try {

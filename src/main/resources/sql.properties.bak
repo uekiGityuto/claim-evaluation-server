@@ -1,0 +1,22 @@
+UserServices.findUserByUserId=select * from public."USER" where user_id = ?;
+UserServices.findAll=select * from public."USER";
+UserServices.createUser=INSERT INTO public."USER" (user_id, name, phone_ip, role, password, salt, failed_count, update_interval, initial_display_interval) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?);
+UserServices.updateUserByUserId=update public."USER" set user_id=?, name=?, phone_ip=?, update_interval=?, initial_display_interval=?, role=?
+
+SpeechTextServices.findRecommendedTextBySpeechId=select * from public."RECOMMENDED_TEXT" where speech_id = ? order by confidence DESC;
+SpeechTextServices.findSpeechTextByDynamicParameter=select id, data, own_phone_number, speech_started, case_id, update_at, not_evaluation_flg from public."SPEECH_TEXT"
+SpeechTextServices.findSpeechTextBySpeechId=select id, data, own_phone_number, speech_started, case_id, update_at, not_evaluation_flg from public."SPEECH_TEXT" where speech_id = ?;
+SpeechTextServices.createSpeechText=INSERT INTO public."SPEECH_TEXT" (own_phone_number, speech_started, case_id, data, speech_id) VALUES (?, ?, ?, ?, ?) RETURNING id;
+SpeechTextServices.addRecommendedText=INSERT INTO public."RECOMMENDED_TEXT" (speech_id, statement1, statement2, statement3, code_statement1, code_statement2, code_statement3, confidence, is_correct) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;
+SpeechTextServices.updateSpeechTextById=update public."SPEECH_TEXT" set case_id = ? , not_evaluation_flg = ? , update_at = ? where speech_id = ? ;
+SpeechTextServices.updateSpeechTextBySpeechId=update public."SPEECH_TEXT" set data = ? where speech_id = ?;
+SpeechTextServices.countSpeechTextByDynamicParameter=select COUNT(*) as count from public."SPEECH_TEXT"
+SpeechTextServices.deleteRecommendedTextBySpeechId=delete from public."RECOMMENDED_TEXT" where speech_id= ? ;
+
+AuthenticationService.findPasswordAndSaltByUserId=select password, salt from public."USER" where user_id = ?;
+AuthenticationService.findFailedTimeByUserId=select failed_time from public."USER" where user_id= ?;
+AuthenticationService.findFailedCountByUserId=select failed_count from public."USER" where user_id = ? ;
+AuthenticationService.updateFailedCountByUserId=update public."USER" set failed_count = ? where user_id = ? ;
+AuthenticationService.findFailedTimeAndFailedCountByUserId=select failed_time, failed_count from public."USER" where user_id = ? ;
+AuthenticationService.updateFailedTimeAndFailedCountByUserId=update public."USER" set failed_count = ?, failed_time = ? where user_id = ? ;
+AuthenticationService.countUserByUserId=select COUNT(*) as count from public."USER" where user_id = ? ;

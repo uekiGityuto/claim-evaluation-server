@@ -37,6 +37,8 @@ X       Time zone               ISO 8601 time zone  -08; -0800; -08:00
  * @author SKK231099 李
  */
 public class DateUtil {
+    static public String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+
     String formatDate = "yyyy-MM-dd";
     String formatTimestamp = "yyyy-MM-dd HH:mm:ss";
     String formatFullTimestamp = "yyyy-MM-dd HH:mm:ss.SSS";

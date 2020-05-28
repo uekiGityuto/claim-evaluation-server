@@ -40,7 +40,6 @@ public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
 	        // ADD(SKK230199)
 		    if (status != null) {
 	            res = Response.status(status).entity(exception.getMessage()).build();
-	            status = null;
 	        }
 		    // END
 		    else {

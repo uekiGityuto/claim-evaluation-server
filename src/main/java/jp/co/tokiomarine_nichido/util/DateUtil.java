@@ -1,6 +1,7 @@
 package jp.co.tokiomarine_nichido.util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,13 +43,10 @@ public class DateUtil {
     String formatDate = "yyyy-MM-dd";
     String formatTimestamp = "yyyy-MM-dd HH:mm:ss";
     String formatFullTimestamp = "yyyy-MM-dd HH:mm:ss.SSS";
-
-    private SimpleDateFormat getSimpleDateFormat(String strDate) {
+    private Long getDatetime(String strDate) {
         String format = strDate.contains(":") ? (strDate.contains(".") ? formatFullTimestamp : formatTimestamp)
                 : formatDate;
-        if (strDate.contains("/")) {
-            strDate = strDate.replaceAll("/", "-");
-        }
+        strDate = strDate.replace("T", " ").replace("Z", "").replaceAll("/", "-");
         if (format.contains(".")) {
             int len = strDate.substring(strDate.indexOf(".") + 1, strDate.length()).length();
             if (len == 1) {
@@ -57,7 +55,14 @@ public class DateUtil {
                 strDate += "0";
             }
         }
-        return new SimpleDateFormat(format);
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        try {
+            return df.parse(strDate).getTime();
+        } catch (ParseException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public java.sql.Date toDate(String strDate) {
@@ -65,13 +70,7 @@ public class DateUtil {
             return null;
         }
         java.sql.Date date = new java.sql.Date(0);
-        try {
-            SimpleDateFormat df = getSimpleDateFormat(strDate);
-            date.setTime(df.parse(strDate).getTime());
-        } catch (Exception e) {
-            date = null;
-        }
-
+        date.setTime(getDatetime(strDate));
         return date;
     }
 
@@ -80,13 +79,7 @@ public class DateUtil {
             return null;
         }
         Date date = new Date(0);
-        try {
-            SimpleDateFormat df = getSimpleDateFormat(strDate);
-            date.setTime(df.parse(strDate).getTime());
-        } catch (Exception e) {
-            date = null;
-        }
-
+        date.setTime(getDatetime(strDate));
         return date;
     }
 

@@ -28,17 +28,19 @@ public class FeedbackDAO extends DataService {
     public Feedback updateFeedback(Feedback feedback) throws Exception {
         Map<String, Object> param = new HashMap<String, Object>();
         if (getFeedback(feedback.getFraudScoreId()) != null) {
-            String sql = null;
+            StringBuilder sql = new StringBuilder();
+            sql.append("update " + feedback.getClass().getName() + " set ");
             if (feedback.getComment() == null) {
-                sql = super.pm.getSql("FeedbackDao.updateFeedbackIsCorrect");
+                sql.append("isCorrect = :isCorrect");
                 param.put("isCorrect", feedback.getIsCorrect());
             } else {
-                sql = super.pm.getSql("FeedbackDao.updateFeedbackComment");
+                sql.append("comment = :comment, isCorrect = :isCorrect");
                 param.put("isCorrect", feedback.getIsCorrect());
                 param.put("comment", feedback.getComment());
             }
+            sql.append(", updateDate = :updateDate where fraudScoreId = :fraudScoreId");
             param.put("fraudScoreId", feedback.getFraudScoreId());
-            return (Feedback) super.updateObject(feedback, sql, param);
+            return (Feedback) super.updateObject(feedback, sql.toString(), param);
         } else {
             return (Feedback) super.insertObject(feedback);
         }
