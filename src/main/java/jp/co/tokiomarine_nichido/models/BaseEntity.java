@@ -54,6 +54,9 @@ public abstract class BaseEntity implements Serializable {
     @Transient
     public static Integer status = null;
 
+    @Transient
+    abstract public BaseEntity copy();
+
 }
 
 

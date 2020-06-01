@@ -41,4 +41,15 @@ public class Feedback extends BaseEntity {
     public Object getPrimaryKey() {
         return this.fraudScoreId;
     }
+
+    @Override
+    public Feedback copy() {
+        Feedback fdb = new Feedback();
+        fdb.fraudScoreId = this.fraudScoreId;
+        fdb.isCorrect = this.isCorrect;
+        fdb.comment = this.comment;
+        fdb.createDate = this.createDate;
+        fdb.updateDate = this.updateDate;
+        return fdb;
+    }
 }

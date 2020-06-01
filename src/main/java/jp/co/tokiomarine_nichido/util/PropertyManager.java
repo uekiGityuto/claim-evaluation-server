@@ -21,16 +21,18 @@ public class PropertyManager {
 	private static final Logger logger = LogManager.getLogger();
 
 	public PropertyManager() {
+        bundle = ResourceBundle.getBundle("config");
+        bundleSql = ResourceBundle.getBundle("sql");
+        logger.info("config.propertiesから設定値を読み込み。");
+        for (String key : bundle.keySet()) {
+            logger.info("          {}:{}", key, bundle.getObject(key));
+        }
 	}
-	
+
 	@PostConstruct
 	public void init() {
-		bundle = ResourceBundle.getBundle("config");
-		bundleSql = ResourceBundle.getBundle("sql");
-		logger.info("config.propertiesから設定値を読み込み。");
-		for (String key : bundle.keySet()) {
-			logger.info("          {}:{}", key, bundle.getObject(key));
-		}
+	    // この時点で宣言するとDAOから取得する時にnullになる現象が発生するため処理をconstructorに移動
+	    // ここに処理しても2回まわる現象は存在
 	}
 
 	/**

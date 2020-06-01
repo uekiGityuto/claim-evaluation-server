@@ -18,7 +18,7 @@ import jp.co.tokiomarine_nichido.models.Comment;
 public class CommentDAO extends DataService {
 
     public List<Comment> getComments(String claimId) throws Exception {
-        String sql = "from Comment c where c.claimId = :claimId";
+        String sql = super.pm.getSql("CommentDao.selectComment");
         Map<String, String> params = new HashMap<String, String>();
         params.put("claimId", claimId);
         return super.getListByQuery(Comment.class, sql, params);

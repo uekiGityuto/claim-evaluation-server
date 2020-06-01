@@ -46,10 +46,18 @@ public class RESTAPIDAO {
      */
     @PostConstruct
     private void init() {
-        // TODO:【李】デフォルトタイムアウトをconfig.propertiesから読み込む
         this.restClient = ClientBuilder.newBuilder().register(GsonMessageBodyReaderWriter.class).build();
+    }
 
-        this.base_wt = this.restClient.target(pm.get("url.fraudScore"));
+    private WebTarget getWebTarget() {
+        if (base_wt == null) {
+            if (pm != null) {
+                this.base_wt = this.restClient.target(pm.get("url.fraudScore"))
+                                   .property("http.connection.timeout", pm.get("Client.connectTimeout"))
+                                   .property("http.receive.timeout", pm.get("Client.readTimeout"));
+}
+        }
+        return this.base_wt;
     }
 
     /**
@@ -61,7 +69,7 @@ public class RESTAPIDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> findAll() throws Exception {
-        try (Response response = base_wt.request(MediaType.APPLICATION_JSON).get()) {
+        try (Response response = getWebTarget().request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
             return (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
         } catch(Exception e) {
@@ -81,8 +89,8 @@ public class RESTAPIDAO {
      */
     @SuppressWarnings("unchecked")
     public <T> List<T> findByRelation(String relationKey, String relationValue, Class<T> type) throws Exception {
-        try (Response response = base_wt.queryParam(relationKey, relationValue)
-                                        .request(MediaType.APPLICATION_JSON).get()) {
+        try (Response response = getWebTarget().queryParam(relationKey, relationValue)
+                                               .request(MediaType.APPLICATION_JSON).get()) {
             return (List<T>) response.readEntity(List.class);
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
@@ -99,8 +107,8 @@ public class RESTAPIDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> findById(String relationKey, String relationValue) throws Exception {
-        try (Response response = base_wt.queryParam(relationKey, relationValue)
-                                        .request(MediaType.APPLICATION_JSON).get()) {
+        try (Response response = getWebTarget().queryParam(relationKey, relationValue)
+                                               .request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
             return (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
         } catch(Exception e) {

@@ -15,7 +15,7 @@ import jp.co.tokiomarine_nichido.models.Feedback;
 public class FeedbackDAO extends DataService {
 
     public List<Feedback> getFeedbacks(String fraudScoreIds) throws Exception {
-        String sql_feedback = "from Feedback i where i.fraud_score_id = :fraud_score_id";
+        String sql_feedback = super.pm.getSql("FeedbackDao.selectFeedback");
         Map<String, String> params = new HashMap<String, String>();
         params.put("claimId", fraudScoreIds);
         return super.getListByQuery(Feedback.class, sql_feedback, params);

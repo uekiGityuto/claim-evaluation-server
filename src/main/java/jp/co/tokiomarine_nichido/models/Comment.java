@@ -51,4 +51,17 @@ public class Comment extends BaseEntity {
     public Object getPrimaryKey() {
         return this.id;
     }
+
+    @Override
+    public Comment copy() {
+        Comment cmt = new Comment();
+        cmt.id = this.id;
+        cmt.claimId = this.claimId;
+        cmt.comment = this.comment;
+        cmt.userId = this.userId;
+        cmt.userName = this.userName;
+        cmt.createDate = this.createDate;
+        cmt.updateDate = this.updateDate;
+        return cmt;
+    }
 }

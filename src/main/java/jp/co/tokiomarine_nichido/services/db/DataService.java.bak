@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.services.db;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class DataService {
     private EntityManagerFactory emf;
     private EntityManager em;
     private EntityTransaction tx;
-    private PropertyManager pm;
+    protected PropertyManager pm;
 
     protected DataService() {
         pm = new PropertyManager();
@@ -42,30 +43,45 @@ public class DataService {
 
     @PostConstruct
     protected void init() {
-        String unit_name = pm.get("db_unit_name");
-//        String url = pm.get("db_url");
-//        String user = pm.get("db_user");
-//        String password = pm.get("db_password");
-//        String driver = pm.get("db_driver");
-//        try {
-//            Map<String, String> props = new HashMap<String, String>();
-//            props.put("javax.persistence.jdbc.url", url);
-//            props.put("javax.persistence.jdbc.user", user);
-//            props.put("javax.persistence.jdbc.password", password);
-//            props.put("javax.persistence.jdbc.driver", driver);
-//            this.emf = Persistence.createEntityManagerFactory(unit_name, props);
-//            this.em = this.emf.createEntityManager();
-//            this.tx = this.em.getTransaction();
-//        } catch(Exception e) {
-//            log.info(e);
-//        }
-        this.em = Persistence.createEntityManagerFactory(unit_name).createEntityManager();
     }
 
-    protected Integer getSequenceId(String name) {
+    private void connect() {
+        String unit_name = pm.get("db_unit_name");
+        try {
+            this.emf = Persistence.createEntityManagerFactory(unit_name);
+            this.em = this.emf.createEntityManager();
+            this.tx = this.em.getTransaction();
+        } catch(Exception e) {
+            log.info(e);
+        }
+    }
+
+    private void checkConnection() {
+        if (this.em == null) {
+            this.connect();
+        }
+    }
+
+    protected Integer getSequenceId(String name) throws Exception {
+        Integer sequence = null;
         String sql = "select nextval('" + name + "')";
-        Query q = this.em.createNativeQuery(sql);
-        Integer sequence = Integer.parseUnsignedInt(String.valueOf(q.getSingleResult()));
+        try {
+            checkConnection();
+            Query q = this.em.createNativeQuery(sql);
+            sequence = Integer.parseUnsignedInt(String.valueOf(q.getSingleResult()));
+        } catch (IllegalStateException e) {
+            DefaultExceptionMapper.status = StatusCode.ILLEGAL_STATE_EXCEPTION;
+            throw new Exception("ILLEGAL_STATE_EXCEPTION");
+        } catch (EntityExistsException e) {
+            DefaultExceptionMapper.status = StatusCode.ENTITY_EXISTS_EXCEPTION;
+            throw new Exception("ENTITY_EXISTS_EXCEPTION");
+        } catch (SQLGrammarException e) {
+            DefaultExceptionMapper.status = StatusCode.SQL_GRAMMAR_EXCEPTION;
+            throw new Exception("SQL_GRAMMAR_EXCEPTION");
+        } catch (Exception e) {
+            DefaultExceptionMapper.status = StatusCode.EXECUTE_EXCEPTION;
+            throw new Exception("EXECUTE_EXCEPTION");
+        }
         return sequence;
     }
 
@@ -73,6 +89,7 @@ public class DataService {
     protected <T> List<T> getListByQuery(Class<T> type, String sql, Map<String, String> params) throws Exception {
         List<T> list = null;
         try {
+            checkConnection();
             Query q = this.em.createQuery(sql);
             params.forEach((key, value) -> {
                 q.setParameter(key, value);
@@ -97,6 +114,7 @@ public class DataService {
     @SuppressWarnings("unchecked")
     protected <T> T getObjectByNativeQuery(Class<T> type, String sql) throws Exception {
         try {
+            checkConnection();
             Query q = this.em.createNativeQuery(sql);
             Object obj = q.getSingleResult();
             if (obj != null) {
@@ -121,10 +139,12 @@ public class DataService {
     @SuppressWarnings("unchecked")
     protected <T> T getObject(Class<T> type, Object primaryKey) throws Exception {
         try {
+            checkConnection();
             String typeName = primaryKey.getClass().getTypeName();
             if ("java.lang.Integer".equals(typeName) || "java.lang.String".equals(typeName)) {
                 // for single primarykey
-                Object obj = this.em.find(type, primaryKey);
+                HashMap<String, Object> hints = new HashMap<>();
+                Object obj = this.em.find(type, primaryKey, hints);
                 if (obj != null) {
                     return (T) obj;
                 }
@@ -142,7 +162,8 @@ public class DataService {
                     });
                     String sql = String.valueOf(select.substring(0, select.length() - and.length()));
                     Query q = this.em.createQuery(sql);
-                    return (T) q.getSingleResult();
+                    Object obj = q.getSingleResult();
+                    return (T) obj;
                 }
             }
         } catch (IllegalStateException e) {
@@ -163,10 +184,12 @@ public class DataService {
 
     protected BaseEntity insertObject(BaseEntity be) throws Exception {
         try {
+            checkConnection();
             this.tx.begin();
             this.em.persist(be);
             this.tx.commit();
-            return be;
+            BaseEntity obj = be.copy();
+            return obj;
         } catch (IllegalStateException e) {
             try {
                 rollback(tx);
@@ -214,6 +237,7 @@ public class DataService {
 
         if (String.valueOf(sql).length() > 0) {
             try {
+                checkConnection();
                 this.tx.begin();
                 Query q = this.em.createQuery(sql);
                 be.onUpdate();
@@ -223,7 +247,8 @@ public class DataService {
                 });
                 q.executeUpdate();
                 this.tx.commit();
-                return be;
+                BaseEntity obj = be.copy();
+                return obj;
             } catch (IllegalStateException e) {
                 try {
                     rollback(tx);
