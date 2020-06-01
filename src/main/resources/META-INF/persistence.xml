@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="fraud_detection"
-		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<!-- TODO: 【李】hibernate.archive.autodetectionで自動スキャンできるはずだが、正しく動作していないので要修正。 -->
-		<class>jp.co.tokiomarine_nichido.models.Comment</class>
-		<class>jp.co.tokiomarine_nichido.models.Feedback</class>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="fraud_detection" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
+        <class>jp.co.tokiomarine_nichido.models.Feedback</class>
+        <class>jp.co.tokiomarine_nichido.models.Comment</class>
 
-		<properties>
-			<!-- DB接続設定 -->
-			<property name="hibernate.connection.driver_class"
-				value="com.mysql.jdbc.Drvier" />
-			<property name="hibernate.connection.datasource"
-				value="java:/jdbc/FraudDetectionDB" />
+        <properties>
+            <property name="current_session_context_class" value="thread" />
 
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.PostgreSQLDialect" />
-			<property name="hibernate.default.schema"
-				value="fraud_detection" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.connection.autocommit" value="true" /> <!-- for DDL -->
+            <property name="hibernate.show.sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.flushMode" value="FLUSH_AUTO" />
+            <property name="hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+            <property name="hibernate.jdbc.lob.non_contextual_creation" value="true"/>
+ 	        <property name="hibernate.max_fetch_depth" value="3"/>
+            <property name="hibernate.connection.provider_class"
+                      value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider" />
+            <property name="hibernate.c3p0.max_size" value="100" />
+            <property name="hibernate.c3p0.min_size" value="0" />
+            <property name="hibernate.c3p0.acquire_increment" value="1" />
+            <property name="hibernate.c3p0.idle_test_period" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="0" />
+            <property name="hibernate.c3p0.timeout" value="1" />
+            <property name="hibernate.c3p0.preferredTestQuery" value="SELECT 1;" />
+            <property name="hibernate.cache.region_prefix" value="hibernate.test"/>
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.testing.cache.CachingRegionFactory"/>
+            <property name="hibernate.jdbc.batch_versioned_data" value="true"/>
+            <property name="javax.persistence.validation.mode" value="NONE"/>
+            <property name="hibernate.service.allow_crawling" value="false"/>
+            <property name="hibernate.session.events.log" value="true"/>
+            <!-- <property name="hibernate.archive.autodetection" value="class"/> -->
 
-			<property name="hibernate.archive.autodetection"
-				value="class" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property
-				name="javax.persistence.schema-generation.database.action"
-				value="update" />
-
-			<property name="current_session_context_class"
-				value="thread" />
-
-			<property name="hibernate.connection.autocommit"
-				value="false" />
-
-			<property name="hibernate.show.sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
-
-			<property name="hibernate.cache.use_second_level_cache"
-				value="true" />
-			<property name="hibernate.cache.use_query_cache"
-				value="true" />
-			<property name="hibernate.enable_lazy_load_no_trans"
-				value="true" />
-
-			<property name="hibernate.generate_statistics"
-				value="${hibernate.generate_statistics}" />
-		</properties>
-	</persistence-unit>
+            <property name="hibernate.default.schema" value="tmnf-fraud-detection" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="postgres"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tmnf-fraud-detection"/>
+        </properties>
+    </persistence-unit>
 </persistence>
