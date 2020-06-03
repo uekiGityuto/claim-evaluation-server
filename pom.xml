@@ -31,6 +31,9 @@
         <log.level>TRACE</log.level>
         <url.fraudScore>http://localhost:3000/scores</url.fraudScore>
         <hibernate.generate_statistics>true</hibernate.generate_statistics>
+        <hibernate.connection.url>jdbc:postgresql://localhost:5432/tmnf-fraud-detection</hibernate.connection.url>
+        <hibernate.connection.username>muser</hibernate.connection.username>
+        <hibernate.connection.password>Passw0rd</hibernate.connection.password>
       </properties>
     </profile>
     <profile>
@@ -42,6 +45,9 @@
         <log.level>TRACE</log.level>
         <url.fraudScore></url.fraudScore>
         <hibernate.generate_statistics>true</hibernate.generate_statistics>
+        <hibernate.connection.url>jdbc:postgresql://development.path:5432/tmnf-fraud-detection</hibernate.connection.url>
+        <hibernate.connection.username>dev.user</hibernate.connection.username>
+        <hibernate.connection.password>dev.password</hibernate.connection.password>
       </properties>
     </profile>
     <profile>
@@ -53,6 +59,9 @@
         <log.level>INFO</log.level>
         <url.fraudScore></url.fraudScore>
         <hibernate.generate_statistics>false</hibernate.generate_statistics>
+        <hibernate.connection.url>jdbc:postgresql://production.path:5432/tmnf-fraud-detection</hibernate.connection.url>
+        <hibernate.connection.username>prod.user</hibernate.connection.username>
+        <hibernate.connection.password>prod.password</hibernate.connection.password>
       </properties>
     </profile>
   </profiles>
@@ -178,10 +187,22 @@
         <version>5.4.12.Final</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.3.6.Final</version>
-      <scope>provided</scope>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.3.6.Final</version>
+        <scope>provided</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>dom4j</groupId>
+        <artifactId>dom4j</artifactId>
+        <version>1.6.1</version>
+        <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -300,10 +321,10 @@
                   <properties>
                     <jndi-name>java:/jdbc/FraudDetectionDB</jndi-name>
                     <enabled>true</enabled>
-                    <connection-url>jdbc:postgresql://localhost:5432/tokiomarine_nichido</connection-url>
+                    <connection-url>${hibernate.connection.url}</connection-url>
                     <driver-name>postgresql-42.2.6.jar</driver-name>
-                    <user-name>postgres</user-name>
-                    <password>postgres</password>
+                    <user-name>${hibernate.connection.username}</user-name>
+                    <password>${hibernate.connection.password}</password>
                   </properties>
                 </resource>
               </resources>

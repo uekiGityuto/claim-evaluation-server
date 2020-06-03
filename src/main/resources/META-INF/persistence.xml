@@ -10,6 +10,8 @@
 
         <properties>
             <property name="current_session_context_class" value="thread" />
+			<property name="hibernate.session.events.log" value="true"/>
+            <property name="javax.persistence.validation.mode" value="NONE"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
@@ -35,16 +37,14 @@
             <property name="hibernate.cache.region.factory_class"
                       value="org.hibernate.testing.cache.CachingRegionFactory"/>
             <property name="hibernate.jdbc.batch_versioned_data" value="true"/>
-            <property name="javax.persistence.validation.mode" value="NONE"/>
             <property name="hibernate.service.allow_crawling" value="false"/>
-            <property name="hibernate.session.events.log" value="true"/>
             <!-- <property name="hibernate.archive.autodetection" value="class"/> -->
 
-            <property name="hibernate.default.schema" value="tmnf-fraud-detection" />
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="postgres"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tmnf-fraud-detection"/>
+			<property name="hibernate.default.schema" value="fraud-detection"/>
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="${hibernate.connection.url}"/>
+            <property name="hibernate.connection.username" value="${hibernate.connection.username}"/>
+            <property name="hibernate.connection.password" value="${hibernate.connection.password}"/>
         </properties>
     </persistence-unit>
 </persistence>

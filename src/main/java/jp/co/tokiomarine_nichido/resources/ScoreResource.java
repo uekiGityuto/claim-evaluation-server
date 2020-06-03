@@ -66,4 +66,12 @@ public class ScoreResource {
     public Comment updateComment(@Form Comment comment) throws Exception {
     	return ss.updateComment(comment);
     }
+
+    @POST
+    @Path("{claimId}/removeComment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Integer removeComment(@Form Comment comment) throws Exception {
+        return ss.removeComment(comment);
+    }
 }

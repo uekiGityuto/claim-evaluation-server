@@ -1,6 +1,0 @@
-unitName=fraud_detection
-url.fraudScore=${url.fraudScore}
-url.saml=https://stb1cc.tm.millea.co.jp/fw/dfw/SAML/iwidp/sso/[SP alias name ]
-
-Client.connectTimeout=1
-Client.readTimeout=5

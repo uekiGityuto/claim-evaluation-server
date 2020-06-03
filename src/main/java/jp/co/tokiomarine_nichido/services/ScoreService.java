@@ -86,4 +86,8 @@ public class ScoreService {
     public Comment updateComment(Comment comment) throws Exception {
         return cd.updateComment(comment);
     }
+
+    public Integer removeComment(Comment comment) throws Exception {
+        return cd.removeComment(comment);
+    }
 }

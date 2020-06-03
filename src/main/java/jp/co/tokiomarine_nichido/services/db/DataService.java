@@ -40,8 +40,11 @@ public class DataService {
 
     @PostConstruct
     protected void init() {
-        if (this.em != null) {
-        } else {
+        createEntityManager();
+    }
+
+    private void createEntityManager() {
+        if (this.em == null) {
             em = Persistence.createEntityManagerFactory(pm.get("unitName")).createEntityManager();
         }
         this.tx = this.em.getTransaction();
@@ -267,6 +270,56 @@ public class DataService {
         } else {
             DefaultExceptionMapper.status = StatusCode.SQL_GRAMMAR_EXCEPTION;
             throw new Exception("SQL_GRAMMAR_EXCEPTION");
+        }
+    }
+
+    public void deleteObject(BaseEntity be) throws Exception {
+        if (MismatchedDbUpdateDate(be)) {
+            DefaultExceptionMapper.status = StatusCode.EXCLUSIVE_EXCEPTION;
+            throw new Exception("EXCLUSIVE_EXCEPTION");
+        }
+
+        try {
+            this.tx.begin();
+            BaseEntity obj = getObject(be.getClass(), be.getPrimaryKey());
+            this.em.remove(obj);
+            this.tx.commit();
+        } catch (IllegalStateException e) {
+            try {
+                rollback(tx);
+                DefaultExceptionMapper.status = StatusCode.ILLEGAL_STATE_EXCEPTION;
+                throw new Exception("ILLEGAL_STATE_EXCEPTION");
+            } catch (RollbackException re) {
+                DefaultExceptionMapper.status = StatusCode.ROLLBACK_EXCEPTION;
+                throw new Exception("ROLLBACK_EXCEPTION");
+            }
+        } catch (EntityExistsException e) {
+            try {
+                rollback(tx);
+                DefaultExceptionMapper.status = StatusCode.ENTITY_EXISTS_EXCEPTION;
+                throw new Exception("ENTITY_EXISTS_EXCEPTION");
+            } catch (RollbackException re) {
+                DefaultExceptionMapper.status = StatusCode.ROLLBACK_EXCEPTION;
+                throw new Exception("ROLLBACK_EXCEPTION");
+            }
+        } catch (SQLGrammarException e) {
+            try {
+                rollback(tx);
+                DefaultExceptionMapper.status = StatusCode.SQL_GRAMMAR_EXCEPTION;
+                throw new Exception("SQL_GRAMMAR_EXCEPTION");
+            } catch (RollbackException re) {
+                DefaultExceptionMapper.status = StatusCode.ROLLBACK_EXCEPTION;
+                throw new Exception("ROLLBACK_EXCEPTION");
+            }
+        } catch (Exception e) {
+            try {
+                rollback(tx);
+                DefaultExceptionMapper.status = StatusCode.TRANSACTION_EXCEPTION;
+                throw new Exception("TRANSACTION_EXCEPTION");
+            } catch (RollbackException re) {
+                DefaultExceptionMapper.status = StatusCode.ROLLBACK_EXCEPTION;
+                throw new Exception("ROLLBACK_EXCEPTION");
+            }
         }
     }
 

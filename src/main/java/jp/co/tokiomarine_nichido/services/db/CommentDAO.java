@@ -41,4 +41,9 @@ public class CommentDAO extends DataService {
             return (Comment) super.insertObject(comment);
         }
     }
+
+    public Integer removeComment(Comment comment) throws Exception {
+        super.deleteObject(comment);
+        return comment.getId();
+    }
 }
