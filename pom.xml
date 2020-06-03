@@ -26,6 +26,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
+        <git.dirty>true</git.dirty>
         <buildValidation.git.dirty>true</buildValidation.git.dirty>
         <log.path>log</log.path>
         <log.level>TRACE</log.level>
