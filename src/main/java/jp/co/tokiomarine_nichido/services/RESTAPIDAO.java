@@ -61,17 +61,22 @@ public class RESTAPIDAO {
     }
 
     /**
-     * findAll
+     * Get Score List by ClaimId Group
      * @param <T>
      * @param type
-     * @return
+     * @return List<Map<String, Object>>
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> findAll() throws Exception {
+        int maxList = Integer.valueOf(pm.get("max.list"));
         try (Response response = getWebTarget().request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
-            return (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
+            List<Map<String, Object>> list = (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
+            if (list != null && list.size() > maxList) {
+                return list.subList(0, maxList);
+            }
+            return list;
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
@@ -79,7 +84,7 @@ public class RESTAPIDAO {
     }
 
     /**
-     * findByRelation
+     * Get Score List by ClaimID (List<T>)
      * @param <T>
      * @param relationKey
      * @param relationValue
@@ -99,10 +104,10 @@ public class RESTAPIDAO {
     }
 
     /**
-     * findById
+     * Get Score List by ClaimID (List<Map<String, Object>>)
      * @param relationKey
      * @param relationValue
-     * @return
+     * @return List<Map<String, Object>>
      * @throws Exception
      */
     @SuppressWarnings("unchecked")

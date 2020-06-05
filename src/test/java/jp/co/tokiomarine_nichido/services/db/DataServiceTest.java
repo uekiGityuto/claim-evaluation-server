@@ -14,6 +14,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 //@RunWith(Arquillian.class)
 public class DataServiceTest {
 
+    /**
+     * Prepare Files for DataService
+     * @throws Exception
+     */
     public DataServiceTest() throws Exception {
         System.out.println("prepare files for DataService");
         ResourceBundle bundle = ResourceBundle.getBundle("config");

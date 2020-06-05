@@ -1,7 +1,6 @@
 package jp.co.tokiomarine_nichido.services.db;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import jp.co.tokiomarine_nichido.models.Feedback;
@@ -14,17 +13,22 @@ import jp.co.tokiomarine_nichido.models.Feedback;
  */
 public class FeedbackDAO extends DataService {
 
-    public List<Feedback> getFeedbacks(String fraudScoreIds) throws Exception {
-        String sql_feedback = super.pm.getSql("FeedbackDao.selectFeedback");
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("claimId", fraudScoreIds);
-        return super.getListByQuery(Feedback.class, sql_feedback, params);
-    }
-
+    /**
+     * Get Feedback by fraudScoreId
+     * @param fraudScoreId
+     * @return Feedback
+     * @throws Exception
+     */
     public Feedback getFeedback(String fraudScoreId) throws Exception {
         return super.getObject(Feedback.class, fraudScoreId);
     }
 
+    /**
+     * Update Feedback
+     * @param feedback
+     * @return Feedback
+     * @throws Exception
+     */
     public Feedback updateFeedback(Feedback feedback) throws Exception {
         Map<String, Object> param = new HashMap<String, Object>();
         if (getFeedback(feedback.getFraudScoreId()) != null) {

@@ -17,6 +17,12 @@ import jp.co.tokiomarine_nichido.models.Comment;
 @RequestScoped
 public class CommentDAO extends DataService {
 
+    /**
+     * Get Comment List by ClaimID
+     * @param claimId
+     * @return List<Comment>
+     * @throws Exception
+     */
     public List<Comment> getComments(String claimId) throws Exception {
         String sql = super.pm.getSql("CommentDao.selectComment");
         Map<String, String> params = new HashMap<String, String>();
@@ -24,10 +30,22 @@ public class CommentDAO extends DataService {
         return super.getListByQuery(Comment.class, sql, params);
     }
 
+    /**
+     * Get Informattion of Comment
+     * @param comment
+     * @return Comment
+     * @throws Exception
+     */
     public Comment getComment(Comment comment) throws Exception {
         return super.getObject(Comment.class, comment.getId());
     }
 
+    /**
+     * Update Comment
+     * @param comment
+     * @return Comment
+     * @throws Exception
+     */
     public Comment updateComment(Comment comment) throws Exception {
         if (getComment(comment) != null) {
             final String sql = super.pm.getSql("CommentDao.updateComment");
@@ -42,6 +60,12 @@ public class CommentDAO extends DataService {
         }
     }
 
+    /**
+     * Remove Comment
+     * @param comment
+     * @return Integer
+     * @throws Exception
+     */
     public Integer removeComment(Comment comment) throws Exception {
         super.deleteObject(comment);
         return comment.getId();

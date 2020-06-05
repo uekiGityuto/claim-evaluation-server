@@ -33,6 +33,11 @@ public class ScoreService {
     public ScoreService() {
     }
 
+    /**
+     * 一覧画面リストデータ取得
+     * @return List<Score>
+     * @throws Exception
+     */
     public List<Score> findAllByGroup() throws Exception {
         List<Score> scores = new ArrayList<Score>();
         List<Map<String, Object>> list = restapiDao.findAll();
@@ -53,10 +58,22 @@ public class ScoreService {
         return scores;
     }
 
+    /**
+     * Get Score List by ClaimID
+     * @param claimId
+     * @return List<Score>
+     * @throws Exception
+     */
     public List<Score> findListByClaimId(String claimId) throws Exception {
         return (List<Score>) restapiDao.findByRelation("claim.claimId", claimId, Score.class);
     }
 
+    /**
+     * 詳細画面データ取得
+     * @param claimId
+     * @return Score
+     * @throws Exception
+     */
     public Score findById(String claimId) throws Exception {
         // 複数のScoreをもらう場合
         Score score = null;
@@ -79,14 +96,32 @@ public class ScoreService {
         return score;
     }
 
+    /**
+     * Feedback insert, update
+     * @param feedback
+     * @return Feedback
+     * @throws Exception
+     */
     public Feedback updateFeedback(Feedback feedback) throws Exception {
         return fd.updateFeedback(feedback);
     }
 
+    /**
+     * Insert/Update Comment
+     * @param comment
+     * @return Comment
+     * @throws Exception
+     */
     public Comment updateComment(Comment comment) throws Exception {
         return cd.updateComment(comment);
     }
 
+    /**
+     * Remove Comment
+     * @param comment
+     * @return Integer
+     * @throws Exception
+     */
     public Integer removeComment(Comment comment) throws Exception {
         return cd.removeComment(comment);
     }

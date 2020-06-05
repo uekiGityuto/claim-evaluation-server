@@ -43,6 +43,9 @@ public class DataService {
         createEntityManager();
     }
 
+    /**
+     * Create EntityManager
+     */
     private void createEntityManager() {
         if (this.em == null) {
             em = Persistence.createEntityManagerFactory(pm.get("unitName")).createEntityManager();
@@ -50,6 +53,12 @@ public class DataService {
         this.tx = this.em.getTransaction();
     }
 
+    /**
+     * Get Sequence Id
+     * @param name
+     * @return Integer
+     * @throws Exception
+     */
     protected Integer getSequenceId(String name) throws Exception {
         Integer sequence = null;
         String sql = "select nextval('" + name + "')";
@@ -97,6 +106,14 @@ public class DataService {
         return list;
     }
 
+    /**
+     * Get Object by Native Query
+     * @param <T>
+     * @param type
+     * @param sql
+     * @return T
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     protected <T> T getObjectByNativeQuery(Class<T> type, String sql) throws Exception {
         try {
@@ -121,6 +138,14 @@ public class DataService {
         return null;
     }
 
+    /**
+     * Get Object by PrimaryKey
+     * @param <T>
+     * @param type
+     * @param primaryKey
+     * @return T
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     protected <T> T getObject(Class<T> type, Object primaryKey) throws Exception {
         try {
@@ -165,6 +190,12 @@ public class DataService {
         return null;
     }
 
+    /**
+     * Insert Object
+     * @param be
+     * @return BaseEntity
+     * @throws Exception
+     */
     protected BaseEntity insertObject(BaseEntity be) throws Exception {
         try {
             this.tx.begin();
@@ -211,6 +242,14 @@ public class DataService {
         }
     }
 
+    /**
+     * Update Object
+     * @param be
+     * @param sql
+     * @param param
+     * @return BaseEntity
+     * @throws Exception
+     */
     protected BaseEntity updateObject(BaseEntity be, String sql, Map<String, Object> param) throws Exception {
         if (MismatchedDbUpdateDate(be)) {
             DefaultExceptionMapper.status = StatusCode.EXCLUSIVE_EXCEPTION;
@@ -273,6 +312,11 @@ public class DataService {
         }
     }
 
+    /**
+     * Delete Object
+     * @param be
+     * @throws Exception
+     */
     public void deleteObject(BaseEntity be) throws Exception {
         if (MismatchedDbUpdateDate(be)) {
             DefaultExceptionMapper.status = StatusCode.EXCLUSIVE_EXCEPTION;
@@ -328,7 +372,7 @@ public class DataService {
      * @param <T>
      * @param primaryKey
      * @param be
-     * @return
+     * @return Boolean
      */
     public <T> Boolean MismatchedDbUpdateDate(BaseEntity be) throws Exception {
         BaseEntity obj = getObject(be.getClass(), be.getPrimaryKey());
@@ -339,7 +383,7 @@ public class DataService {
     }
 
     /**
-     * rollback
+     * Rollback
      * @param tx
      * @throws RollbackException
      */
