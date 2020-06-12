@@ -4,49 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.junit.Test;
+
 import com.google.gson.Gson;
 
+import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.models.StatusCode;
 import jp.co.tokiomarine_nichido.util.DefaultExceptionMapper;
 import jp.co.tokiomarine_nichido.util.GsonMessageBodyReaderWriter;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * 外部通信Service
+ * TEST for 外部通信Service
  *
  * @author SKK231099 李
  */
-@ApplicationScoped
-@Produces
-public class RESTAPIDAO {
-//    private String SAMLAuth = "";
+@RunAsClient
+public class RESTAPIDAOTest {
+
+    final private String claimId = "00000865432";
+    final private String relationKey = "claimId";
+    final private String relationValue = this.claimId;
 
     private PropertyManager pm;
+    private Gson gson;
 
     private Client restClient;
     private WebTarget base_wt;
 
-    private Gson gson;
-
-    public RESTAPIDAO() {
-        gson = new Gson();
+    public RESTAPIDAOTest() throws Exception {
         pm = new PropertyManager();
+        gson = new Gson();
     }
-
-//    /**
-//     * RESTクライアントのデフォルト設定。
-//     */
-//    @PostConstruct
-//    private void init() {
-//    }
 
     private WebTarget getWebTarget() throws Exception {
         if (base_wt == null) {
@@ -65,65 +61,75 @@ public class RESTAPIDAO {
     }
 
     /**
-     * Get Score List by ClaimId Group
-     * @param <T>
-     * @param type
-     * @return List<Map<String, Object>>
+     * TEST for Get Score List by ClaimId Group
      * @throws Exception
      */
+    @Test
     @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> findAll() throws Exception {
+    public void findAllTest() throws Exception {
+        System.out.println("findAllTest...");
         int maxList = Integer.valueOf(pm.get("max.list"));
         try (Response response = getWebTarget().request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
             List<Map<String, Object>> list = (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
             if (list != null && list.size() > maxList) {
-                return list.subList(0, maxList);
+                list.subList(0, maxList);
+            } else if (list == null) {
+                list = new ArrayList<Map<String, Object>>();
             }
-            return list;
+            System.out.println("count: " + list.size());
         } catch(Exception e) {
             System.out.println(e.toString());
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
+        System.out.println("findAllTest: OK");
     }
 
     /**
-     * Get Score List by ClaimID (List<T>)
-     * @param <T>
-     * @param relationKey
-     * @param relationValue
-     * @param type
-     * @return List<T>
+     * TEST for Get Score List by ClaimID (List<T>)
      * @throws Exception
      */
+    @Test
     @SuppressWarnings("unchecked")
-    public <T> List<T> findByRelation(String relationKey, String relationValue, Class<T> type) throws Exception {
+    public void findByRelationTest() throws Exception {
+        System.out.println("findByRelationTest...");
+        System.out.println("relationKey: " + relationKey + ", relationValue: " + relationValue);
         try (Response response = getWebTarget().queryParam(relationKey, relationValue)
-                                               .request(MediaType.APPLICATION_JSON).get()) {
-            return (List<T>) response.readEntity(List.class);
+                                                                       .request(MediaType.APPLICATION_JSON).get()) {
+            List<Score> scores = (List<Score>) response.readEntity(List.class);
+            if (scores == null) {
+                scores = new ArrayList<Score>();
+            }
+            System.out.println("count: " + scores.size());
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
+        System.out.println("findByRelationTest: OK");
     }
 
     /**
-     * Get Score List by ClaimID (List<Map<String, Object>>)
-     * @param relationKey
-     * @param relationValue
-     * @return List<Map<String, Object>>
+     * TEST for Get Score List by ClaimID (List<Map<String, Object>>)
      * @throws Exception
      */
+    @Test
     @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> findById(String relationKey, String relationValue) throws Exception {
+    public void findByIdTest() throws Exception {
+        System.out.println("findById...");
+        System.out.println("relationKey: " + relationKey + ", relationValue: " + relationValue);
         try (Response response = getWebTarget().queryParam(relationKey, relationValue)
-                                               .request(MediaType.APPLICATION_JSON).get()) {
+                                                                       .request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
-            return (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
+            List<Map<String, Object>> list = (List<Map<String, Object>>) gson.fromJson(json, ArrayList.class);
+            if (list == null) {
+                list = new ArrayList<Map<String, Object>>();
+            }
+            System.out.println("count: " + list.size());
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
+        System.out.println("findById: OK");
     }
 }

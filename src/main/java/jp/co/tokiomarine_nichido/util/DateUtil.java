@@ -96,6 +96,20 @@ public class DateUtil {
         return ts;
     }
 
+    public Timestamp toTimestamp(Long lDate) {
+        if (lDate == null) {
+            return null;
+        }
+
+        Timestamp ts = null;
+        try {
+            ts = new Timestamp(lDate);
+        } catch (Exception e) {
+        }
+
+        return ts;
+    }
+
     public Timestamp getNewTimestamp() {
         java.util.Date date = new java.util.Date();
         Timestamp now = new Timestamp(date.getTime());

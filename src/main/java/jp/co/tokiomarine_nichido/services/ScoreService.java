@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.ws.rs.Produces;
 
 import jp.co.tokiomarine_nichido.models.Comment;
 import jp.co.tokiomarine_nichido.models.Feedback;
@@ -20,6 +21,7 @@ import jp.co.tokiomarine_nichido.services.db.FeedbackDAO;
  * @author SKK231099 李
  *
  */
+@Produces
 public class ScoreService {
     @Inject
     private RESTAPIDAO restapiDao;

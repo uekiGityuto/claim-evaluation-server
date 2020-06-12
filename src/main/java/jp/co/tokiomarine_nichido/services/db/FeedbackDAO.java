@@ -3,14 +3,17 @@ package jp.co.tokiomarine_nichido.services.db;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ws.rs.Produces;
+
 import jp.co.tokiomarine_nichido.models.Feedback;
 
 /**
- * FeedbackService
+ * FeedbackDAO
  *
  * @author SKK231099 李
  *
  */
+@Produces
 public class FeedbackDAO extends DataService {
 
     /**

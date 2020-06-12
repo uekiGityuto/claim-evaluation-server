@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.RollbackException;
+import javax.ws.rs.Produces;
 
 import org.hibernate.exception.SQLGrammarException;
 
@@ -26,6 +27,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  *
  */
+@Produces
 public class DataService {
 //    private final Logger log = LogManager.getLogger();
 
@@ -114,14 +116,11 @@ public class DataService {
      * @return T
      * @throws Exception
      */
-    @SuppressWarnings("unchecked")
-    protected <T> T getObjectByNativeQuery(Class<T> type, String sql) throws Exception {
+    protected Object getObjectByNativeQuery(String sql) throws Exception {
         try {
             Query q = this.em.createNativeQuery(sql);
             Object obj = q.getSingleResult();
-            if (obj != null) {
-                return (T) obj;
-            }
+            return obj;
         } catch (IllegalStateException e) {
             DefaultExceptionMapper.status = StatusCode.ILLEGAL_STATE_EXCEPTION;
             throw new Exception("ILLEGAL_STATE_EXCEPTION");
@@ -135,7 +134,6 @@ public class DataService {
             DefaultExceptionMapper.status = StatusCode.EXECUTE_EXCEPTION;
             throw new Exception("EXECUTE_EXCEPTION");
         }
-        return null;
     }
 
     /**
@@ -149,6 +147,9 @@ public class DataService {
     @SuppressWarnings("unchecked")
     protected <T> T getObject(Class<T> type, Object primaryKey) throws Exception {
         try {
+            if (primaryKey == null) {
+                return null;
+            }
             String typeName = primaryKey.getClass().getTypeName();
             if ("java.lang.Integer".equals(typeName) || "java.lang.String".equals(typeName)) {
                 // for single primarykey

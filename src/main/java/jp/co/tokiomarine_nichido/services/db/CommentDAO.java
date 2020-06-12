@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.Produces;
 
 import jp.co.tokiomarine_nichido.models.Comment;
 
 /**
- * CommentService
+ * CommentDAO
  *
  * @author SKK231099 李
  *
  */
-@RequestScoped
+@Produces
 public class CommentDAO extends DataService {
 
     /**
