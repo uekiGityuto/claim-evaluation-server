@@ -37,6 +37,8 @@
         <hibernate.connection.url>jdbc:postgresql://localhost:5432/tmnf-fraud-detection</hibernate.connection.url>
         <hibernate.connection.username>muser</hibernate.connection.username>
         <hibernate.connection.password>Passw0rd</hibernate.connection.password>
+        <test.base.uri>http://localhost:9998</test.base.uri>
+        <test.context.uri>/fraud-detection/api</test.context.uri>
       </properties>
     </profile>
     <profile>
@@ -52,6 +54,8 @@
         <hibernate.connection.url>jdbc:postgresql://development.path:5432/tmnf-fraud-detection</hibernate.connection.url>
         <hibernate.connection.username>dev.user</hibernate.connection.username>
         <hibernate.connection.password>dev.password</hibernate.connection.password>
+        <test.base.uri>http://localhost:9998</test.base.uri>
+        <test.context.uri>/fraud-detection/api</test.context.uri>
       </properties>
     </profile>
     <profile>
@@ -67,6 +71,8 @@
         <hibernate.connection.url>jdbc:postgresql://production.path:5432/tmnf-fraud-detection</hibernate.connection.url>
         <hibernate.connection.username>prod.user</hibernate.connection.username>
         <hibernate.connection.password>prod.password</hibernate.connection.password>
+        <test.base.uri>http://localhost:9998</test.base.uri>
+        <test.context.uri>/fraud-detection/api</test.context.uri>
       </properties>
     </profile>
   </profiles>
@@ -206,15 +212,9 @@
     </dependency>
     <!-- Test時、javax.ws.rs.client.ClientBuilderを利用てしも内部的にjerseyのClientを必要としているため記載 -->
     <dependency>
-      <groupId>org.glassfish.jersey.core</groupId>
-      <artifactId>jersey-client</artifactId>
-      <version>2.31</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.inject</groupId>
-      <artifactId>jersey-cdi2-se</artifactId>
-      <version>2.31</version>
+      <groupId>com.sun.jersey.jersey-test-framework</groupId>
+      <artifactId>jersey-test-framework-grizzly2</artifactId>
+      <version>1.19.4</version>
       <scope>test</scope>
     </dependency>
     <!-- REST-APIに対するjUnitテストで使用。JAX-RSのクライアントを使用する場合、Class Loadで原因不明のエラーになるため、汎用的なHTTPのクライアントを使用 -->
@@ -362,7 +362,6 @@
             <phase>process-classes</phase>
             <goals>
               <goal>start</goal>
-              <goal>shutdown</goal>
             </goals>
             <configuration>
               <add-user>
@@ -374,6 +373,13 @@
                 </users>
               </add-user>
             </configuration>
+          </execution>
+          <execution>
+            <id>shutdown wildfly</id>
+            <phase>install</phase>
+            <goals>
+              <goal>shutdown</goal>
+            </goals>
           </execution>
           <!-- <execution>
             <id>deploy-postgresql</id>

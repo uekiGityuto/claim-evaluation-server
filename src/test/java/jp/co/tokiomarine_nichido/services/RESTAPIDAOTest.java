@@ -10,8 +10,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.junit.Test;
 
 import com.google.gson.Gson;
 
@@ -32,6 +33,8 @@ public class RESTAPIDAOTest {
     final private String claimId = "00000865432";
     final private String relationKey = "claimId";
     final private String relationValue = this.claimId;
+
+    private static final Logger logger = LogManager.getLogger();
 
     private PropertyManager pm;
     private Gson gson;
@@ -64,10 +67,10 @@ public class RESTAPIDAOTest {
      * TEST for Get Score List by ClaimId Group
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findAllTest() throws Exception {
-        System.out.println("findAllTest...");
+        logger.info("findAllTest...");
         int maxList = Integer.valueOf(pm.get("max.list"));
         try (Response response = getWebTarget().request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
@@ -77,47 +80,47 @@ public class RESTAPIDAOTest {
             } else if (list == null) {
                 list = new ArrayList<Map<String, Object>>();
             }
-            System.out.println("count: " + list.size());
+            logger.info("count: " + list.size());
         } catch(Exception e) {
-            System.out.println(e.toString());
+            logger.info(e.toString());
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
-        System.out.println("findAllTest: OK");
+        logger.info("findAllTest: OK");
     }
 
     /**
      * TEST for Get Score List by ClaimID (List<T>)
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findByRelationTest() throws Exception {
-        System.out.println("findByRelationTest...");
-        System.out.println("relationKey: " + relationKey + ", relationValue: " + relationValue);
+        logger.info("findByRelationTest...");
+        logger.info("relationKey: " + relationKey + ", relationValue: " + relationValue);
         try (Response response = getWebTarget().queryParam(relationKey, relationValue)
                                                                        .request(MediaType.APPLICATION_JSON).get()) {
             List<Score> scores = (List<Score>) response.readEntity(List.class);
             if (scores == null) {
                 scores = new ArrayList<Score>();
             }
-            System.out.println("count: " + scores.size());
+            logger.info("count: " + scores.size());
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
-        System.out.println("findByRelationTest: OK");
+        logger.info("findByRelationTest: OK");
     }
 
     /**
      * TEST for Get Score List by ClaimID (List<Map<String, Object>>)
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findByIdTest() throws Exception {
-        System.out.println("findById...");
-        System.out.println("relationKey: " + relationKey + ", relationValue: " + relationValue);
+        logger.info("findByIdTest...");
+        logger.info("relationKey: " + relationKey + ", relationValue: " + relationValue);
         try (Response response = getWebTarget().queryParam(relationKey, relationValue)
                                                                        .request(MediaType.APPLICATION_JSON).get()) {
             String json = response.readEntity(String.class);
@@ -125,11 +128,11 @@ public class RESTAPIDAOTest {
             if (list == null) {
                 list = new ArrayList<Map<String, Object>>();
             }
-            System.out.println("count: " + list.size());
+            logger.info("count: " + list.size());
         } catch(Exception e) {
             DefaultExceptionMapper.status = StatusCode.EXTERNAL_SERVER_ERROR;
             throw new Exception("EXTERNAL_SERVER_ERROR");
         }
-        System.out.println("findById: OK");
+        logger.info("findByIdTest: OK");
     }
 }
