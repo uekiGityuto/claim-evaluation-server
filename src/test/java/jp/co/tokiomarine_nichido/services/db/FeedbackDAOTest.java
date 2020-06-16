@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Test;
 
 import jp.co.tokiomarine_nichido.models.Feedback;
 
@@ -26,7 +25,7 @@ public class FeedbackDAOTest extends DataServiceTest {
      * Test for Get Feedback by fraudScoreId
      * @throws Exception
      */
-    @Test
+//    @Test
     public void getFeedback() throws Exception {
         logger.info("getFeedbackTest");
         Feedback fb = super.getObject(Feedback.class, fraudScoreId);
@@ -37,7 +36,7 @@ public class FeedbackDAOTest extends DataServiceTest {
      * Test for Update Feedback
      * @throws Exception
      */
-    @Test
+//    @Test
     public void updateFeedback() throws Exception {
         Map<String, Object> param = new HashMap<String, Object>();
         Feedback feedback = new Feedback();

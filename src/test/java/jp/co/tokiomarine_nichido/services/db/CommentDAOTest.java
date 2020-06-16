@@ -84,7 +84,7 @@ public class CommentDAOTest extends DataServiceTest {
      * TEST for Get Informattion of Comment
      * @throws Exception
      */
-    @Test
+//    @Test
     public void getCommentTest() throws Exception {
         logger.info("getCommentTest");
         Comment comment = new Comment();
@@ -97,7 +97,7 @@ public class CommentDAOTest extends DataServiceTest {
      * TEST for Remove Comment
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("rawtypes")
     public void removeCommentTest() throws Exception {
         logger.info("removeCommentTest");
