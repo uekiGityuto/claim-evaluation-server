@@ -5,16 +5,20 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import jp.co.tokiomarine_nichido.models.Feedback;
 
 /**
- * FeedbackDAO
+ * FeedbackDAOTest
  *
  * @author SKK231099 李
  *
  */
 //@RunWith(Arquillian.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FeedbackDAOTest extends DataServiceTest {
 
     final private String fraudScoreId = "00000000001";
@@ -22,22 +26,11 @@ public class FeedbackDAOTest extends DataServiceTest {
     private static final Logger logger = LogManager.getLogger();
 
     /**
-     * Test for Get Feedback by fraudScoreId
-     * @throws Exception
-     */
-//    @Test
-    public void getFeedback() throws Exception {
-        logger.info("getFeedbackTest");
-        Feedback fb = super.getObject(Feedback.class, fraudScoreId);
-        logger.info("FeedbackTest getFeedback fraudScoreId=" + fb.getFraudScoreId() + "is OK");
-    }
-
-    /**
      * Test for Update Feedback
      * @throws Exception
      */
-//    @Test
-    public void updateFeedback() throws Exception {
+    @Test
+    public void stage1_updateFeedbackTest() throws Exception {
         Map<String, Object> param = new HashMap<String, Object>();
         Feedback feedback = new Feedback();
         feedback.setFraudScoreId(fraudScoreId);
@@ -66,5 +59,30 @@ public class FeedbackDAOTest extends DataServiceTest {
     private Feedback getFeedback(String fsId) throws Exception {
         logger.info("fraudScoreId=" + fsId);
         return super.getObject(Feedback.class, fsId);
+    }
+
+    /**
+     * Test for Get Feedback by fraudScoreId
+     * @throws Exception
+     */
+    @Test
+    public void stage2_getFeedbackTest() throws Exception {
+        logger.info("getFeedbackTest");
+        Feedback feedback = new Feedback();
+        feedback.setFraudScoreId(fraudScoreId);
+        Feedback fb = super.getObject(Feedback.class, feedback.getFraudScoreId());
+        logger.info("FeedbackTest getFeedback fraudScoreId=" + fb.getFraudScoreId() + " is OK");
+    }
+
+    /**
+     * Remove Feedback Test Data
+     * @throws Exception
+     */
+    @Test
+    public void stage3_removeFeedbackTestData() throws Exception {
+        logger.info("removeFeedbackTestData");
+        Feedback feedback = super.getObject(Feedback.class, fraudScoreId);
+        super.deleteObject(feedback);
+        logger.info("FeedbackTest removeFeedbackTestData fraudScoreId=" + feedback.getFraudScoreId() + " is OK");
     }
 }

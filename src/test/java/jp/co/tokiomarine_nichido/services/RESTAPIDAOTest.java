@@ -47,6 +47,14 @@ public class RESTAPIDAOTest {
         gson = new Gson();
     }
 
+    /**
+     * Get Scores from another AI restAPI
+     * @param params
+     * @return Json String
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     private String getScores(Map<String, String> params) throws ClientProtocolException, IOException,
                                                                                                     URISyntaxException {
         HttpClient client = HttpClientBuilder.create().build();

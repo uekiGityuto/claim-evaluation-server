@@ -21,7 +21,7 @@ import jp.co.tokiomarine_nichido.util.DefaultExceptionMapper;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * DataService with JPA
+ * DataServiceTest with JPA
  * @author SKK231099 李
  *
  */
@@ -75,6 +75,15 @@ public class DataServiceTest {
         return sequence;
     }
 
+    /**
+     * Get List by Query
+     * @param <T>
+     * @param type
+     * @param sql
+     * @param params
+     * @return List<T>
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     protected <T> List<T> getListByQuery(Class<T> type, String sql, Map<String, String> params) throws Exception {
         List<T> list = null;

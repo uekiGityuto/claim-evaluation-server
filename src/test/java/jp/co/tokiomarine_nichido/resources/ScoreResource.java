@@ -24,6 +24,12 @@ import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.models.StatusCode;
 import jp.co.tokiomarine_nichido.util.DateUtil;
 
+/**
+ * ScoreResource for Test
+ *
+ * @author SKK231099 李
+ *
+ */
 @Path("fraud-detection/api/scores")
 public class ScoreResource {
 
@@ -69,7 +75,7 @@ public class ScoreResource {
     }
 
     @POST
-    @Path("{claimId}/updateFeedbackComment")
+    @Path("/{claimId}/updateFeedbackComment")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateFeedback(@Form Feedback feedback) throws Exception {
         logger.info("updateFeedback Feedback.FraudScoreId=" + feedback.getFraudScoreId());
@@ -89,7 +95,7 @@ public class ScoreResource {
     }
 
     @POST
-    @Path("{claimId}/updateComment")
+    @Path("/{claimId}/updateComment")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateComment(@Form Comment comment ) throws Exception {
         logger.info("updateComment Comment.ClaimId=" + comment.getClaimId());
@@ -112,7 +118,7 @@ public class ScoreResource {
 
 
     @POST
-    @Path("{claimId}/removeComment")
+    @Path("/{claimId}/removeComment")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response removeComment(@Form Comment comment) throws Exception {
         String json = gson.toJson(comment);

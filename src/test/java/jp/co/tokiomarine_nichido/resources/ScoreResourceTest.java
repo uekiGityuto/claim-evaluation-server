@@ -77,6 +77,14 @@ public class ScoreResourceTest extends JerseyTest {
         scoresPreUri = baseUri + contextUri + "/scores";
     }
 
+    /**
+     * Get Response
+     * @param url
+     * @param method
+     * @param entity
+     * @return HttpResponse
+     * @throws Exception
+     */
     private HttpResponse getResponse(String url, String method, Object entity) throws Exception {
         if (url == null) {
             throw new Exception("url is null");
@@ -113,6 +121,10 @@ public class ScoreResourceTest extends JerseyTest {
         return response;
     }
 
+    /**
+     * updateFeedbackTest
+     * @throws Exception
+     */
     @Test
     public void updateFeedbackTest() throws Exception {
         logger.info("updateFeedbackTest...");
@@ -135,6 +147,10 @@ public class ScoreResourceTest extends JerseyTest {
         }
     }
 
+    /**
+     * updateCommentTest
+     * @throws Exception
+     */
     @Test
     public void updateCommentTest() throws Exception {
         logger.info("updateCommentTest...");
@@ -159,6 +175,10 @@ public class ScoreResourceTest extends JerseyTest {
         }
     }
 
+    /**
+     * getScoresTest
+     * @throws Exception
+     */
     @Test
     public void getScoresTest() throws Exception {
         logger.info("getScoresTest...");
@@ -172,7 +192,10 @@ public class ScoreResourceTest extends JerseyTest {
         }
     }
 
-
+    /**
+     * getScoreTest
+     * @throws Exception
+     */
     @Test
     public void getScoreTest() throws Exception {
         logger.info("getScoreTest...");
@@ -186,6 +209,10 @@ public class ScoreResourceTest extends JerseyTest {
         }
     }
 
+    /**
+     * removeCommentTest
+     * @throws Exception
+     */
     @Test
     public void removeCommentTest() throws Exception {
         logger.info("removeCommentTest...");

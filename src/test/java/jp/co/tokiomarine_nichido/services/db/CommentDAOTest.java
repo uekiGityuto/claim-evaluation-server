@@ -2,11 +2,14 @@ package jp.co.tokiomarine_nichido.services.db;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +23,7 @@ import jp.co.tokiomarine_nichido.util.DateUtil;
  *
  */
 //@RunWith(Arquillian.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CommentDAOTest extends DataServiceTest {
 
     final private String claimId = "00000865432";
@@ -35,7 +39,7 @@ public class CommentDAOTest extends DataServiceTest {
      * @throws Exception
      */
     @Test
-    public void updateCommentTest() throws Exception {
+    public void stage1_updateCommentTest() throws Exception {
         logger.info("updateCommentTest");
         Comment comment = new Comment();
         comment.setId(null);
@@ -71,35 +75,38 @@ public class CommentDAOTest extends DataServiceTest {
      * @throws Exception
      */
     @Test
-    public void getCommentsTest() throws Exception {
+    public void stage2_getCommentsTest() throws Exception {
         logger.info("getCommentsTest");
         String sql = super.pm.getSql("CommentDao.selectComment");
         Map<String, String> params = new HashMap<String, String>();
         params.put("claimId", claimId);
-        super.getListByQuery(Comment.class, sql, params);
-        logger.info("CommentTest getComments comment.claimId=" + claimId + " is OK");
+        List<Comment> cmtList = super.getListByQuery(Comment.class, sql, params);
+        logger.info("CommentTest getComments commentList.size=" + cmtList.size() + " is OK");
     }
 
     /**
      * TEST for Get Informattion of Comment
      * @throws Exception
      */
-//    @Test
-    public void getCommentTest() throws Exception {
+    @Test
+    public void stage3_getCommentTest() throws Exception {
         logger.info("getCommentTest");
-        Comment comment = new Comment();
-        comment.setId(1);
-        super.getObject(Comment.class, comment.getId());
-        logger.info("CommentTest getComment comment.id=1 is OK");
+        String sql = super.pm.getSql("CommentDao.selectComment");
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("claimId", claimId);
+        List<Comment> cmtList = super.getListByQuery(Comment.class, sql, params);
+        logger.info("comment id=" + cmtList.get(0).getId());
+        Comment cmt = super.getObject(Comment.class, cmtList.get(0).getId());
+        logger.info("CommentTest getComment comment.id=" + cmt.getId() + " is OK");
     }
 
     /**
      * TEST for Remove Comment
      * @throws Exception
      */
-//    @Test
+    @Test
     @SuppressWarnings("rawtypes")
-    public void removeCommentTest() throws Exception {
+    public void stage4_removeCommentTest() throws Exception {
         logger.info("removeCommentTest");
         String sql = "select id, update_date from comment where user_id = '" + userId + "' limit 1";
         final ObjectMapper om = new ObjectMapper();
