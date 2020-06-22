@@ -132,6 +132,7 @@ public class DataService {
                 if (obj != null) {
                     return (T) obj;
                 }
+                return null;
             } else {
                 // for multi primarykey
                 final ObjectMapper om = new ObjectMapper();
@@ -333,7 +334,7 @@ public class DataService {
      */
     public <T> Boolean MismatchedDbUpdateDate(BaseEntity be) throws Exception {
         BaseEntity obj = getObject(be.getClass(), be.getPrimaryKey());
-        if (obj.getUpdateDate().compareTo(be.getUpdateDate()) != 0) {
+        if (obj != null && obj.getUpdateDate().compareTo(be.getUpdateDate()) != 0) {
             return true;
         }
         return false;
