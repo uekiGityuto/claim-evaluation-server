@@ -42,6 +42,7 @@ ex>
 # install (local)
 ```
 ・ sourceのpom.xmlで右クリック　→　実行で実行の構成　→　ゴールに「package」記載
+ (no test option when build: -Dmaven.test.skip=true)
 ・ sourceのpom.xmlで右クリック　→　実行でinstall
 ・ sourceのpom.xmlで右クリック　→　実行でbuild
 
