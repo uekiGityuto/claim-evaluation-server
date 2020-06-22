@@ -41,13 +41,6 @@ public class RESTAPIDAO {
         pm = new PropertyManager();
     }
 
-//    /**
-//     * RESTクライアントのデフォルト設定。
-//     */
-//    @PostConstruct
-//    private void init() {
-//    }
-
     private WebTarget getWebTarget() throws Exception {
         if (base_wt == null) {
             if (pm != null) {
@@ -65,7 +58,7 @@ public class RESTAPIDAO {
     }
 
     /**
-     * Get Score List by ClaimId Group
+     * スコアリスト取得
      * @param <T>
      * @param type
      * @return List<Map<String, Object>>
@@ -89,7 +82,7 @@ public class RESTAPIDAO {
     }
 
     /**
-     * Get Score List by ClaimID (List<T>)
+     * スコアリスト取得
      * @param <T>
      * @param relationKey
      * @param relationValue
@@ -109,7 +102,7 @@ public class RESTAPIDAO {
     }
 
     /**
-     * Get Score List by ClaimID (List<Map<String, Object>>)
+     * スコアリスト取得
      * @param relationKey
      * @param relationValue
      * @return List<Map<String, Object>>

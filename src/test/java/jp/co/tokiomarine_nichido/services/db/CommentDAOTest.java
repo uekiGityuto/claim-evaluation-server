@@ -35,7 +35,7 @@ public class CommentDAOTest extends DataServiceTest {
     }
 
     /**
-     * TEST for Update Comment
+     * コメント保存テスト
      * @throws Exception
      */
     @Test
@@ -71,7 +71,7 @@ public class CommentDAOTest extends DataServiceTest {
     }
 
     /**
-     * TEST for Get Comment List by ClaimID
+     * コメントリスト取得テスト
      * @throws Exception
      */
     @Test
@@ -85,7 +85,7 @@ public class CommentDAOTest extends DataServiceTest {
     }
 
     /**
-     * TEST for Get Informattion of Comment
+     * コメント取得テスト
      * @throws Exception
      */
     @Test
@@ -101,7 +101,7 @@ public class CommentDAOTest extends DataServiceTest {
     }
 
     /**
-     * TEST for Remove Comment
+     * コメント削除テスト
      * @throws Exception
      */
     @Test

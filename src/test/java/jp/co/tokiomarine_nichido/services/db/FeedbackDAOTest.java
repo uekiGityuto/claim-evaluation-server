@@ -26,7 +26,7 @@ public class FeedbackDAOTest extends DataServiceTest {
     private static final Logger logger = LogManager.getLogger();
 
     /**
-     * Test for Update Feedback
+     * フィードバック保存テスト
      * @throws Exception
      */
     @Test
@@ -62,7 +62,7 @@ public class FeedbackDAOTest extends DataServiceTest {
     }
 
     /**
-     * Test for Get Feedback by fraudScoreId
+     * フィードバック取得テスト
      * @throws Exception
      */
     @Test
@@ -75,7 +75,7 @@ public class FeedbackDAOTest extends DataServiceTest {
     }
 
     /**
-     * Remove Feedback Test Data
+     * フィードバック削除テスト
      * @throws Exception
      */
     @Test

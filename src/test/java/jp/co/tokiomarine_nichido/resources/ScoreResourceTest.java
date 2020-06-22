@@ -77,14 +77,6 @@ public class ScoreResourceTest extends JerseyTest {
         scoresPreUri = baseUri + contextUri + "/scores";
     }
 
-    /**
-     * Get Response
-     * @param url
-     * @param method
-     * @param entity
-     * @return HttpResponse
-     * @throws Exception
-     */
     private HttpResponse getResponse(String url, String method, Object entity) throws Exception {
         if (url == null) {
             throw new Exception("url is null");
@@ -122,7 +114,7 @@ public class ScoreResourceTest extends JerseyTest {
     }
 
     /**
-     * updateFeedbackTest
+     * フィードバック保存RestAPI呼び出しテスト
      * @throws Exception
      */
     @Test
@@ -148,7 +140,7 @@ public class ScoreResourceTest extends JerseyTest {
     }
 
     /**
-     * updateCommentTest
+     * コメント保存RestAPI呼び出しテスト
      * @throws Exception
      */
     @Test
@@ -176,7 +168,7 @@ public class ScoreResourceTest extends JerseyTest {
     }
 
     /**
-     * getScoresTest
+     * スコアリスト取得RestAPI呼び出しテスト
      * @throws Exception
      */
     @Test
@@ -193,7 +185,7 @@ public class ScoreResourceTest extends JerseyTest {
     }
 
     /**
-     * getScoreTest
+     * スコア取得RestAPI呼び出しテスト
      * @throws Exception
      */
     @Test
@@ -210,7 +202,7 @@ public class ScoreResourceTest extends JerseyTest {
     }
 
     /**
-     * removeCommentTest
+     * コメント削除RestAPI呼び出しテスト
      * @throws Exception
      */
     @Test

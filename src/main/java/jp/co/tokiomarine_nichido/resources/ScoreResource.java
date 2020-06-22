@@ -56,7 +56,7 @@ public class ScoreResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Feedback updateFeedback(@Form Feedback feedback) throws Exception {
-    	return ss.updateFeedback(feedback);
+        return ss.updateFeedback(feedback);
     }
 
     @POST
@@ -64,7 +64,7 @@ public class ScoreResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Comment updateComment(@Form Comment comment) throws Exception {
-    	return ss.updateComment(comment);
+        return ss.updateComment(comment);
     }
 
     @POST

@@ -18,7 +18,7 @@ import jp.co.tokiomarine_nichido.models.Comment;
 public class CommentDAO extends DataService {
 
     /**
-     * Get Comment List by ClaimID
+     * コメントリスト取得
      * @param claimId
      * @return List<Comment>
      * @throws Exception
@@ -31,7 +31,7 @@ public class CommentDAO extends DataService {
     }
 
     /**
-     * Get Informattion of Comment
+     * コメント取得
      * @param comment
      * @return Comment
      * @throws Exception
@@ -41,7 +41,7 @@ public class CommentDAO extends DataService {
     }
 
     /**
-     * Update Comment
+     * コメント保存
      * @param comment
      * @return Comment
      * @throws Exception
@@ -61,7 +61,7 @@ public class CommentDAO extends DataService {
     }
 
     /**
-     * Remove Comment
+     * コメント削除
      * @param comment
      * @return Integer
      * @throws Exception

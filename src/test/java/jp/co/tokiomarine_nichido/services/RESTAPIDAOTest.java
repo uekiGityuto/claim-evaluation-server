@@ -47,14 +47,6 @@ public class RESTAPIDAOTest {
         gson = new Gson();
     }
 
-    /**
-     * Get Scores from another AI restAPI
-     * @param params
-     * @return Json String
-     * @throws ClientProtocolException
-     * @throws IOException
-     * @throws URISyntaxException
-     */
     private String getScores(Map<String, String> params) throws ClientProtocolException, IOException,
                                                                                                     URISyntaxException {
         HttpClient client = HttpClientBuilder.create().build();
@@ -78,7 +70,7 @@ public class RESTAPIDAOTest {
     }
 
     /**
-     * TEST for Get Score List by ClaimId Group
+     * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
     @Test
@@ -103,7 +95,7 @@ public class RESTAPIDAOTest {
     }
 
     /**
-     * TEST for Get Score List by ClaimID (List<T>)
+     * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
     @Test
@@ -127,7 +119,7 @@ public class RESTAPIDAOTest {
     }
 
     /**
-     * TEST for Get Score List by ClaimID (List<Map<String, Object>>)
+     * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
     @Test

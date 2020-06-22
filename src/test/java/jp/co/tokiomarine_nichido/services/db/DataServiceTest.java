@@ -37,9 +37,6 @@ public class DataServiceTest {
         createEntityManager();
     }
 
-    /**
-     * Create EntityManager
-     */
     public void createEntityManager() {
         if (this.em == null) {
             em = Persistence.createEntityManagerFactory("test_fraud_detection").createEntityManager();
@@ -47,12 +44,6 @@ public class DataServiceTest {
         this.tx = this.em.getTransaction();
     }
 
-    /**
-     * Get Sequence Id
-     * @param name
-     * @return Integer
-     * @throws Exception
-     */
     protected Integer getSequenceId(String name) throws Exception {
         Integer sequence = null;
         String sql = "select nextval('" + name + "')";
@@ -75,15 +66,6 @@ public class DataServiceTest {
         return sequence;
     }
 
-    /**
-     * Get List by Query
-     * @param <T>
-     * @param type
-     * @param sql
-     * @param params
-     * @return List<T>
-     * @throws Exception
-     */
     @SuppressWarnings("unchecked")
     protected <T> List<T> getListByQuery(Class<T> type, String sql, Map<String, String> params) throws Exception {
         List<T> list = null;
@@ -109,11 +91,6 @@ public class DataServiceTest {
         return list;
     }
 
-    /**
-     * Get Object by Native Query
-     * @param sql
-     * @return Object
-     */
     protected Object getObjectByNativeQuery(String sql) throws Exception {
         try {
             System.out.println(sql);
@@ -135,14 +112,6 @@ public class DataServiceTest {
         }
     }
 
-    /**
-     * Get Object by PrimaryKey
-     * @param <T>
-     * @param type
-     * @param primaryKey
-     * @return T
-     * @throws Exception
-     */
     @SuppressWarnings("unchecked")
     protected <T> T getObject(Class<T> type, Object primaryKey) throws Exception {
         try {
@@ -190,12 +159,6 @@ public class DataServiceTest {
         return null;
     }
 
-    /**
-     * Insert Object
-     * @param be
-     * @return BaseEntity
-     * @throws Exception
-     */
     protected BaseEntity insertObject(BaseEntity be) throws Exception {
         try {
             this.tx.begin();
@@ -242,14 +205,6 @@ public class DataServiceTest {
         }
     }
 
-    /**
-     * Update Object
-     * @param be
-     * @param sql
-     * @param param
-     * @return BaseEntity
-     * @throws Exception
-     */
     protected BaseEntity updateObject(BaseEntity be, String sql, Map<String, Object> param) throws Exception {
         if (MismatchedDbUpdateDate(be)) {
             DefaultExceptionMapper.status = StatusCode.EXCLUSIVE_EXCEPTION;
@@ -312,11 +267,6 @@ public class DataServiceTest {
         }
     }
 
-    /**
-     * Delete Object
-     * @param be
-     * @throws Exception
-     */
     public void deleteObject(BaseEntity be) throws Exception {
         if (MismatchedDbUpdateDate(be)) {
             DefaultExceptionMapper.status = StatusCode.EXCLUSIVE_EXCEPTION;
@@ -368,7 +318,7 @@ public class DataServiceTest {
     }
 
     /**
-     * updateDate基準排他チェック
+     * updateDate基準排他チェックテスト
      * @param <T>
      * @param primaryKey
      * @param be

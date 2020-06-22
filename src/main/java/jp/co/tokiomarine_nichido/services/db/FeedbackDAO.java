@@ -17,7 +17,7 @@ import jp.co.tokiomarine_nichido.models.Feedback;
 public class FeedbackDAO extends DataService {
 
     /**
-     * Get Feedback by fraudScoreId
+     *フィードバック取得
      * @param fraudScoreId
      * @return Feedback
      * @throws Exception
@@ -27,7 +27,7 @@ public class FeedbackDAO extends DataService {
     }
 
     /**
-     * Update Feedback
+     * フィードバック保存
      * @param feedback
      * @return Feedback
      * @throws Exception
