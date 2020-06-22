@@ -14,32 +14,48 @@ git push origin master
 Java 1.8
 ```
 
+# PostgreSQL
+```
+・ install postgreDB
+・ DB作成： tmnf-fraud-detection
+・ Schema作成： fraud-detection
+・ name/passwordはpom.xmlのprofileを参照
+・ 上記のユーザーの基本schemaを指定: fraud-detection
+・ 権限付与
+
+ex>
+  create role muser
+  GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA fraud-detection TO muser
+  alter role muser set search_path to fraud-detection
+```
+
 # maven
 ```
-新規ファイルを作成　→　settings.xml
+・ 新規ファイルを作成　→　settings.xml
 
-settings.xmlファイルの中に下記のコードを記載（yourFilePath変更）
-<localRepository>yourFilePath</localRepository>
+・ settings.xmlファイルの中に下記のコードを記載（yourFilePath変更）
+　 <localRepository>yourFilePath</localRepository>
 
-eclipseのメニュー　→　ウィンドウ　→　設定　→　maven　→　ユーザー設定　→　参照（上記のファイルpath）
+・ eclipseのメニュー　→　ウィンドウ　→　設定　→　maven　→　ユーザー設定　→　参照（上記のファイルpath）
 ```
 
 # install (local)
 ```
-sourceのpom.xmlで右クリック　→　実行で実行の構成　→　ゴールに「package」記載
-sourceのpom.xmlで右クリック　→　実行でinstall
-sourceのpom.xmlで右クリック　→　実行でbuild
+・ sourceのpom.xmlで右クリック　→　実行で実行の構成　→　ゴールに「package」記載
+・ sourceのpom.xmlで右クリック　→　実行でinstall
+・ sourceのpom.xmlで右クリック　→　実行でbuild
 
-targetフォルダにwildflyフォルダが存在することを確認。
-もし、なかった場合はcleanしてinstallを再実行
+・ targetフォルダにwildflyフォルダが存在することを確認。
+   もし、なかった場合はcleanしてinstallを再実行
 ```
 
 # Server
 ```
-サーバー新規作成　→　wildfly14.0
-サーバーをダブルクリックし、属性画面を開く
-ランタイム環境　→　ホーム・ディレクトリを上記のwildfly14.0に指定　→　完了
-サーバー起動
+・ サーバー新規作成　→　wildfly14.0
+・ サーバーをダブルクリックし、属性画面を開く
+・ ランタイム環境　→　ホーム・ディレクトリを上記のwildfly14.0に指定　→　次ぎ
+・ リースース追加： fraud-detection
+・ サーバー起動
 ```
 
 # その他
@@ -54,9 +70,11 @@ pom.xml　→　url.fraudScoreに記載
 
 # エラー
 ```
-installまたはbuild実行中にエラーになり
-次回の実行時にSTANDALONE何とかのエラーがみえた場合、
-Windowsタスクマネージャーでjavaを強制終了させ再実行する必要がある。
-（原因：既にサーバーが立ち上がっているため衝突）
+・ installまたはbuild実行中にエラーになり次回の実行時に
+　「STANDALONE server is already running?」エラーがみえた場合、
+　　Windowsタスクマネージャーでjavaを強制終了させ再実行する必要がある。
+　　（原因：既にサーバーが立ち上がっているため衝突）
+
+・ たまにプロジェクトクリーンを要する場合がある。
 
 ```
