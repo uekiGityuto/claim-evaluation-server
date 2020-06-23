@@ -67,6 +67,9 @@ jsonサーバーなど自ら用意する必要がある。
 pom.xml　→　url.fraudScoreに記載
 現在のURL： http://localhost:3000/scores
 データの構造はScoreモデルを参照
+jsonサーバーがなくても正常にinstallできるようにRESTAPIDAOTestはコメント処理してある。
+準備ができてから@Testを活性にすとinstall時に自動でテストを行うことになる。
+claimIdは存在するものに変更する必要がある。
 ```
 
 # エラー
