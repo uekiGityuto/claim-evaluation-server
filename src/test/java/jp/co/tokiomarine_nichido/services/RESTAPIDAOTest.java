@@ -18,7 +18,6 @@ import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.junit.Test;
 
 import com.google.gson.Gson;
 
@@ -73,7 +72,7 @@ public class RESTAPIDAOTest {
      * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findAllTest() throws Exception {
         logger.info("findAllTest...");
@@ -98,7 +97,7 @@ public class RESTAPIDAOTest {
      * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findByRelationTest() throws Exception {
         logger.info("findByRelationTest...");
@@ -122,7 +121,7 @@ public class RESTAPIDAOTest {
      * AI restAPIからのスコアリスト取得テスト
      * @throws Exception
      */
-    @Test
+//    @Test
     @SuppressWarnings("unchecked")
     public void findByIdTest() throws Exception {
         logger.info("findByIdTest...");
