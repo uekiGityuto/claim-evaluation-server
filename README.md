@@ -14,6 +14,13 @@ git push origin master
 Java 1.8
 ```
 
+# eclipse
+```
+-vmargsより上部に下記のコードを記載
+-vm
+YourJavaDirectoryPath(javaw.exe)
+```
+
 # PostgreSQL
 ```
 ・ install postgreDB
@@ -33,8 +40,13 @@ ex>
 ```
 ・ 新規ファイルを作成　→　settings.xml
 
-・ settings.xmlファイルの中に下記のコードを記載（yourFilePath変更）
-　 <localRepository>yourFilePath</localRepository>
+・ settings.xmlファイルの中に下記のコードを保存（YourMavenRepositoryPath変更）
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<localRepository>YourMavenRepositoryPath</localRepository>
+</settings>
 
 ・ eclipseのメニュー　→　ウィンドウ　→　設定　→　maven　→　ユーザー設定　→　参照（上記のファイルpath）
 ```
