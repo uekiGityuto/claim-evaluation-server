@@ -33,10 +33,6 @@
 				<log.path>log</log.path>
 				<log.level>TRACE</log.level>
 				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
-				<hibernate.generate_statistics>true</hibernate.generate_statistics>
-				<hibernate.connection.url>jdbc:postgresql://localhost:5432/tmnf-fraud-detection</hibernate.connection.url>
-				<hibernate.connection.username>muser</hibernate.connection.username>
-				<hibernate.connection.password>Passw0rd</hibernate.connection.password>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/fraud-detection/api</test.context.uri>
 			</properties>
@@ -50,10 +46,6 @@
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>TRACE</log.level>
 				<url.fraudScore></url.fraudScore>
-				<hibernate.generate_statistics>true</hibernate.generate_statistics>
-				<hibernate.connection.url>jdbc:postgresql://development.path:5432/tmnf-fraud-detection</hibernate.connection.url>
-				<hibernate.connection.username>dev.user</hibernate.connection.username>
-				<hibernate.connection.password>dev.password</hibernate.connection.password>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/fraud-detection/api</test.context.uri>
 			</properties>
@@ -67,10 +59,6 @@
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>INFO</log.level>
 				<url.fraudScore></url.fraudScore>
-				<hibernate.generate_statistics>false</hibernate.generate_statistics>
-				<hibernate.connection.url>jdbc:postgresql://production.path:5432/tmnf-fraud-detection</hibernate.connection.url>
-				<hibernate.connection.username>prod.user</hibernate.connection.username>
-				<hibernate.connection.password>prod.password</hibernate.connection.password>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/fraud-detection/api</test.context.uri>
 			</properties>
@@ -86,34 +74,14 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.maven</groupId>
-				<artifactId>maven-aether-provider</artifactId>
-				<version>3.3.9</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.maven</groupId>
-				<artifactId>maven-model</artifactId>
-				<version>3.6.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.maven</groupId>
-				<artifactId>maven-model-builder</artifactId>
-				<version>3.6.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.maven</groupId>
-				<artifactId>maven-repository-metadata</artifactId>
-				<version>3.6.3</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>3.12.0.Final</version>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -128,64 +96,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.10.3</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.2.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.12.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.3.6.Final</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>dom4j</groupId>
-					<artifactId>dom4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>5.4.16.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.12.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -211,45 +124,16 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Test時、javax.ws.rs.client.ClientBuilderを利用てしも内部的にjerseyのClientを必要としているため記載 -->
-		<dependency>
-			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
-			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-			<version>2.31</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>2.31</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.31</version>
-			<scope>test</scope>
-		</dependency>
+	<!-- <dependency> <groupId>org.glassfish.jersey.test-framework.providers</groupId> 
+		<artifactId>jersey-test-framework-provider-grizzly2</artifactId> <version>2.31</version> 
+		<scope>test</scope> </dependency> <dependency> <groupId>org.glassfish.jersey.inject</groupId> 
+		<artifactId>jersey-hk2</artifactId> <version>2.31</version> <scope>test</scope> 
+		</dependency> <dependency> <groupId>org.glassfish.jersey.media</groupId> 
+		<artifactId>jersey-media-json-jackson</artifactId> <version>2.31</version> 
+		<scope>test</scope> </dependency> -->
 		<!-- REST-APIに対するjUnitテストで使用。JAX-RSのクライアントを使用する場合、Class Loadで原因不明のエラーになるため、汎用的なHTTPのクライアントを使用 -->
 		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
 			<version>4.5.12</version> <scope>test</scope> </dependency> -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-testing</artifactId>
-			<version>5.4.17.Final</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- Wildflyの初回環境セットアップの際にデプロイするために必要。warに含まれないようにtest scopeに設定。 -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.30</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -359,16 +243,6 @@
 							<goal>shutdown</goal>
 						</goals>
 					</execution>
-					<!-- <execution> <id>deploy-postgresql</id> <phase>process-classes</phase> 
-						<goals> <goal>deploy-artifact</goal> </goals> <configuration> <groupId>org.postgresql</groupId> 
-						<artifactId>postgresql</artifactId> <name>postgresql-42.2.6.jar</name> </configuration> 
-						</execution> <execution> <id>add-datasource</id> <phase>process-classes</phase> 
-						<goals> <goal>add-resource</goal> </goals> <configuration> <address>subsystem=datasources,data-source=java:/jdbc/FraudDetectionDB</address> 
-						<resources> <resource> <properties> <jndi-name>java:/jdbc/FraudDetectionDB</jndi-name> 
-						<enabled>true</enabled> <connection-url>${hibernate.connection.url}</connection-url> 
-						<driver-name>postgresql-42.2.6.jar</driver-name> <user-name>${hibernate.connection.username}</user-name> 
-						<password>${hibernate.connection.password}</password> </properties> </resource> 
-						</resources> </configuration> </execution> -->
 				</executions>
 			</plugin>
 		</plugins>

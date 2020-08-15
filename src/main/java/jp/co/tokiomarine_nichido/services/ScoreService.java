@@ -27,7 +27,7 @@ public class ScoreService {
 	 */
 	public List<Score> findAllByGroup() throws Exception {
 		List<Score> scores = new ArrayList<Score>();
-		// TODO: 【植木さん】要修正
+		// TODO: 【植木さん】要修正。注意点は、AWS API Gatewayを通るので、IAM認証をする必要がある。詳細は、IF08スコア照会APIや、AWSのドキュメントを参照。
 //        List<Map<String, Object>> list = restapiDao.findAll();
 //        Map<String, Score> map = new HashMap<String, Score>();
 //        list.forEach(obj -> {

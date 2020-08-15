@@ -1,6 +1,5 @@
 package jp.co.tokiomarine_nichido.util;
 
-import javax.persistence.OptimisticLockException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -31,8 +30,6 @@ public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
 		if (exception instanceof AuthenticationFailedException) {
 			res = Response.status(Response.Status.UNAUTHORIZED).header("WWW-Authenticate", "Basic realm=app").build();
 		} else if (exception instanceof InvalidInputException) {
-			res = Response.status(Response.Status.PRECONDITION_FAILED).entity(exception.getMessage()).build();
-		} else if (exception instanceof OptimisticLockException) {
 			res = Response.status(Response.Status.PRECONDITION_FAILED).entity(exception.getMessage()).build();
 		} else {
 			logger.error(exception);
