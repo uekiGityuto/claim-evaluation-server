@@ -5,8 +5,6 @@
     <persistence-unit name="fraud_detection" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
-        <class>jp.co.tokiomarine_nichido.models.Feedback</class>
-        <class>jp.co.tokiomarine_nichido.models.Comment</class>
 
         <properties>
             <property name="current_session_context_class" value="thread"/>
