@@ -1,6 +1,7 @@
 package jp.co.tokiomarine_nichido.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Claim Model
@@ -18,4 +19,5 @@ public class Claim {
 	public Date occurenceDate;
 	public Date createDate;
 	public Date updateDate;
+	public List<Score> scoreHistory;
 }
