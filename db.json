@@ -1,36 +1,327 @@
 {
-	"scores": [
-		{
-			"id": 1,
-			"fraudScoreId": "1",
-			"score": 1,
-			"claim": {
-				"claimId": "1",
-				"userName": "損害太郎"
-			},
-			"createDate": "2020-02-01T03:15:45.123Z",
-			"reasons": [
-				{
-					"factor": "請求履歴回数",
-					"effect": 2
-				}
-			]
-		},
-		{
-			"id": 2,
-			"fraudScoreId": "1",
-			"score": 1,
-			"claim": {
-				"claimId": "2",
-				"userName": "損害太郎"
-			},
-			"createDate": "2020-02-01T03:15:45.123Z",
-			"reasons": [
-				{
-					"factor": "請求履歴回数",
-					"effect": 2
-				}
-			]
-		}
-	]
+  "authorization": {
+    "claimNumber": "1234567890",
+    "authFlag": true,
+    "userId": "BBB123456"
+  },
+  "claimList": {
+    "test": "test"
+  },
+  "scores": {
+    "claim": {
+      "claimNumber": "1234567890",
+      "insuredNameKanji": "山田太郎",
+      "insuredNameKana": "ヤマダタロウ",
+      "contractorNameKanji": "田中一郎",
+      "contractorNameKana": "タナカイチロウアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+      "insuranceKind": "スポ協",
+      "lossDate": "2020-07-01T01:19:00.000Z",
+      "updateDate": "2020-09-01T01:19:00.000Z",
+      "fraudScoreHistory": [
+        {
+          "scoringDate": "2020-07-01T01:19:00.000Z",
+          "claimCategory": "中",
+          "scoreDetails": [
+            {
+              "modelType": "特殊事案推定モデル",
+              "rank": "middle",
+              "score": 50,
+              "reasons": [
+                {
+                  "reason": 20,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 40,
+                  "featureName": "特徴量2",
+                  "featureDescription": "特徴量3の説明"
+                },
+                {
+                  "reason": -10,
+                  "featureName": "特徴量3",
+                  "featureDescription": "特徴量3の説明"
+                }
+              ]
+            },
+            {
+              "modelType": "NC/PDモデル",
+              "rank": "low",
+              "score": 20,
+              "reasons": [
+                {
+                  "reason": 20,
+                  "featureName": "特徴量1",
+                  "featureDescription": "特徴量1の説明"
+                },
+                {
+                  "reason": 10,
+                  "featureName": "特徴量2",
+                  "featureDescription": "特徴量3の説明"
+                },
+                {
+                  "reason": -10,
+                  "featureName": "特徴量3",
+                  "featureDescription": "特徴量3の説明"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "scoringDate": "2020-08-01T01:19:00.000Z",
+          "claimCategory": "高",
+          "scoreDetails": [
+            {
+              "modelType": "特殊事案推定モデル",
+              "rank": "high",
+              "score": 70,
+              "reasons": [
+                {
+                  "reason": 30,
+                  "featureName": "特徴量1",
+                  "featureDescription": "特徴量1の説明"
+                },
+                {
+                  "reason": 50,
+                  "featureName": "特徴量2",
+                  "featureDescription": "特徴量3の説明"
+                },
+                {
+                  "reason": -10,
+                  "featureName": "特徴量3",
+                  "featureDescription": "特徴量3の説明"
+                }
+              ]
+            },
+            {
+              "modelType": "NC/PDモデル",
+              "rank": "middle",
+              "score": 40,
+              "reasons": [
+                {
+                  "reason": 20,
+                  "featureName": "特徴量1",
+                  "featureDescription": "特徴量1の説明"
+                },
+                {
+                  "reason": 40,
+                  "featureName": "特徴量2",
+                  "featureDescription": "特徴量3の説明"
+                },
+                {
+                  "reason": -20,
+                  "featureName": "特徴量3",
+                  "featureDescription": "特徴量3の説明"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "scoringDate": "2020-09-01T01:19:00.000Z",
+          "claimCategory": "高",
+          "scoreDetails": [
+            {
+              "modelType": "特殊事案推定モデル",
+              "rank": "high",
+              "score": 80,
+              "reasons": [
+                {
+                  "reason": 40,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 90,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": -30,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": -40,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 40,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": -80,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 20,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 10,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 50,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 5,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                }
+              ]
+            },
+            {
+              "modelType": "NC/PDモデル",
+              "rank": "middle",
+              "score": 50,
+              "reasons": [
+                {
+                  "reason": 30,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": 40,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "reason": -20,
+                  "featureName": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "featureDescription": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "claims": {
+    "claim": [
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "ヤマダタロウ",
+        "contractorName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567890",
+        "insuredName": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
+        "contractorName": "タナカイチロウ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      },
+      {
+        "claimNumber": "1234567891",
+        "insuredName": "アアアアアアアアア",
+        "contractorName": "イイイイイイイイイ",
+        "department": "第一部署",
+        "base": "東京",
+        "insuranceKind": "自動車",
+        "lastUpdateDate": "2020-09-01T01:19:00.000Z",
+        "lossDate": "2020-09-01T01:19:00.000Z",
+        "claimCategory": "高"
+      }
+    ],
+    "order": "受付番号",
+    "fromPages": 1,
+    "toPages": 10,
+    "totalNumber": 11
+  }
 }
