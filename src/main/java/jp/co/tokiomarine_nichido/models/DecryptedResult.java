@@ -1,8 +1,6 @@
 package jp.co.tokiomarine_nichido.models;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.Instant;
 
 /**
  * 暗号データの復号結果をマッピングするクラス
@@ -18,8 +16,11 @@ public class DecryptedResult {
 	private String CreateDate;
 
 	public DecryptedResult(String AuthFlag, String ClaimNo, String CreateDate) {
+		// 損業権限フラグ
 		this.AuthFlag = AuthFlag;
+		// 受付番号
 		this.ClaimNo = ClaimNo;
+		// URL生成時刻
 		this.CreateDate = CreateDate;
 	}
 
@@ -30,10 +31,11 @@ public class DecryptedResult {
 		return false;
 	}
 
-	public boolean isCorrectDate(LocalDateTime currentDate) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		LocalDateTime createDate = LocalDateTime.parse(this.CreateDate, formatter);
-		if (ChronoUnit.SECONDS.between(createDate, currentDate) <= 10) {
+	// 現在時刻 - URL生成時刻 <= 10であるかどうかチェック
+	public boolean isCorrectDate() {
+		Instant createDate = Instant.parse(this.CreateDate);
+		Instant currentDate = Instant.now();
+		if (createDate.plusSeconds(10).compareTo(currentDate) >= 0) {
 			return true;
 		};
 		return false;
