@@ -26,21 +26,21 @@ import jp.co.tokiomarine_nichido.services.DecryptionService;
  *  @author SKK231527 植木宥登
  *
  */
-@Path("authorization")
+@Path("authorize")
+//@SessionScoped
 public class AuthorizationResource {
 	@Inject
 	private DecryptionService decryptionService;
-	@Inject
+//	@Inject
 	private User user;
 
 	/**
 	 * @param userId ユーザID
 	 * @param encryptedParam 暗号データ
-	 * @return リダイレクト先URL
+	 * @return クエリパラメータにユーザIDと暗号データをセットしたリダイレクト先URL
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("federation")
 	public Response dataFederation(
 			@HeaderParam("Uid") String userId,
 			@QueryParam("param") String encryptedParam) {
@@ -69,7 +69,7 @@ public class AuthorizationResource {
 	@Path("auth")
 	public AuthResult authorize(
 			@QueryParam("param") String encryptedParam,
-			@QueryParam("Uid") String userId) {
+			@QueryParam("userId") String userId) {
 
 		// 復号処理
 		String decryptedString = decryptionService.decrypt(encryptedParam);
