@@ -293,54 +293,54 @@
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 }
-              ],
-              "SCORECATEGORIES": [
-                {
-                  "TOKUSHUSCORECLASS": "High",
-                  "NCPDSCORECLASS": "High",
-                  "CLAIMCATEGORYTYPE": "高"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "High",
-                  "NCPDSCORECLASS": "Middle",
-                  "CLAIMCATEGORYTYPE": "高"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "High",
-                  "NCPDSCORECLASS": "Low",
-                  "CLAIMCATEGORYTYPE": "高"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Middle",
-                  "NCPDSCORECLASS": "High",
-                  "CLAIMCATEGORYTYPE": "中"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Middle",
-                  "NCPDSCORECLASS": "Middle",
-                  "CLAIMCATEGORYTYPE": "中"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Middle",
-                  "NCPDSCORECLASS": "Low",
-                  "CLAIMCATEGORYTYPE": "中"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Low",
-                  "NCPDSCORECLASS": "High",
-                  "CLAIMCATEGORYTYPE": "中"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Low",
-                  "NCPDSCORECLASS": "Middle",
-                  "CLAIMCATEGORYTYPE": "低"
-                },
-                {
-                  "TOKUSHUSCORECLASS": "Low",
-                  "NCPDSCORECLASS": "Low",
-                  "CLAIMCATEGORYTYPE": "低"
-                }
               ]
+            }
+          ],
+          "SCORECATEGORIES": [
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "低"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "低"
             }
           ]
         }
@@ -355,8 +355,8 @@
         "INSUREDNAMEKANJI": "山田太郎",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -368,8 +368,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -381,8 +381,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -394,8 +394,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -407,8 +407,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -420,8 +420,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -433,8 +433,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -446,8 +446,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -459,8 +459,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -472,8 +472,8 @@
         "INSUREDNAMEKANA": "アアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "イイイイイイイイイ",
-        "DEPARTMENT": "第一部署",
-        "BASE": "東京",
+        "BUTENKANJI": "第一部署",
+        "KYOTENKANJI": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",

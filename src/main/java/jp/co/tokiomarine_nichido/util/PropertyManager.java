@@ -5,9 +5,6 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * プロパティファイルからプロパティを取得。
  *
@@ -18,14 +15,13 @@ import org.apache.logging.log4j.Logger;
 public class PropertyManager {
 	private ResourceBundle bundle = null;
 	private ResourceBundle bundleSql = null;
-	private static final Logger logger = LogManager.getLogger();
+//	private static final Logger logger = LogManager.getLogger();
 
 	public PropertyManager() {
 		bundle = ResourceBundle.getBundle("config");
-		bundleSql = ResourceBundle.getBundle("sql");
-		logger.info("config.propertiesから設定値を読み込み。");
+//		logger.info("config.propertiesから設定値を読み込み。");
 		for (String key : bundle.keySet()) {
-			logger.info("          {}:{}", key, bundle.getObject(key));
+//			logger.info("          {}:{}", key, bundle.getObject(key));
 		}
 	}
 
@@ -45,13 +41,4 @@ public class PropertyManager {
 		return bundle.getString(key);
 	}
 
-	/**
-	 * get SQL from properties
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public String getSql(String key) {
-		return bundleSql.getString(key);
-	}
 }

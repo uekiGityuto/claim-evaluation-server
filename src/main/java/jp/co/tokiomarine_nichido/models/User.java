@@ -12,13 +12,22 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class User {
 	// IF09から連携される、抜本認証からのユーザID
-	public String userId;
+	private String userId;
 
 	// GNetから連携される権限（0:担当者権限、1:損業権限）
-	public boolean authFlag;
+	private boolean authFlag;
 
 	public User(String userId, boolean authFlag) {
 		this.userId = userId;
 		this.authFlag = authFlag;
 	}
+
+	public String getUserId() {
+		return this.userId;
+	}
+
+	public boolean isAuthFlag() {
+		return this.authFlag;
+	}
+
 }

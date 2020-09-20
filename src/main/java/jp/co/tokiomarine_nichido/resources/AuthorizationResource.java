@@ -4,21 +4,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
-
-import jp.co.tokiomarine_nichido.models.AuthResult;
-import jp.co.tokiomarine_nichido.models.DecryptedResult;
-import jp.co.tokiomarine_nichido.models.User;
-import jp.co.tokiomarine_nichido.services.DecryptionService;
+import jp.co.tokiomarine_nichido.services.AuthorizationService;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  *  認可処理アプリのコントローラー
@@ -27,12 +24,11 @@ import jp.co.tokiomarine_nichido.services.DecryptionService;
  *
  */
 @Path("authorize")
-//@SessionScoped
 public class AuthorizationResource {
 	@Inject
-	private DecryptionService decryptionService;
-//	@Inject
-	private User user;
+	private AuthorizationService authorizeService;
+	@Inject
+	private PropertyManager pm;
 
 	/**
 	 * @param userId ユーザID
@@ -45,8 +41,8 @@ public class AuthorizationResource {
 			@HeaderParam("Uid") String userId,
 			@QueryParam("param") String encryptedParam) {
 
-		System.out.println("受信確認");
-		String uri = "";
+		System.out.println("受信確認1");
+		String uri = pm.get("url.webServer");
 		try {
 			return Response.temporaryRedirect(
 					new URI(uri + "?Uid=" + userId + "&param=" + encryptedParam)).build();
@@ -67,29 +63,15 @@ public class AuthorizationResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("auth")
-	public AuthResult authorize(
+	public String authorize(
+			@Context HttpServletRequest request,
 			@QueryParam("param") String encryptedParam,
 			@QueryParam("userId") String userId) {
 
-		// 復号処理
-		String decryptedString = decryptionService.decrypt(encryptedParam);
-		if (decryptedString.isEmpty()) {
-			throw new WebApplicationException(Response.Status.FORBIDDEN);
-		}
+		System.out.println("受信確認2");
 
-		// 復号結果（JSON）をDecryptedResultオブジェクトにマッピング
-		Gson gson = new Gson();
-		DecryptedResult result = gson.fromJson(decryptedString, DecryptedResult.class);
+		String authResult = authorizeService.authorize(encryptedParam, userId, request);
 
-		// URL生成時刻の比較
-		if (!result.isCorrectDate()) {
-			throw new WebApplicationException(Response.Status.FORBIDDEN);
-		}
-
-		// UserSessionログインユーザ情報にユーザ情報をセット
-		user.userId = userId;
-		user.authFlag = result.isAuthority();
-
-		return result.createAuthResult(userId);
+		return authResult;
 	}
 }

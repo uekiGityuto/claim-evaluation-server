@@ -14,10 +14,6 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * 暗号データを復号するクラス。
  *
@@ -27,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 @ApplicationScoped
 public class DecryptionService {
 
-	private static final Logger logger = LogManager.getLogger();
+//	private static final Logger logger = LogManager.getLogger();
 	private static final String KEY = "O89JfeVNMR23KuE4";
 	private static final String IV = "1Q43Te234IJJDPWE";
 
@@ -38,7 +34,7 @@ public class DecryptionService {
 	public String decrypt(String encryptedString) {
 
 		if (encryptedString.isEmpty()) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			return null;
 		}
 
@@ -73,34 +69,36 @@ public class DecryptionService {
 
 			// 暗号データ(Hex)をバイト配列に変換時の例外
 		} catch (IllegalArgumentException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 			// 秘密鍵と初期化ベクトルをバイト配列へ変換時の例外
 		} catch (UnsupportedEncodingException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 			// Cipherオブジェクト生成時の例外
 		} catch (NoSuchAlgorithmException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 			// Cipherオブジェクトの初期化時の例外
 		} catch (InvalidKeyException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 		} catch (InvalidAlgorithmParameterException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 			// 復号結果の格納時の例外
 		} catch (IllegalBlockSizeException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 		} catch (BadPaddingException e) {
-			logger.log(Level.ERROR, "復号エラー" );
+//			logger.log(Level.ERROR, "復号エラー" );
 			e.printStackTrace();
 		}
+
 		return decryptedString;
 	}
+
 }

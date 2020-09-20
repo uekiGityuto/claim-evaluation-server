@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
 
-import jp.co.tokiomarine_nichido.models.ScoreReqBody;
+import jp.co.tokiomarine_nichido.models.ScoresReqBody;
 
 class SignatureCreatorTest {
 
@@ -261,7 +261,7 @@ class SignatureCreatorTest {
 		headers.putSingle("Host", host);
 		String path = "/prd/inqiry";
 		// ボディ作成
-		ScoreReqBody bodyObj = new ScoreReqBody("AAA123456", "1234567890");
+		ScoresReqBody bodyObj = new ScoresReqBody("AAA123456", "1234567890");
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 

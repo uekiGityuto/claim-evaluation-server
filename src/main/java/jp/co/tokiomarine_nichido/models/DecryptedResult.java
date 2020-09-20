@@ -11,13 +11,13 @@ import java.time.Instant;
 public class DecryptedResult {
 
 	// GNetから連携される権限（0:担当者権限、1:損業権限）
-	private String AuthFlag;
+	private String Authflag;
 	public  String ClaimNo;
 	private String CreateDate;
 
-	public DecryptedResult(String AuthFlag, String ClaimNo, String CreateDate) {
+	public DecryptedResult(String Authflag, String ClaimNo, String CreateDate) {
 		// 損業権限フラグ
-		this.AuthFlag = AuthFlag;
+		this.Authflag = Authflag;
 		// 受付番号
 		this.ClaimNo = ClaimNo;
 		// URL生成時刻
@@ -25,7 +25,7 @@ public class DecryptedResult {
 	}
 
 	public boolean isAuthority() {
-		if( this.AuthFlag.equals("1")) {
+		if( this.Authflag.equals("1")) {
 			return true;
 		}
 		return false;
