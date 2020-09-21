@@ -11,7 +11,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import jp.co.tokiomarine_nichido.models.RequestTargetClaim;
+import jp.co.tokiomarine_nichido.models.ScoresReqBody;
+import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.User;
 import jp.co.tokiomarine_nichido.services.ClaimService;
 
@@ -31,15 +32,17 @@ public class ScoresResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String get(
 			@Context HttpServletRequest request,
-			//			@QueryParam("claimNumber") String claimNumber) {
-			RequestTargetClaim requestTargetClaim) {
+			TargetClaim targetClaim) {
 
+		System.out.println("受信確認3");
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
+		ScoresReqBody bodyObj = new ScoresReqBody(
+				targetClaim.getClaimNumber(), user.getUserId());
+
 		try {
-			String inqureResult = claimService.findByClaimNumber(
-					requestTargetClaim.getClaimNumber(), user);
+			String inqureResult = claimService.getScores(bodyObj);
 			return inqureResult;
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック

@@ -23,6 +23,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231099 李
  */
 @ApplicationScoped
+// TODO: 削除（コード参照用に一時的に残している）
 public class RESTAPIDAO {
 
 	@Inject
@@ -52,7 +53,7 @@ public class RESTAPIDAO {
 
 	/**
 	 * スコアリスト取得
-	 * 
+	 *
 	 * @param <T>
 	 * @param type
 	 * @return List<Map<String, Object>>
@@ -77,7 +78,7 @@ public class RESTAPIDAO {
 
 	/**
 	 * スコアリスト取得
-	 * 
+	 *
 	 * @param <T>
 	 * @param relationKey
 	 * @param relationValue
@@ -98,7 +99,7 @@ public class RESTAPIDAO {
 
 	/**
 	 * スコアリスト取得
-	 * 
+	 *
 	 * @param relationKey
 	 * @param relationValue
 	 * @return List<Map<String, Object>>

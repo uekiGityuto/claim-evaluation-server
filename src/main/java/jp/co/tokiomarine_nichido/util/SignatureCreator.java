@@ -15,6 +15,8 @@ import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.DatatypeConverter;
 
@@ -26,7 +28,10 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author SKK231527 植木宥登
  *
  */
+@ApplicationScoped
 public class SignatureCreator {
+	@Inject
+	private PropertyManager pm;
 
 //	private static final Logger logger = LoggerFactory.getLogger(ApiGatewayClient.class);
 
@@ -106,7 +111,7 @@ public class SignatureCreator {
 		/* 3. 署名(signature)の生成 */
 
 		// シークレットアクセスキー
-		String secretAccessKey = "OiOWc/9+a1VVL3zttiL3GtUSKSZcGFREVUx/ALTA";
+		String secretAccessKey = pm.get("api.secretAccessKey");
 		// 固定文字（AWS4）→X-Amz-Date→リージョン→サービス名→固定文字(aws4_request)の順でハッシュ化
 		byte[] signingKey = getSignatureKey(secretAccessKey, xAmzDate.substring(0, 8), regionName, serviceName);
 		// 署名
@@ -115,7 +120,7 @@ public class SignatureCreator {
 //		logger.info("署名(signature):{}", signature);
 
 		/* 4. Authorizationヘッダー文字列の生成 */
-		String accessKeyId = "AKIA5PJHT26DXZC4KWM4";
+		String accessKeyId = pm.get("api.accessKey");
 		String authorization = algorithm + " "
 				+ "Credential=" + accessKeyId + "/" + credentialScope + ", "
 				+ "SignedHeaders=" + signedHeaders + ", "

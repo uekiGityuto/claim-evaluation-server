@@ -25,12 +25,13 @@ import jp.co.tokiomarine_nichido.models.Exclude;
 
 /***
  * Gsonメッセージ変換（シリアライズ、デシリアライズ）クラス
- * 
+ *
  * @author SKK229873 中山真吾
  * @param
  */
 @Provider
 @Dependent
+// TODO: 必要なければ削除（現時点では使用していない）
 public class GsonMessageBodyReaderWriter<T> implements MessageBodyReader<T>, MessageBodyWriter<T> {
 
 	private final Gson gson;

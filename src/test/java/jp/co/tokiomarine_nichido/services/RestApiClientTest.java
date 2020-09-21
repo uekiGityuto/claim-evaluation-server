@@ -19,7 +19,7 @@ class RestApiClientTest {
 		// テスト実施
 		RestApiClient client = new RestApiClient();
 		try {
-			String response = client.inquireScores(path, bodyStr);
+			String response = client.inquire(path, bodyStr);
 			System.out.println("response:" + response);
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック

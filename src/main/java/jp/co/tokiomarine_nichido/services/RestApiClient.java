@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -13,41 +14,39 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 import jp.co.tokiomarine_nichido.util.RequestClientWriterInterceptor;
 import jp.co.tokiomarine_nichido.util.SignatureCreator;
 
 @ApplicationScoped
 public class RestApiClient {
+	@Inject
+	private PropertyManager pm;
+	@Inject
+	private SignatureCreator creator;
 
-	public String inquireScores(String path, String body) throws Exception {
+
+	public String inquire(String path, String body) throws Exception {
 
 		// ヘッダ作成
 		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
-		String apiKey = "p0jFqdShkh3GOUXzjyuCk3x253LywCgp5MakxRlg";
+		String apiKey = pm.get("api.apikey");
 		headers.putSingle("X-API-KEY", apiKey);
-		String host = "cmnnnxfwxi.execute-api.ap-northeast-1.amazonaws.com";
+		String host = pm.get("api.host");
 		headers.putSingle("HOST", host);
 		String requestId = UUID.randomUUID().toString();
 		headers.putSingle("X-TMN-REQUEST-ID", requestId);
 		OffsetDateTime dateUtc = OffsetDateTime.now(ZoneId.of("UTC"));
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		String globalTranId = "WS-" + dateUtc.format(formatter) + "-" + requestId;
+		String globalTranId = pm.get("systemId") + "-" + dateUtc.format(formatter) + "-" + requestId;
 		headers.putSingle("X-TMN-GLOBAL-TRANSACTION-ID", globalTranId);
 
-//		// パス作成
-//		String path = "/prd/inqiry";
-
-		// ボディ作成
-//		ScoreReqBody bodyObj = new ScoreReqBody("AAA123456", "1234567890");
-//		Gson gson = new Gson();
-//		String bodyStr = gson.toJson(bodyObj);
-
 		// API GateWayのIAM認証に必要なヘッダ追加
-		SignatureCreator creator = new SignatureCreator();
+//		SignatureCreator creator = new SignatureCreator();
 		headers = creator.getAuthorization(headers, body, host, path);
 
 		// hostヘッダを付与するとwarningが出るので以下をセット
-		// ただし、hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
+		// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
 		// リクエスト
@@ -62,7 +61,8 @@ public class RestApiClient {
 //		System.out.println("レスポンス結果(status):" + response.getStatus());
 //		System.out.println("レスポンス結果(body):" + response.readEntity(String.class));
 
-		// response.reaEntityを実施するとresponseが閉じる
+		// responseのbody部を取得し、responseを閉じる
+		// （response.reaEntityを実施するとresponseが閉じる）
 		String result = response.readEntity(String.class);
 
 		return result;

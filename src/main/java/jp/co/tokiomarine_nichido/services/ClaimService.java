@@ -1,16 +1,12 @@
 package jp.co.tokiomarine_nichido.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import com.google.gson.Gson;
 
-import jp.co.tokiomarine_nichido.models.Score;
 import jp.co.tokiomarine_nichido.models.ScoresReqBody;
-import jp.co.tokiomarine_nichido.models.User;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * RestApiClientを利用するクラス
@@ -22,33 +18,37 @@ import jp.co.tokiomarine_nichido.models.User;
 public class ClaimService {
 	@Inject
 	private RestApiClient client;
+	@Inject
+	private PropertyManager pm;
 
 	/**
 	 * 一覧画面リストデータ取得
 	 *
-	 * @return List<Score>
+	 * @return String
 	 * @throws Exception
 	 */
-	public List<Score> findAllByGroup() throws Exception {
-		List<Score> scores = new ArrayList<Score>();
-		return scores;
+	public String getClaimList() throws Exception {
+		String path = "/prd/inqiry";
+		String result = null;
+		return result;
 	}
 
 	/**
 	 * 詳細画面データ取得
 	 *
-	 * @param claimId
-	 * @return Score
+	 * @param claimNumber
+	 * @param user
+	 * @return IF08スコア照会APIから取得したスコア詳細
 	 * @throws Exception
 	 */
-	public String findByClaimNumber(String claimNumber, User user) throws Exception {
+	public String getScores(ScoresReqBody bodyObj) throws Exception {
 
-		String path = "/prd/inqiry";
-		ScoresReqBody bodyObj = new ScoresReqBody(user.getUserId(), claimNumber);
+		String path = pm.get("api.path.scores");
+
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
-		String inqureResult = client.inquireScores(path, bodyStr);
+		String inqureResult = client.inquire(path, bodyStr);
 		return inqureResult;
 	}
 }
