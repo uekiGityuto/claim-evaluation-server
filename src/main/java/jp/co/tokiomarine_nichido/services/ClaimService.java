@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.models.ScoresReqBody;
+import jp.co.tokiomarine_nichido.models.TargetClaims;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -27,9 +28,13 @@ public class ClaimService {
 	 * @return String
 	 * @throws Exception
 	 */
-	public String getClaimList() throws Exception {
-		String path = "/prd/inqiry";
-		String result = null;
+	public String getClaimList(TargetClaims bodyObj) throws Exception {
+		String path = pm.get("api.path.cliams");
+
+		Gson gson = new Gson();
+		String bodyStr = gson.toJson(bodyObj);
+
+		String result = client.inquire(path, bodyStr);
 		return result;
 	}
 
@@ -48,7 +53,7 @@ public class ClaimService {
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
-		String inqureResult = client.inquire(path, bodyStr);
-		return inqureResult;
+		String result = client.inquire(path, bodyStr);
+		return result;
 	}
 }

@@ -39,7 +39,7 @@ public class ScoresResource {
 		User user = (User) session.getAttribute("user");
 
 		ScoresReqBody bodyObj = new ScoresReqBody(
-				targetClaim.getClaimNumber(), user.getUserId());
+				targetClaim.CLAIMNUMBER, user.getUserId());
 
 		try {
 			String inqureResult = claimService.getScores(bodyObj);
