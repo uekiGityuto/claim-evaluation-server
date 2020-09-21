@@ -5,7 +5,7 @@ import javax.inject.Inject;
 
 import com.google.gson.Gson;
 
-import jp.co.tokiomarine_nichido.models.ScoresReqBody;
+import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.TargetClaims;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
@@ -46,7 +46,7 @@ public class ClaimService {
 	 * @return IF08スコア照会APIから取得したスコア詳細
 	 * @throws Exception
 	 */
-	public String getScores(ScoresReqBody bodyObj) throws Exception {
+	public String getScores(TargetClaim bodyObj) throws Exception {
 
 		String path = pm.get("api.path.scores");
 

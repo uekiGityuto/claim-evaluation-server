@@ -11,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import jp.co.tokiomarine_nichido.models.ScoresReqBody;
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.User;
 import jp.co.tokiomarine_nichido.services.ClaimService;
@@ -38,11 +37,10 @@ public class ScoresResource {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		ScoresReqBody bodyObj = new ScoresReqBody(
-				targetClaim.CLAIMNUMBER, user.getUserId());
+		targetClaim.REQ_USER_ID = user.getUserId();
 
 		try {
-			String inqureResult = claimService.getScores(bodyObj);
+			String inqureResult = claimService.getScores(targetClaim);
 			return inqureResult;
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
