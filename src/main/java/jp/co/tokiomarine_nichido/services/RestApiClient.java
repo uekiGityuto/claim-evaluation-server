@@ -62,6 +62,9 @@ public class RestApiClient {
 //		System.out.println("レスポンス結果(status):" + response.getStatus());
 //		System.out.println("レスポンス結果(body):" + response.readEntity(String.class));
 
-		return response.readEntity(String.class);
+		// response.reaEntityを実施するとresponseが閉じる
+		String result = response.readEntity(String.class);
+
+		return result;
 	}
 }
