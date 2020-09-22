@@ -9,7 +9,7 @@ import jp.co.tokiomarine_nichido.resources.ClaimsResource;
 import jp.co.tokiomarine_nichido.resources.ScoresResource;
 
 @Provider
-public class ApprovedCheckFeature implements DynamicFeature {
+public class FilterDynamicFeature implements DynamicFeature {
 
 	@Override
 	public void configure(ResourceInfo resourceInfo, FeatureContext context) {
@@ -19,6 +19,12 @@ public class ApprovedCheckFeature implements DynamicFeature {
 		if(resourceInfo.getResourceClass().equals(ScoresResource.class) ||
 				resourceInfo.getResourceClass().equals(ClaimsResource.class)	) {
 			context.register(ApprovedCheckFilter.class);
+		}
+
+		System.out.println("フィルタ登録呼び出し2");
+
+		if(resourceInfo.getResourceClass().equals(ClaimsResource.class)	) {
+			context.register(AuthFlagCheckFilter.class);
 		}
 	}
 
