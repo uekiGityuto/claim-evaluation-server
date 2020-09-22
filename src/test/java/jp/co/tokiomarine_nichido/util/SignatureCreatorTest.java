@@ -13,10 +13,6 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.Gson;
-
-import jp.co.tokiomarine_nichido.models.ScoresReqBody;
-
 class SignatureCreatorTest {
 
 	SignatureCreator creator = new SignatureCreator();
@@ -252,31 +248,31 @@ class SignatureCreatorTest {
 		}
 	}
 
-	@Test
-	public void getAuthorizationTest() {
-		// テスト準備（AWS公式ドキュメントより引用）
-		// ヘッダ作成
-		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
-		String host = "cmnnnxfwxi.execute-api.ap-northeast-1.amazonaws.com";
-		headers.putSingle("Host", host);
-		String path = "/prd/inqiry";
-		// ボディ作成
-		ScoresReqBody bodyObj = new ScoresReqBody("AAA123456", "1234567890");
-		Gson gson = new Gson();
-		String bodyStr = gson.toJson(bodyObj);
-
-		// テスト実行
-		SignatureCreator creator = new SignatureCreator();
-		try {
-			headers = creator.getAuthorization(headers, bodyStr, host, path);
-			assertTrue(headers.containsKey("Authorization"));
-			assertTrue(headers.containsKey("Host"));
-			assertTrue(headers.containsKey("X-Amz-Date"));
-			System.out.println("headers:" + headers);
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void getAuthorizationTest() {
+//		// テスト準備（AWS公式ドキュメントより引用）
+//		// ヘッダ作成
+//		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
+//		String host = "cmnnnxfwxi.execute-api.ap-northeast-1.amazonaws.com";
+//		headers.putSingle("Host", host);
+//		String path = "/prd/inqiry";
+//		// ボディ作成
+//		ScoresReqBody bodyObj = new ScoresReqBody("AAA123456", "1234567890");
+//		Gson gson = new Gson();
+//		String bodyStr = gson.toJson(bodyObj);
+//
+//		// テスト実行
+//		SignatureCreator creator = new SignatureCreator();
+//		try {
+//			headers = creator.getAuthorization(headers, bodyStr, host, path);
+//			assertTrue(headers.containsKey("Authorization"));
+//			assertTrue(headers.containsKey("Host"));
+//			assertTrue(headers.containsKey("X-Amz-Date"));
+//			System.out.println("headers:" + headers);
+//		} catch (Exception e) {
+//			// TODO 自動生成された catch ブロック
+//			e.printStackTrace();
+//		}
+//	}
 
 }
