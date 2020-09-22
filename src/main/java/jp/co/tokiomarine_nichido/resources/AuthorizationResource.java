@@ -61,8 +61,8 @@ public class AuthorizationResource {
 	 * @return 認可結果
 	 */
 	@GET
+	@Path("authorize")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("auth")
 	public String authorize(
 			@Context HttpServletRequest request,
 			@QueryParam("param") String encryptedParam,

@@ -13,6 +13,12 @@ import javax.ws.rs.core.Response;
 
 import jp.co.tokiomarine_nichido.models.User;
 
+/**
+ * 損業権限チェックフィルタ
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 @Priority(Priorities.AUTHORIZATION)
 public class AuthFlagCheckFilter implements ContainerRequestFilter {
 

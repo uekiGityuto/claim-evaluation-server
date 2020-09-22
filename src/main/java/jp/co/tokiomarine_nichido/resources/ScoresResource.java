@@ -34,6 +34,7 @@ public class ScoresResource {
 			TargetClaim targetClaim) {
 
 		System.out.println("受信確認3");
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
