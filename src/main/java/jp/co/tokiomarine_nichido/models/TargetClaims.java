@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class TargetClaims {
 
+	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
 	public String REQ_USER_ID;
 	public String CLAIMNUMBER;
 	public List<ClaimCategory> CLAIMCATEGORYINFO;

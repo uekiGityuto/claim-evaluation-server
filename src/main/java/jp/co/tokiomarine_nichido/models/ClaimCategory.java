@@ -11,5 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ClaimCategory {
 
+	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
 	public String CLAIMCATEGORY;
 }

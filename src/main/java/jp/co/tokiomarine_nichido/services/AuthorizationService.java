@@ -24,7 +24,6 @@ public class AuthorizationService {
 
 	@Inject
 	private DecryptionService decryptionService;
-//	DecryptionService decryptionService = new DecryptionService();
 
 	/**
 	 * @param encryptedParam
@@ -32,7 +31,7 @@ public class AuthorizationService {
 	 * @return 認可結果
 	 */
 	// TODO: HttpServletRequestを引数にとるとテストしづらいので要検討
-	public String authorize(String encryptedParam, String userId, HttpServletRequest request) {
+	public AuthResult authorize(String encryptedParam, String userId, HttpServletRequest request) {
 
 		// 復号処理
 		String decryptedString = decryptionService.decrypt(encryptedParam);
@@ -51,20 +50,13 @@ public class AuthorizationService {
 //		}
 
 		// UserSessionログインユーザ情報にユーザ情報をセット
-		// TODO: セッション情報の格納方法は要検討
 		User user = new User(userId, result.isAuthority());
-//		user.userId = userId;
-//		user.authFlag = result.isAuthority();
 		HttpSession session = request.getSession();
-//		session.setAttribute("userId", userId);
-//		session.setAttribute("authflag", result.isAuthority());
 		session.setAttribute("user", user);
 
 		// 認可結果を返す
 		AuthResult authResult = result.createAuthResult(userId);
-		// TODO:JAX-RSの機能でJSONに変換出来ないので直接変換する。
-		// TODO:原因確認（Serializableが必要？setter,getterが必要？）
-		return gson.toJson(authResult);
+		return authResult;
 
 	}
 
