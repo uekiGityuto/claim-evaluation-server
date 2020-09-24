@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.TargetClaims;
+import jp.co.tokiomarine_nichido.models.scores.Scores;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -46,7 +47,7 @@ public class ClaimService {
 	 * @return IF08スコア照会APIから取得したスコア詳細
 	 * @throws Exception
 	 */
-	public String getScores(TargetClaim bodyObj) throws Exception {
+	public Scores getScores(TargetClaim bodyObj) throws Exception {
 
 		String path = pm.get("api.path.scores");
 
@@ -54,6 +55,9 @@ public class ClaimService {
 		String bodyStr = gson.toJson(bodyObj);
 
 		String result = client.inquire(path, bodyStr);
-		return result;
+
+		Scores scores = gson.fromJson(result, Scores.class);
+		System.out.println("scores:" + gson.toJson(scores));
+		return scores;
 	}
 }

@@ -58,16 +58,17 @@ public class ClaimsResource {
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		targetClaims.REQ_USER_ID = user.getUserId();
+		targetClaims.userId = user.getUserId();
 
 		try {
-			String inqureResult = claimService.getClaimList(targetClaims);
-			return inqureResult;
+			String result = claimService.getClaimList(targetClaims);
+			return result;
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 		return null;
+
 	}
 }

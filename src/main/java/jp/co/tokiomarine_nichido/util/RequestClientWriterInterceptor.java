@@ -17,12 +17,13 @@ public class RequestClientWriterInterceptor implements WriterInterceptor {
 
 //	@Context UriInfo uriInfo;
 
+	// TODO: UIからの受信時に実行しないように修正
 	@Override
 	public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
 		// TODO: Loggerで実装
 		System.out.println("インターセプター確認1");
-		System.out.println(context.getEntity());
-		System.out.println(context.getHeaders());
+		System.out.println(context.getEntity().toString());
+		System.out.println(context.getHeaders().toString());
 
 //		AUTHORIZATIONヘッダの付与もインターセプターで実施した方がスマートだが、以下が出来ない？ので断念。
 //		・headerの追加→context.getHeaders().add(key, value)で出来そう

@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.User;
+import jp.co.tokiomarine_nichido.models.scores.Scores;
 import jp.co.tokiomarine_nichido.services.ClaimService;
 
 /**
@@ -34,7 +35,7 @@ public class ScoresResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String get(
+	public Scores get(
 			@Context HttpServletRequest request,
 			TargetClaim targetClaim) {
 
@@ -43,11 +44,11 @@ public class ScoresResource {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		targetClaim.REQ_USER_ID = user.getUserId();
+		targetClaim.userId = user.getUserId();
 
 		try {
-			String inqureResult = claimService.getScores(targetClaim);
-			return inqureResult;
+			Scores scores = claimService.getScores(targetClaim);
+			return scores;
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

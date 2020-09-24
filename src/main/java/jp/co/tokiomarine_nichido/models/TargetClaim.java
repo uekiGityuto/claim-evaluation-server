@@ -2,6 +2,8 @@ package jp.co.tokiomarine_nichido.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.SerializedName;
+
 
 /**
  * スコア照会のリクエストボディをマッピングするBean
@@ -13,6 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TargetClaim {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
-	public String REQ_USER_ID;
-	public String CLAIMNUMBER;
+	@SerializedName("REQ_USER_ID")
+	public String userId;
+	@SerializedName("CLAIMNUMBER")
+	public String claimNumber;
+
 }

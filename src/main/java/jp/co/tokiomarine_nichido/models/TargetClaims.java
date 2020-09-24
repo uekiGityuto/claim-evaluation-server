@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.SerializedName;
+
 
 /**
  * 事案一覧照会のリクエストボディをマッピングするBean
@@ -15,19 +17,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TargetClaims {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
-	public String REQ_USER_ID;
-	public String CLAIMNUMBER;
-	public List<ClaimCategory> CLAIMCATEGORYINFO;
-	public List<InsuranceKind> INSURANCEKINDINFO;
-	public String  FROMLOSSDATE;
-	public String  TOLOSSDATE;
-	public String  INSUREDNAMEKANA;
-	public String  INSUREDNAMEKANJI;
-	public String  CONTRACTORNAMEKANA;
-	public String  CONTRACTORNAMEKANJI;
-	public String  BUTENKANJI;
-	public String  KYOTENKANJI;
-	public String  LABELTYPE;
-	public String  ORDER;
-	public String  DISPLAYFROM;
+	@SerializedName("REQ_USER_ID")
+	public String userId;
+	@SerializedName("CLAIMNUMBER")
+	public String claimNumber;
+	@SerializedName("CLAIMCATEGORYINFO")
+	public List<ClaimCategory> claimCategoryInfo;
+	@SerializedName("INSURANCEKINDINFO")
+	public List<InsuranceKind> insuranceKindInfo;
+	@SerializedName("FROMLOSSDATE")
+	public String  fromLossDate;
+	@SerializedName("TOLOSSDATE")
+	public String  toLossDate;
+	@SerializedName("INSUREDNAMEKANA")
+	public String  insuredNameKana;
+	@SerializedName("INSUREDNAMEKANJI")
+	public String  insuredNameKanji;
+	@SerializedName("CONTRACTORNAMEKANA")
+	public String  contractorNameKana;
+	@SerializedName("CONTRACTORNAMEKANJI")
+	public String  contractorNameKanji;
+	@SerializedName("BUTENKANJI")
+	public String  butenKanji;
+	@SerializedName("KYOTENKANJI")
+	public String  kyotenKanji;
+	@SerializedName("LABELTYPE")
+	public String  labelType;
+	@SerializedName("ORDER")
+	public String  order;
+	@SerializedName("DISPLAYFROM")
+	public String  displayFrom;
+
 }

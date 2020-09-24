@@ -2,6 +2,8 @@ package jp.co.tokiomarine_nichido.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 事案一覧照会のリクエストボディをマッピングするBean
  *
@@ -12,5 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ClaimCategory {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
-	public String CLAIMCATEGORY;
+	@SerializedName("CLAIMCATEGORY")
+	public String claimCategory;
+
 }

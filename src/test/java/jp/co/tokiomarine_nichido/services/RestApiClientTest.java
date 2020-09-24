@@ -21,6 +21,15 @@ class RestApiClientTest {
 //			// TODO 自動生成された catch ブロック
 //			e.printStackTrace();
 //		}
+//		Gson gson = new Gson();
+//		TargetClaim targetClaim = new TargetClaim();
+//		targetClaim.claimNumber = "1234567890";
+//		targetClaim.userId = "aaa";
+//		System.out.println(gson.toJson(targetClaim));
+//		TargetClaim claimNumber2 = gson.fromJson(gson.toJson(targetClaim), TargetClaim.class);
+//		System.out.println(claimNumber2.claimNumber);
+//		System.out.println(claimNumber2.userId);
+
 	}
 
 }
