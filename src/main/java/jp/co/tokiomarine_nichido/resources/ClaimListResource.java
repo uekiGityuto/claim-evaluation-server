@@ -12,8 +12,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import jp.co.tokiomarine_nichido.models.TargetClaims;
+import jp.co.tokiomarine_nichido.models.TargetClaimList;
 import jp.co.tokiomarine_nichido.models.User;
+import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
 import jp.co.tokiomarine_nichido.services.ClaimService;
 
 /**
@@ -22,7 +23,7 @@ import jp.co.tokiomarine_nichido.services.ClaimService;
  * @author SKK231527 植木宥登
  */
 @Path("claims")
-public class ClaimsResource {
+public class ClaimListResource {
 	@Inject
 	private ClaimService claimService;
 
@@ -50,9 +51,9 @@ public class ClaimsResource {
 	@Path("get")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String get(
+	public ClaimList get(
 			@Context HttpServletRequest request,
-			TargetClaims targetClaims) {
+			TargetClaimList targetClaims) {
 
 		System.out.println("受信確認5");
 
@@ -61,8 +62,8 @@ public class ClaimsResource {
 		targetClaims.userId = user.getUserId();
 
 		try {
-			String result = claimService.getClaimList(targetClaims);
-			return result;
+			ClaimList claims = claimService.getClaimList(targetClaims);
+			return claims;
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

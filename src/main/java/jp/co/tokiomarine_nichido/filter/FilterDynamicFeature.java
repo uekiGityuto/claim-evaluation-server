@@ -5,7 +5,7 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.ext.Provider;
 
-import jp.co.tokiomarine_nichido.resources.ClaimsResource;
+import jp.co.tokiomarine_nichido.resources.ClaimListResource;
 import jp.co.tokiomarine_nichido.resources.ScoresResource;
 
 @Provider
@@ -17,13 +17,13 @@ public class FilterDynamicFeature implements DynamicFeature {
 		System.out.println("フィルタ登録呼び出し1");
 
 		if(resourceInfo.getResourceClass().equals(ScoresResource.class) ||
-				resourceInfo.getResourceClass().equals(ClaimsResource.class)	) {
+				resourceInfo.getResourceClass().equals(ClaimListResource.class)	) {
 			context.register(ApprovedCheckFilter.class);
 		}
 
 		System.out.println("フィルタ登録呼び出し2");
 
-		if(resourceInfo.getResourceClass().equals(ClaimsResource.class)	) {
+		if(resourceInfo.getResourceClass().equals(ClaimListResource.class)	) {
 			context.register(AuthFlagCheckFilter.class);
 		}
 	}

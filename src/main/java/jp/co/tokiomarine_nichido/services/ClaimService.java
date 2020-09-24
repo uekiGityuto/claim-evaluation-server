@@ -6,7 +6,8 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.models.TargetClaim;
-import jp.co.tokiomarine_nichido.models.TargetClaims;
+import jp.co.tokiomarine_nichido.models.TargetClaimList;
+import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
 import jp.co.tokiomarine_nichido.models.scores.Scores;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
@@ -26,17 +27,19 @@ public class ClaimService {
 	/**
 	 * 一覧画面リストデータ取得
 	 *
-	 * @return String
+	 * @return IF15事案一覧照会APIから取得した事案一覧
 	 * @throws Exception
 	 */
-	public String getClaimList(TargetClaims bodyObj) throws Exception {
+	public ClaimList getClaimList(TargetClaimList bodyObj) throws Exception {
 		String path = pm.get("api.path.cliams");
 
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
 		String result = client.inquire(path, bodyStr);
-		return result;
+		ClaimList claims = gson.fromJson(result, ClaimList.class);
+
+		return claims;
 	}
 
 	/**
@@ -55,9 +58,8 @@ public class ClaimService {
 		String bodyStr = gson.toJson(bodyObj);
 
 		String result = client.inquire(path, bodyStr);
-
 		Scores scores = gson.fromJson(result, Scores.class);
-		System.out.println("scores:" + gson.toJson(scores));
+
 		return scores;
 	}
 }

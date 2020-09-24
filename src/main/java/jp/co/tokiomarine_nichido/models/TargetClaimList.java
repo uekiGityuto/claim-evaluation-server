@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 @XmlRootElement
-public class TargetClaims {
+public class TargetClaimList {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
 	@SerializedName("REQ_USER_ID")
