@@ -32,11 +32,9 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		System.out.println(user.getUserId());
 
-		if (user.getUserId() == null) {
-			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
-					.entity("Not Logged In.").build());
+		if (!user.isUserId()) {
+			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
 		}
 	}
 

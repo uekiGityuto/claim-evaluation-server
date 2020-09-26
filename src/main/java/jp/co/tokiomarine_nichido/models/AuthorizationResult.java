@@ -9,14 +9,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class AuthResult {
+public class AuthorizationResult {
 
 	// JAX-RSでマーシャリングするためにpublicにする必要がある
 	public String userId;
 	public boolean authFlag;
 	public String claimNumber;
 
-	public AuthResult(String userId, boolean authFlag, String claimNumber) {
+	public AuthorizationResult(String userId, boolean authFlag, String claimNumber) {
 		this.userId = userId;
 		this.authFlag = authFlag;
 		this.claimNumber = claimNumber;

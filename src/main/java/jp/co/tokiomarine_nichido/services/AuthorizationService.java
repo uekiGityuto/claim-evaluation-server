@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-import jp.co.tokiomarine_nichido.models.AuthResult;
+import jp.co.tokiomarine_nichido.models.AuthorizationResult;
 import jp.co.tokiomarine_nichido.models.DecryptedResult;
 import jp.co.tokiomarine_nichido.models.User;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
@@ -37,37 +37,38 @@ public class AuthorizationService {
 	 * @throws Exception
 	 */
 	// TODO: HttpServletRequestを引数にとるとテストしづらいので要検討
-	public AuthResult authorize(String encryptedParam, String userId, HttpServletRequest request) throws Exception {
+	public AuthorizationResult authorize(String encryptedParam, String userId, HttpServletRequest request)
+			throws Exception {
 
 		// 復号処理
 		String decryptedString = decryptionService.decrypt(encryptedParam);
-//		if (decryptedString.isEmpty()) {
-//			throw new WebApplicationException(Response.Status.FORBIDDEN);
-//		}
+		// if (decryptedString.isEmpty()) {
+		//	throw new WebApplicationException(Response.Status.FORBIDDEN);
+		// }
 
 		// 復号結果（JSON）をDecryptedResultオブジェクトにマッピング
 		Gson gson = new Gson();
-		DecryptedResult result = gson.fromJson(decryptedString, DecryptedResult.class);
+		DecryptedResult decryptedResult = gson.fromJson(decryptedString, DecryptedResult.class);
 
 		// TODO: チェックエラーになるので一時的にコメントアウト
 		// URL生成時刻の比較
-//		if (!result.isCorrectDate()) {
-//			throw new WebApplicationException(Response.Status.FORBIDDEN);
-//		}
+		// if (!result.isCorrectDate()) {
+		//	throw new WebApplicationException(Response.Status.FORBIDDEN);
+		// }
 
 		// UserSessionログインユーザ情報にユーザ情報をセット
-		User user = new User(userId, result.isAuthority());
+		User user = new User(userId, decryptedResult.isAuthority());
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 
 		// 認可結果を返す
-		AuthResult authResult = result.createAuthResult(userId);
+		AuthorizationResult authorizationResult = decryptedResult.createAuthorizationResult(userId);
 
 		// log出力
 		// TODO: 文字化けするので対策
 		logger.info(pm.get("I001"), userId);
 
-		return authResult;
+		return authorizationResult;
 
 	}
 

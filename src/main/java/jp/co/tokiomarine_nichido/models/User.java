@@ -26,6 +26,10 @@ public class User {
 		return this.userId;
 	}
 
+	public boolean isUserId() {
+		return (this.userId.isEmpty()) ? false : true;
+	}
+
 	public boolean isAuthFlag() {
 		return this.authFlag;
 	}

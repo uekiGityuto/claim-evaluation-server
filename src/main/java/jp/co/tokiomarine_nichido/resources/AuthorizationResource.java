@@ -14,7 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import jp.co.tokiomarine_nichido.models.AuthResult;
+import jp.co.tokiomarine_nichido.models.AuthorizationResult;
 import jp.co.tokiomarine_nichido.services.AuthorizationService;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
@@ -66,14 +66,14 @@ public class AuthorizationResource {
 	@GET
 	@Path("authorize")
 	@Produces(MediaType.APPLICATION_JSON)
-	public AuthResult authorize(
+	public AuthorizationResult authorize(
 			@Context HttpServletRequest request,
 			@QueryParam("param") String encryptedParam,
 			@QueryParam("userId") String userId) throws Exception {
 
 		System.out.println("受信確認2");
 
-		AuthResult authResult = authorizeService.authorize(encryptedParam, userId, request);
+		AuthorizationResult authResult = authorizeService.authorize(encryptedParam, userId, request);
 
 		return authResult;
 	}

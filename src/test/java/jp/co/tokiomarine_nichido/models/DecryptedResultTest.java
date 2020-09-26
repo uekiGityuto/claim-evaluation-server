@@ -65,7 +65,7 @@ class DecryptedResultTest {
 	@Test
 	void testCreateAuthResult() {
 		DecryptedResult result = new DecryptedResult("0", "1234567890", "2020-08-18T13:11:43.887Z");
-		AuthResult authResult = result.createAuthResult("aaa");
+		AuthorizationResult authResult = result.createAuthorizationResult("aaa");
 		System.out.println(authResult);
 	}
 
