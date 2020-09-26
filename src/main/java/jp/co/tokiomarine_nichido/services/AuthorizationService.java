@@ -4,14 +4,16 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.models.AuthResult;
 import jp.co.tokiomarine_nichido.models.DecryptedResult;
 import jp.co.tokiomarine_nichido.models.User;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * 認可処理を行うクラス。
@@ -24,20 +26,24 @@ public class AuthorizationService {
 
 	@Inject
 	private DecryptionService decryptionService;
+	@Inject
+	private PropertyManager pm;
+	private static final Logger logger = LogManager.getLogger(AuthorizationService.class);
 
 	/**
 	 * @param encryptedParam
 	 * @param userId
 	 * @return 認可結果
+	 * @throws Exception
 	 */
 	// TODO: HttpServletRequestを引数にとるとテストしづらいので要検討
-	public AuthResult authorize(String encryptedParam, String userId, HttpServletRequest request) {
+	public AuthResult authorize(String encryptedParam, String userId, HttpServletRequest request) throws Exception {
 
 		// 復号処理
 		String decryptedString = decryptionService.decrypt(encryptedParam);
-		if (decryptedString.isEmpty()) {
-			throw new WebApplicationException(Response.Status.FORBIDDEN);
-		}
+//		if (decryptedString.isEmpty()) {
+//			throw new WebApplicationException(Response.Status.FORBIDDEN);
+//		}
 
 		// 復号結果（JSON）をDecryptedResultオブジェクトにマッピング
 		Gson gson = new Gson();
@@ -56,6 +62,11 @@ public class AuthorizationService {
 
 		// 認可結果を返す
 		AuthResult authResult = result.createAuthResult(userId);
+
+		// log出力
+		// TODO: 文字化けするので対策
+		logger.info(pm.get("I001"), userId);
+
 		return authResult;
 
 	}

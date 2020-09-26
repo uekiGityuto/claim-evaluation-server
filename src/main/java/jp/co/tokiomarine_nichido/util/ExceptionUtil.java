@@ -4,8 +4,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * Exceptionに関連するユーティリティ暮らす。
- * 
+ * Exceptionに関連するユーティリティクラス。
+ *
  * @author SKK229873 中山真吾
  *
  */
@@ -13,7 +13,7 @@ public class ExceptionUtil {
 
 	/**
 	 * Exceptionのメッセージを文字列として返す。
-	 * 
+	 *
 	 * @param error
 	 * @return
 	 */
@@ -22,7 +22,7 @@ public class ExceptionUtil {
 		PrintWriter pw = new PrintWriter(sw, true);
 
 		error.printStackTrace(pw);
-		
+
 		return sw.toString();
 	}
 }

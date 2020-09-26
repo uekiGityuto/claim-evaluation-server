@@ -12,12 +12,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -29,31 +29,30 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
 @ApplicationScoped
 public class DecryptionService {
 
-	@Inject
-	private PropertyManager pm;
+	//	@Inject
+	//	private PropertyManager pm;
 
 	private static final Logger logger = LogManager.getLogger(DecryptionService.class);
 
-//	private static final String KEY = "O89JfeVNMR23KuE4";
-//	private static final String IV = "1Q43Te234IJJDPWE";
+	//	private static final String KEY = "O89JfeVNMR23KuE4";
+	//	private static final String IV = "1Q43Te234IJJDPWE";
 
 	/**
 	 * @param decryptedString 暗号データ
-	 * @return
+	 * @return 復号結果
+	 * @throws Exception
 	 */
-	public String decrypt(String encryptedString) {
+	public String decrypt(String encryptedString) throws Exception {
+		// TODO: Arquillianを利用したテストが出来るようになればInjectするように変更
+		PropertyManager pm = new PropertyManager();
 		final String KEY = pm.get("decryption.key");
 		final String IV = pm.get("decryption.iv");
 
-		if (encryptedString.isEmpty()) {
-			logger.error("復号エラー" );
-			return null;
-		}
-
-		// 変数初期化
-		String decryptedString = null;
-
 		try {
+			if (encryptedString.isEmpty()) {
+				throw new AuthorizationFailedException();
+			}
+
 			// 暗号データ(Hex)をバイト配列に変換
 			byte[] encryptedByte = DatatypeConverter.parseHexBinary(encryptedString);
 
@@ -75,40 +74,17 @@ public class DecryptionService {
 			byte[] decryptedByte = cipher.doFinal(encryptedByte);
 
 			// バイト配列を文字列へ変換
-			decryptedString = new String(decryptedByte, "UTF-8");
+			String decryptedString = new String(decryptedByte, "UTF-8");
 
-			// 暗号データ(Hex)をバイト配列に変換時の例外
-		} catch (IllegalArgumentException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-			// 秘密鍵と初期化ベクトルをバイト配列へ変換時の例外
-		} catch (UnsupportedEncodingException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-			// Cipherオブジェクト生成時の例外
-		} catch (NoSuchAlgorithmException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-			// Cipherオブジェクトの初期化時の例外
-		} catch (InvalidKeyException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-		} catch (InvalidAlgorithmParameterException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-			// 復号結果の格納時の例外
-		} catch (IllegalBlockSizeException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
-			logger.error("復号エラー" );
-			e.printStackTrace();
+			return decryptedString;
+		} catch (AuthorizationFailedException | IllegalArgumentException |
+				UnsupportedEncodingException | NullPointerException | NoSuchAlgorithmException |
+				NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException |
+				IllegalBlockSizeException | BadPaddingException e) {
+//			logger.error(pm.get("E002"), e);
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new AuthorizationFailedException(pm.get("E002"));
 		}
-
-		return decryptedString;
 	}
 
 }

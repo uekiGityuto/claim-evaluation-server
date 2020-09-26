@@ -45,7 +45,7 @@
               ]
             },
             {
-              "MODELTYPE": "NC/PDモデル",
+              "MODELTYPE": "NC/PD推定モデル",
               "RANK": "low",
               "SCORE": 20,
               "REASONS": [
@@ -142,7 +142,7 @@
               ]
             },
             {
-              "MODELTYPE": "NC/PDモデル",
+              "MODELTYPE": "NC/PD推定モデル",
               "RANK": "middle",
               "SCORE": 40,
               "REASONS": [
@@ -274,7 +274,7 @@
               ]
             },
             {
-              "MODELTYPE": "NC/PDモデル",
+              "MODELTYPE": "NC/PD推定モデル",
               "RANK": "middle",
               "SCORE": 50,
               "REASONS": [

@@ -9,12 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
  * プロパティファイルからプロパティを取得。
  *
  * @author SKK229873 中山真吾
- * @add SKK231099 李 : sql.properties
  */
 @ApplicationScoped
 public class PropertyManager {
 	private ResourceBundle bundle = null;
-	private ResourceBundle bundleSql = null;
 //	private static final Logger logger = LogManager.getLogger();
 
 	public PropertyManager() {

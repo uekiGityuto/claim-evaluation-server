@@ -61,6 +61,7 @@ public class AuthorizationResource {
 	 * @param encryptedParam 暗号データ
 	 * @param userId ユーザID
 	 * @return 認可結果
+	 * @throws Exception
 	 */
 	@GET
 	@Path("authorize")
@@ -68,7 +69,7 @@ public class AuthorizationResource {
 	public AuthResult authorize(
 			@Context HttpServletRequest request,
 			@QueryParam("param") String encryptedParam,
-			@QueryParam("userId") String userId) {
+			@QueryParam("userId") String userId) throws Exception {
 
 		System.out.println("受信確認2");
 

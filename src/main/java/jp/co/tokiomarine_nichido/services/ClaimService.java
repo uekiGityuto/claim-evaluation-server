@@ -36,7 +36,9 @@ public class ClaimService {
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
-		String result = client.inquire(path, bodyStr);
+		String result = client.post(path, bodyStr);
+
+		// TODO: 受信内容に異常値があるかどうかどう検証するか検討
 		ClaimList claims = gson.fromJson(result, ClaimList.class);
 
 		return claims;
@@ -57,7 +59,9 @@ public class ClaimService {
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
-		String result = client.inquire(path, bodyStr);
+		String result = client.post(path, bodyStr);
+
+		// TODO: 受信内容に異常値があるかどうかどう検証するか検討
 		Scores scores = gson.fromJson(result, Scores.class);
 
 		return scores;

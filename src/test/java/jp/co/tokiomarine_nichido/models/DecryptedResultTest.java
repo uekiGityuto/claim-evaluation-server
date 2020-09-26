@@ -6,6 +6,8 @@ import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
 
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
+
 class DecryptedResultTest {
 
 	@Test
@@ -25,7 +27,12 @@ class DecryptedResultTest {
 		String createDate = Instant.now().toString();
 //		System.out.println(createDate);
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
-		assertTrue(result.isCorrectDate());
+		try {
+			assertTrue(result.isCorrectDate());
+		} catch (AuthorizationFailedException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 
@@ -34,7 +41,12 @@ class DecryptedResultTest {
 	void testIsCorrectDate2() {
 		String createDate = Instant.now().minusSeconds(9).toString();
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
-		assertTrue(result.isCorrectDate());
+		try {
+			assertTrue(result.isCorrectDate());
+		} catch (AuthorizationFailedException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 	// 異常系（境界値）
@@ -42,7 +54,12 @@ class DecryptedResultTest {
 	void testIsCorrectDate3() {
 		String createDate = Instant.now().minusSeconds(11).toString();
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
-		assertTrue(!(result.isCorrectDate()));
+		try {
+			System.out.println(result.isCorrectDate());
+			fail();
+		} catch (AuthorizationFailedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test

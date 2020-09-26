@@ -14,6 +14,9 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 import jp.co.tokiomarine_nichido.util.RequestClientWriterInterceptor;
 import jp.co.tokiomarine_nichido.util.SignatureCreator;
@@ -25,8 +28,9 @@ public class RestApiClient {
 	@Inject
 	private SignatureCreator creator;
 
+	private static final Logger logger = LogManager.getLogger(RestApiClient.class);
 
-	public String inquire(String path, String body) throws Exception {
+	public String post(String path, String body) throws Exception {
 
 		// ヘッダ作成
 		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
@@ -42,28 +46,41 @@ public class RestApiClient {
 		headers.putSingle("X-TMN-GLOBAL-TRANSACTION-ID", globalTranId);
 
 		// API GateWayのIAM認証に必要なヘッダ追加
-//		SignatureCreator creator = new SignatureCreator();
+		// SignatureCreator creator = new SignatureCreator();
 		headers = creator.getAuthorization(headers, body, host, path);
 
 		// hostヘッダを付与するとwarningが出るので以下をセット
 		// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
+		// ログ出力
+		// TODO: HTTPリクエスト全量を出せるように要検討
+		// logger.debug(pm.get("D016"), path, headers);
+		logger.debug(pm.get("D016"), path, body);
+
 		// リクエスト
 		Response response = ClientBuilder.newClient().register(RequestClientWriterInterceptor.class)
 				.target("https://" + host).path(path)
 				.request(MediaType.APPLICATION_JSON)
-							.headers(headers)
-							.post(Entity.json(body));
-//							.post(Entity.json(null));
+				.headers(headers)
+				.post(Entity.json(body));
 
-		// TODO: Loggerで実装
-//		System.out.println("レスポンス結果(status):" + response.getStatus());
-//		System.out.println("レスポンス結果(body):" + response.readEntity(String.class));
+		if(response.getStatus() != 200) {
+			logger.debug(pm.get("E004"), path, response.getStatus());
+			// TODO: 適切なExceptionを返す
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new Exception(pm.get("E004"));
+		}
 
 		// responseのbody部を取得し、responseを閉じる
 		// （response.reaEntityを実施するとresponseが閉じる）
 		String result = response.readEntity(String.class);
+
+		// ログ出力
+		// TODO: HTTPリクエスト全量を出せるように要検討
+		// logger.debug(pm.get("D017"), response.getStatus());
+		// logger.debug(pm.get("D017"), response.getHeaders());
+		logger.debug(pm.get("D017"), path, result);
 
 		return result;
 	}

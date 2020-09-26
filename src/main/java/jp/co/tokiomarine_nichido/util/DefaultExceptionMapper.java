@@ -7,13 +7,13 @@ import javax.ws.rs.ext.Provider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import jp.co.tokiomarine_nichido.exceptions.AuthenticationFailedException;
-import jp.co.tokiomarine_nichido.exceptions.InvalidInputException;
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 
 /**
  * JAX-RSアプリの中で発生した全ての例外処理を担う。
  *
  * @author SKK229873 中山真吾
+ * @author SKK231527 植木宥登
  *
  */
 @Provider
@@ -25,18 +25,15 @@ public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
 	 */
 	@Override
 	public Response toResponse(Throwable exception) {
-		Response res = null;
+		Response response = null;
 
-		if (exception instanceof AuthenticationFailedException) {
-			res = Response.status(Response.Status.UNAUTHORIZED).header("WWW-Authenticate", "Basic realm=app").build();
-		} else if (exception instanceof InvalidInputException) {
-			res = Response.status(Response.Status.PRECONDITION_FAILED).entity(exception.getMessage()).build();
+		if (exception instanceof AuthorizationFailedException) {
+			logger.error(exception);
+			response = Response.status(Response.Status.UNAUTHORIZED).build();
 		} else {
 			logger.error(exception);
-
-			String message = ExceptionUtil.getMessage(exception);
-			res = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(message).build();
+			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return res;
+		return response;
 	}
 }

@@ -31,7 +31,6 @@ import jp.co.tokiomarine_nichido.models.Exclude;
  */
 @Provider
 @Dependent
-// TODO: 必要なければ削除（現時点では使用していない）
 public class GsonMessageBodyReaderWriter<T> implements MessageBodyReader<T>, MessageBodyWriter<T> {
 
 	private final Gson gson;
