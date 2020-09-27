@@ -77,11 +77,10 @@ public class DecryptionService {
 			String decryptedString = new String(decryptedByte, "UTF-8");
 
 			return decryptedString;
-		} catch (AuthorizationFailedException | IllegalArgumentException |
-				UnsupportedEncodingException | NullPointerException | NoSuchAlgorithmException |
-				NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException |
-				IllegalBlockSizeException | BadPaddingException e) {
-//			logger.error(pm.get("E002"), e);
+		} catch (AuthorizationFailedException | IllegalArgumentException | UnsupportedEncodingException
+				| NullPointerException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+			// logger.error(pm.get("E002"), e);
 			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
 			throw new AuthorizationFailedException(pm.get("E002"));
 		}

@@ -28,11 +28,13 @@ public class DecryptedResult {
 	@Size(min=1)
 	@SerializedName("Authflag")
 	private String authFlag;
+
 	// 受付番号
 	@NotNull
 	@Size(min=1)
 	@SerializedName("ClaimNo")
 	private String claimNumber;
+
 	// URL生成時刻
 	@NotNull
 	@Size(min=1)

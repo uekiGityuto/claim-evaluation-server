@@ -67,7 +67,7 @@ public class AuthorizationService {
 
 		// TODO: チェックエラーになるので一時的にコメントアウト
 		// URL生成時刻の比較
-		// if (!result.isCorrectDate()) {
+		// if (!validationResult.isCorrectDate()) {
 		//	throw new WebApplicationException(Response.Status.FORBIDDEN);
 		// }
 

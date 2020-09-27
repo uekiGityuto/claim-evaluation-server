@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.models.claim_list;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.gson.annotations.SerializedName;
@@ -7,27 +8,48 @@ import com.google.gson.annotations.SerializedName;
 @XmlRootElement
 public class Claim {
 
+	@NotNull
     @SerializedName("CLAIMNUMBER")
     public String claimNumber;
+
+	@NotNull
     @SerializedName("INSUREDNAMEKANA")
     public String insuredNameKana;
-    @SerializedName("INSUREDNAMEKANJI")
+
+	@NotNull
+	@SerializedName("INSUREDNAMEKANJI")
     public String insuredNameKanji;
-    @SerializedName("CONTRACTORNAMEKANJI")
+
+	@NotNull
+	@SerializedName("CONTRACTORNAMEKANJI")
     public String contractorNameKanji;
-    @SerializedName("CONTRACTORNAMEKANA")
+
+	@NotNull
+	@SerializedName("CONTRACTORNAMEKANA")
     public String contractorNameKana;
-    @SerializedName("BUTENKANJI")
+
+	@NotNull
+	@SerializedName("BUTENKANJI")
     public String butenKanji;
-    @SerializedName("KYOTENKANJI")
+
+	@NotNull
+	@SerializedName("KYOTENKANJI")
     public String kyotenKanji;
-    @SerializedName("INSURANCEKIND")
+
+	@NotNull
+	@SerializedName("INSURANCEKIND")
     public String insuranceKind;
-    @SerializedName("LASTUPDATEDATE")
+
+	@NotNull
+	@SerializedName("LASTUPDATEDATE")
     public String lastUpdateDate;
-    @SerializedName("LOSSDATE")
+
+	@NotNull
+	@SerializedName("LOSSDATE")
     public String lossDate;
-    @SerializedName("CLAIMCATEGORY")
+
+	@NotNull
+	@SerializedName("CLAIMCATEGORY")
     public String claimCategory;
 
 }

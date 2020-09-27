@@ -1,10 +1,18 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.TargetClaimList;
 import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
@@ -24,6 +32,8 @@ public class ClaimService {
 	@Inject
 	private PropertyManager pm;
 
+	// private static final Logger logger = LogManager.getLogger(AuthorizationService.class);
+
 	/**
 	 * 一覧画面リストデータ取得
 	 *
@@ -31,17 +41,38 @@ public class ClaimService {
 	 * @throws Exception
 	 */
 	public ClaimList getClaimList(TargetClaimList bodyObj) throws Exception {
-		String path = pm.get("api.path.cliams");
 
+		// REST APIにリクエストするための情報をセット
+		String path = pm.get("api.path.cliams");
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
+		// REST APIにスコア詳細をリクエスト
 		String result = client.post(path, bodyStr);
 
-		// TODO: 受信内容に異常値があるかどうかどう検証するか検討
-		ClaimList claims = gson.fromJson(result, ClaimList.class);
+		// 受信結果をオブジェクトにマッピング
+		ClaimList claims;
+		try {
+			claims = gson.fromJson(result, ClaimList.class);
+			// TODO: catchする例外が十分かどうか確認
+		} catch (JsonSyntaxException | NumberFormatException e) {
+			// logger.error(pm.get("E005"),bodyStr, result, e);
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new AuthorizationFailedException(pm.get("E005"));
+		}
+
+		// 受信結果のValidatation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
+		if (validationResult.size() != 0) {
+			// logger.error(pm.get("E005"),bodyStr, result);
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new AuthorizationFailedException(pm.get("E005"));
+		}
 
 		return claims;
+
 	}
 
 	/**
@@ -54,15 +85,34 @@ public class ClaimService {
 	 */
 	public Scores getScores(TargetClaim bodyObj) throws Exception {
 
+		// REST APIにリクエストするための情報をセット
 		String path = pm.get("api.path.scores");
-
 		Gson gson = new Gson();
 		String bodyStr = gson.toJson(bodyObj);
 
+		// REST APIに事案一覧をリクエスト
 		String result = client.post(path, bodyStr);
 
-		// TODO: 受信内容に異常値があるかどうかどう検証するか検討
-		Scores scores = gson.fromJson(result, Scores.class);
+		// 受信結果をオブジェクトにマッピング
+		Scores scores;
+		try {
+			scores = gson.fromJson(result, Scores.class);
+			// TODO: catchする例外が十分かどうか確認
+		} catch (JsonSyntaxException | NumberFormatException e) {
+			// logger.error(pm.get("E006"),bodyStr, result, e);
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new AuthorizationFailedException(pm.get("E006"));
+		}
+
+		// 受信結果のValidatation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
+		if (validationResult.size() != 0) {
+			// logger.error(pm.get("E006"),bodyStr, result);
+			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
+			throw new AuthorizationFailedException(pm.get("E006"));
+		}
 
 		return scores;
 	}
