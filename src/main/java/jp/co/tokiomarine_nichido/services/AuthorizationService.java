@@ -1,15 +1,22 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.AuthorizationResult;
 import jp.co.tokiomarine_nichido.models.DecryptedResult;
 import jp.co.tokiomarine_nichido.models.User;
@@ -49,6 +56,14 @@ public class AuthorizationService {
 		// 復号結果（JSON）をDecryptedResultオブジェクトにマッピング
 		Gson gson = new Gson();
 		DecryptedResult decryptedResult = gson.fromJson(decryptedString, DecryptedResult.class);
+
+        // 復号結果のValidatation
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<DecryptedResult>> validationResult = validator.validate(decryptedResult);
+        if(validationResult.size() != 0) {
+        	throw new AuthorizationFailedException(pm.get("E002"));
+        }
 
 		// TODO: チェックエラーになるので一時的にコメントアウト
 		// URL生成時刻の比較

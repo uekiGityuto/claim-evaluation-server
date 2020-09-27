@@ -2,6 +2,11 @@ package jp.co.tokiomarine_nichido.models;
 
 import java.time.Instant;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.google.gson.annotations.SerializedName;
+
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
@@ -18,22 +23,30 @@ public class DecryptedResult {
 
 	// private static final Logger logger = LogManager.getLogger(DecryptedResult.class);
 
-	// GNetから連携される権限（0:担当者権限、1:損業権限）
-	private String Authflag;
-	private String ClaimNo;
-	private String CreateDate;
+	// 損業権限フラグ（0:担当者権限、1:損業権限）
+	@NotNull
+	@Size(min=1)
+	@SerializedName("Authflag")
+	private String authFlag;
+	// 受付番号
+	@NotNull
+	@Size(min=1)
+	@SerializedName("ClaimNo")
+	private String claimNumber;
+	// URL生成時刻
+	@NotNull
+	@Size(min=1)
+	@SerializedName("CreateDate")
+	private String createDate;
 
-	public DecryptedResult(String Authflag, String ClaimNo, String CreateDate) {
-		// 損業権限フラグ
-		this.Authflag = Authflag;
-		// 受付番号
-		this.ClaimNo = ClaimNo;
-		// URL生成時刻
-		this.CreateDate = CreateDate;
+	public DecryptedResult(String authFlag, String claimNumber, String createDate) {
+		this.authFlag = authFlag;
+		this.claimNumber = claimNumber;
+		this.createDate = createDate;
 	}
 
 	public boolean isAuthority() {
-		if (this.Authflag.equals("1")) {
+		if (this.authFlag.equals("1")) {
 			return true;
 		}
 		return false;
@@ -44,7 +57,7 @@ public class DecryptedResult {
 		// TODO: Arquillianを利用したテストが出来るようになればInjectするように変更
 		PropertyManager pm = new PropertyManager();
 
-		Instant createDate = Instant.parse(this.CreateDate);
+		Instant createDate = Instant.parse(this.createDate);
 		Instant currentDate = Instant.now();
 		if (createDate.plusSeconds(10).compareTo(currentDate) < 0) {
 			// logger.error(pm.get("E003"),createDate, currentDate);
@@ -56,7 +69,7 @@ public class DecryptedResult {
 	}
 
 	public AuthorizationResult createAuthorizationResult(String userId) {
-		return new AuthorizationResult(userId, this.isAuthority(), this.ClaimNo);
+		return new AuthorizationResult(userId, this.isAuthority(), this.claimNumber);
 	}
 
 }
