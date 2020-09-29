@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.MessageFormat;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -42,7 +43,7 @@ public class DecryptionService {
 	 * @return 復号結果
 	 * @throws Exception
 	 */
-	public String decrypt(String encryptedString) throws Exception {
+	public String decrypt(String encryptedString, String userId) throws Exception {
 		// TODO: Arquillianを利用したテストが出来るようになればInjectするように変更
 		PropertyManager pm = new PropertyManager();
 		final String KEY = pm.get("decryption.key");
@@ -80,9 +81,8 @@ public class DecryptionService {
 		} catch (AuthorizationFailedException | IllegalArgumentException | UnsupportedEncodingException
 				| NullPointerException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
 				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
-			// logger.error(pm.get("E002"), e);
-			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
-			throw new AuthorizationFailedException(pm.get("E002"));
+			// TODO: eも渡す必要があるか確認。
+			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E002"), userId));
 		}
 	}
 

@@ -34,6 +34,7 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 		User user = (User) session.getAttribute("user");
 
 		if (!user.isUserId()) {
+			// TODO: 例外をThrowするように変更
 			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
 		}
 	}

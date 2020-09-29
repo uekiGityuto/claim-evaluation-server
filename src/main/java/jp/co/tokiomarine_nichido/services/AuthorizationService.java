@@ -48,28 +48,23 @@ public class AuthorizationService {
 			throws Exception {
 
 		// 復号処理
-		String decryptedString = decryptionService.decrypt(encryptedParam);
-		// if (decryptedString.isEmpty()) {
-		//	throw new WebApplicationException(Response.Status.FORBIDDEN);
-		// }
+		String decryptedString = decryptionService.decrypt(encryptedParam, userId);
 
 		// 復号結果（JSON）をDecryptedResultオブジェクトにマッピング
 		Gson gson = new Gson();
 		DecryptedResult decryptedResult = gson.fromJson(decryptedString, DecryptedResult.class);
 
-        // 復号結果のValidatation
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<DecryptedResult>> validationResult = validator.validate(decryptedResult);
-        if(validationResult.size() != 0) {
-        	throw new AuthorizationFailedException(pm.get("E002"));
-        }
+		// 復号結果のValidatation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<DecryptedResult>> validationResult = validator.validate(decryptedResult);
+		if (validationResult.size() != 0) {
+			throw new AuthorizationFailedException(pm.get("E002"));
+		}
 
 		// TODO: チェックエラーになるので一時的にコメントアウト
 		// URL生成時刻の比較
-		// if (!validationResult.isCorrectDate()) {
-		//	throw new WebApplicationException(Response.Status.FORBIDDEN);
-		// }
+		// decryptedResult.isCorrectDate();
 
 		// UserSessionログインユーザ情報にユーザ情報をセット
 		User user = new User(userId, decryptedResult.isAuthority());
@@ -79,7 +74,7 @@ public class AuthorizationService {
 		// 認可結果を返す
 		AuthorizationResult authorizationResult = decryptedResult.createAuthorizationResult(userId);
 
-		// log出力
+		// INFOログ出力
 		// TODO: 文字化けするので対策
 		logger.info(pm.get("I001"), userId);
 

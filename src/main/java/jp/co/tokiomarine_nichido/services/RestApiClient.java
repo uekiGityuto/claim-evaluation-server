@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -46,14 +47,13 @@ public class RestApiClient {
 		headers.putSingle("X-TMN-GLOBAL-TRANSACTION-ID", globalTranId);
 
 		// API GateWayのIAM認証に必要なヘッダ追加
-		// SignatureCreator creator = new SignatureCreator();
 		headers = creator.getAuthorization(headers, body, host, path);
 
 		// hostヘッダを付与するとwarningが出るので以下をセット
 		// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
-		// ログ出力
+		// DEBUGログ出力
 		// TODO: HTTPリクエスト全量を出せるように要検討
 		// logger.debug(pm.get("D016"), path, headers);
 		logger.debug(pm.get("D016"), path, body);
@@ -66,17 +66,16 @@ public class RestApiClient {
 				.post(Entity.json(body));
 
 		if(response.getStatus() != 200) {
-			logger.debug(pm.get("E004"), path, response.getStatus());
 			// TODO: 適切なExceptionを返す
-			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
-			throw new Exception(pm.get("E004"));
+			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
+			throw new Exception(MessageFormat.format(pm.get("E004"), path, response.getStatus()));
 		}
 
 		// responseのbody部を取得し、responseを閉じる
 		// （response.reaEntityを実施するとresponseが閉じる）
 		String result = response.readEntity(String.class);
 
-		// ログ出力
+		// DEBUGログ出力
 		// TODO: HTTPリクエスト全量を出せるように要検討
 		// logger.debug(pm.get("D017"), response.getStatus());
 		// logger.debug(pm.get("D017"), response.getHeaders());

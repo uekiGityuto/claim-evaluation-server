@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.models;
 
+import java.text.MessageFormat;
 import java.time.Instant;
 
 import javax.validation.constraints.NotNull;
@@ -62,11 +63,10 @@ public class DecryptedResult {
 		Instant createDate = Instant.parse(this.createDate);
 		Instant currentDate = Instant.now();
 		if (createDate.plusSeconds(10).compareTo(currentDate) < 0) {
-			// logger.error(pm.get("E003"),createDate, currentDate);
-			// TODO: プレースホルダーをセットすると無駄に複雑になる。要相談。
-			throw new AuthorizationFailedException(pm.get("E003"));
+			// TODO: eも渡す必要があるか確認。
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.get("E003"), createDate, currentDate, pm.get("E003.interval")));
 		}
-		;
 		return true;
 	}
 

@@ -35,8 +35,8 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 		System.out.println(user.isAuthFlag());
 
 		if (!(user.isAuthFlag())) {
-			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
-					.entity("No Auth Flag.").build());
+			// TODO: 例外をThrowするように変更
+			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
 		}
 	}
 
