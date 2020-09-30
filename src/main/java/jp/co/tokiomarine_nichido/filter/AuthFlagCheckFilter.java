@@ -3,6 +3,7 @@ package jp.co.tokiomarine_nichido.filter;
 import java.io.IOException;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Priorities;
@@ -11,7 +12,12 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import jp.co.tokiomarine_nichido.models.User;
+import jp.co.tokiomarine_nichido.services.RestApiClient;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * 損業権限チェックフィルタ
@@ -22,6 +28,9 @@ import jp.co.tokiomarine_nichido.models.User;
 @Priority(Priorities.AUTHORIZATION)
 public class AuthFlagCheckFilter implements ContainerRequestFilter {
 
+	@Inject
+	private PropertyManager pm;
+	private static final Logger logger = LogManager.getLogger(RestApiClient.class);
 	@Context
 	HttpServletRequest request;
 
@@ -34,11 +43,14 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 		User user = (User) session.getAttribute("user");
 		System.out.println(user.isAuthFlag());
 
-		if (!(user.isAuthFlag())) {
-			// TODO: 例外をThrowするように変更
+		if (user == null || !user.isAuthFlag()) {
+			// TODO: IOExceptionしかThrow出来ないのでここで403応答とエラーロギングさせる？
 			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
+			logger.error(pm.get("E012"), (user == null) ? user : user.getUserId());
+//			throw new IOException(MessageFormat.format(
+//					pm.get("E012"), (user == null) ? user : user.getUserId()));
+
 		}
 	}
-
 
 }

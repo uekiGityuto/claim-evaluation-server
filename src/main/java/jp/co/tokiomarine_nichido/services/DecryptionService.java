@@ -15,9 +15,6 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
@@ -32,8 +29,6 @@ public class DecryptionService {
 
 	//	@Inject
 	//	private PropertyManager pm;
-
-	private static final Logger logger = LogManager.getLogger(DecryptionService.class);
 
 	//	private static final String KEY = "O89JfeVNMR23KuE4";
 	//	private static final String IV = "1Q43Te234IJJDPWE";

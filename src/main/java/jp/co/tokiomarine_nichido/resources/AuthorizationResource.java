@@ -10,6 +10,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -43,6 +44,11 @@ public class AuthorizationResource {
 			@QueryParam("param") String encryptedParam) {
 
 		System.out.println("受信確認1");
+
+		if(userId == null || userId.isEmpty()) {
+			// TODO: 適切なExceptionを検討
+			throw new WebApplicationException(pm.get("E019"));
+		}
 
 		String uri = pm.get("url.webServer");
 		try {

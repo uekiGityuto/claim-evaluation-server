@@ -53,7 +53,7 @@ public class ClaimListResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ClaimList get(
 			@Context HttpServletRequest request,
-			TargetClaimList targetClaims) {
+			TargetClaimList targetClaims) throws Exception {
 
 		System.out.println("受信確認5");
 
@@ -61,15 +61,8 @@ public class ClaimListResource {
 		User user = (User) session.getAttribute("user");
 		targetClaims.userId = user.getUserId();
 
-		try {
-			ClaimList claims = claimService.getClaimList(targetClaims);
-			return claims;
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-			Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
-		return null;
-
+		ClaimList claims = claimService.getClaimList(targetClaims);
+		return claims;
 	}
+
 }
