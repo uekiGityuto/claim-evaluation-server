@@ -1,7 +1,10 @@
 package jp.co.tokiomarine_nichido.util;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -33,18 +36,20 @@ public class SignatureCreator {
 	@Inject
 	private PropertyManager pm;
 
-//	private static final Logger logger = LoggerFactory.getLogger(ApiGatewayClient.class);
-
 	/**
 	 * @param headers
 	 * @param body
 	 * @param host
 	 * @param path
 	 * @return headerにX-Amz-DateとAuthorizationを付与して返す
-	 * @throws Exception
+	 * @throws URISyntaxException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 * @throws InvalidKeyException
 	 */
 	public MultivaluedMap<String, Object> getAuthorization(MultivaluedMap<String, Object> headers, String body,
-			String host, String path) throws Exception {
+			String host, String path) throws URISyntaxException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, IllegalStateException {
 
 		/* 1. 正規リクエスト(CanonicalRequest)の生成 */
 
@@ -255,10 +260,12 @@ public class SignatureCreator {
 	 * @param regionName
 	 * @param serviceName
 	 * @return 署名キー
-	 * @throws Exception
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
 	 */
-	public byte[] getSignatureKey(String key, String xAmzDate, String regionName, String serviceName)
-			throws Exception {
+	public byte[] getSignatureKey(String key, String xAmzDate, String regionName, String serviceName) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException {
 		byte[] kSecret = ("AWS4" + key).getBytes("UTF-8");
 		byte[] kDate = hmacSHA256(xAmzDate, kSecret);
 		byte[] kRegion = hmacSHA256(regionName, kDate);
@@ -270,9 +277,12 @@ public class SignatureCreator {
 	 * @param data
 	 * @param key
 	 * @return dataをkeyでHMAC-SHA-256にハッシュ化した値
-	 * @throws Exception
+	 * @throws InvalidKeyException
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
 	 */
-	public byte[] hmacSHA256(String data, byte[] key) throws Exception {
+	public byte[] hmacSHA256(String data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
 		String algorithm = "HmacSHA256";
 		Mac mac = Mac.getInstance(algorithm);
 		mac.init(new SecretKeySpec(key, algorithm));
@@ -283,9 +293,13 @@ public class SignatureCreator {
 	 * @param signatureKey
 	 * @param stringToSign
 	 * @return 署名（HMAC-SHA-256でハッシュ化した結果を小文字の16進文字列にエンコードした文字列）
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
 	 * @throws Exception
 	 */
-	public String getSignature(byte[] signatureKey, String stringToSign) throws Exception {
+	public String getSignature(byte[] signatureKey, String stringToSign) throws InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, UnsupportedEncodingException {
 		byte[] signature = hmacSHA256(stringToSign, signatureKey);
 		return DatatypeConverter.printHexBinary(signature).toLowerCase();
 	}

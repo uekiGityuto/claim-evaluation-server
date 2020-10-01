@@ -9,18 +9,16 @@ import javax.enterprise.context.ApplicationScoped;
  * プロパティファイルからプロパティを取得。
  *
  * @author SKK229873 中山真吾
+ * @author SKK231527 植木宥登
  */
 @ApplicationScoped
 public class PropertyManager {
 	private ResourceBundle bundle = null;
-//	private static final Logger logger = LogManager.getLogger();
+	private ResourceBundle bundleLog = null;
 
 	public PropertyManager() {
 		bundle = ResourceBundle.getBundle("config");
-//		logger.info("config.propertiesから設定値を読み込み。");
-		for (String key : bundle.keySet()) {
-//			logger.info("          {}:{}", key, bundle.getObject(key));
-		}
+		bundleLog = ResourceBundle.getBundle("log");
 	}
 
 	@PostConstruct
@@ -39,4 +37,13 @@ public class PropertyManager {
 		return bundle.getString(key);
 	}
 
+	/**
+	 * ログプロパティファイルからログメッセージを取得
+	 *
+	 * @param key プロパティのキー
+	 * @return プロパティの値
+	 */
+	public String getLogMessage(String key) {
+		return bundleLog.getString(key);
+	}
 }

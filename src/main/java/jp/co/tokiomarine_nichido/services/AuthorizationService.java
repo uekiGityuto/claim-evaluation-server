@@ -59,7 +59,7 @@ public class AuthorizationService {
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<DecryptedResult>> validationResult = validator.validate(decryptedResult);
 		if (validationResult.size() != 0) {
-			throw new AuthorizationFailedException(pm.get("E002"));
+			throw new AuthorizationFailedException(pm.getLogMessage("E002"));
 		}
 
 		// TODO: チェックエラーになるので一時的にコメントアウト
@@ -76,7 +76,7 @@ public class AuthorizationService {
 
 		// INFOログ出力
 		// TODO: 文字化けするので対策
-		logger.info(pm.get("I001"), userId);
+		logger.info(pm.getLogMessage("I001"), userId);
 
 		return authorizationResult;
 

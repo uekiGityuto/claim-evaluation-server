@@ -18,4 +18,9 @@ public class AuthorizationFailedException extends Exception {
 		super(message);
 	}
 
+	public AuthorizationFailedException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+
 }

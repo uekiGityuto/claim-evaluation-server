@@ -47,7 +47,7 @@ public class AuthorizationResource {
 
 		if(userId == null || userId.isEmpty()) {
 			// TODO: 適切なExceptionを検討
-			throw new WebApplicationException(pm.get("E019"));
+			throw new WebApplicationException(pm.getLogMessage("E019"));
 		}
 
 		String uri = pm.get("url.webServer");

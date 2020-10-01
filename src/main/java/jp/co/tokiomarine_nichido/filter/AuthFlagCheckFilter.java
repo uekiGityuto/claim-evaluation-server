@@ -46,9 +46,9 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 		if (user == null || !user.isAuthFlag()) {
 			// TODO: IOExceptionしかThrow出来ないのでここで403応答とエラーロギングさせる？
 			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
-			logger.error(pm.get("E012"), (user == null) ? user : user.getUserId());
+			logger.error(pm.getLogMessage("E012"), (user == null) ? user : user.getUserId());
 //			throw new IOException(MessageFormat.format(
-//					pm.get("E012"), (user == null) ? user : user.getUserId()));
+//					pm.getLogMessage("E012"), (user == null) ? user : user.getUserId()));
 
 		}
 	}

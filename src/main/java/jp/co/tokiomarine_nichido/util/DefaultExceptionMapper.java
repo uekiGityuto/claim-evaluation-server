@@ -28,10 +28,10 @@ public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
 		Response response = null;
 
 		if (exception instanceof AuthorizationFailedException) {
-			logger.error(exception);
+			logger.error(exception.getMessage(), exception);
 			response = Response.status(Response.Status.FORBIDDEN).build();
 		} else {
-			logger.error(exception);
+			logger.error(exception.getMessage(), exception);
 			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 		return response;

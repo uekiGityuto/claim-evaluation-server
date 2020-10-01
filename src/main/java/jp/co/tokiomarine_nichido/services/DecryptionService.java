@@ -76,8 +76,8 @@ public class DecryptionService {
 		} catch (AuthorizationFailedException | IllegalArgumentException | UnsupportedEncodingException
 				| NullPointerException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
 				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
-			// TODO: eも渡す必要があるか確認。
-			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E002"), userId));
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.getLogMessage("E002"), userId), e);
 		}
 	}
 

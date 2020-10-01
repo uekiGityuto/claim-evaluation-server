@@ -1,5 +1,9 @@
 package jp.co.tokiomarine_nichido.services;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -50,43 +54,48 @@ public class RestApiClient {
 		// API GateWayのIAM認証に必要なヘッダ追加
 		try {
 			headers = creator.getAuthorization(headers, body, host, path);
-
-			// hostヘッダを付与するとwarningが出るので以下をセット
-			// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
-			System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-
-			// DEBUGログ出力
-			// TODO: HTTPリクエスト全量を出せるように要検討
-			// logger.debug(pm.get("D016"), path, headers);
-			logger.debug(pm.get("D016"), path, body);
-
-			// リクエスト
-			Response response = ClientBuilder.newClient().register(RequestClientWriterInterceptor.class)
-					.target("https://" + host).path(path)
-					.request(MediaType.APPLICATION_JSON)
-					.headers(headers)
-					.post(Entity.json(body));
-
-			if (response.getStatus() != 200) {
-				// TODO: 適切なExceptionを検討
-				// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-				throw new WebApplicationException(MessageFormat.format(pm.get("E004"), path, response.getStatus()));
-			}
-
-			// responseのbody部を取得し、responseを閉じる
-			// （response.reaEntityを実施するとresponseが閉じる）
-			String result = response.readEntity(String.class);
-
-			// DEBUGログ出力
-			// TODO: HTTPリクエスト全量を出せるように要検討
-			// logger.debug(pm.get("D017"), response.getStatus());
-			// logger.debug(pm.get("D017"), response.getHeaders());
-			logger.debug(pm.get("D017"), path, result);
-			return result;
-
-		} catch (Exception e) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-			throw new Exception(MessageFormat.format(pm.get("E020"), body));
+		} catch (InvalidKeyException | UnsupportedEncodingException | NoSuchAlgorithmException | IllegalStateException
+				| URISyntaxException e) {
+			// TODO: 適切なExceptionを検討
+			// TODO: プレースホルダーにセットする情報が十分か要検討。
+			throw new Exception(
+					MessageFormat.format(pm.getLogMessage("E020"), body), e);
 		}
+
+		// hostヘッダを付与するとwarningが出るので以下をセット
+		// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
+		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+
+		// DEBUGログ出力
+		// TODO: HTTPリクエスト全量を出せるように要検討
+		// logger.debug(pm.getLogMessage("D016"), path, headers);
+		logger.debug(pm.getLogMessage("D016"), path, body);
+
+		// リクエスト
+		Response response = ClientBuilder.newClient().register(RequestClientWriterInterceptor.class)
+				.target("https://" + host).path(path)
+				.request(MediaType.APPLICATION_JSON)
+				.headers(headers)
+				.post(Entity.json(body));
+
+		if (response.getStatus() != 200) {
+			// TODO: 適切なExceptionを検討
+			// TODO: プレースホルダーにセットする情報が十分か要検討。
+			throw new WebApplicationException(
+					MessageFormat.format(pm.getLogMessage("E004"), path, response.getStatus()));
+		}
+
+		// responseのbody部を取得し、responseを閉じる
+		// （response.reaEntityを実施するとresponseが閉じる）
+		String result = response.readEntity(String.class);
+
+		// DEBUGログ出力
+		// TODO: HTTPリクエスト全量を出せるように要検討
+		// logger.debug(pm.getLogMessage("D017"), response.getStatus());
+		// logger.debug(pm.getLogMessage("D017"), response.getHeaders());
+		logger.debug(pm.getLogMessage("D017"), path, result);
+		return result;
+
 	}
+
 }

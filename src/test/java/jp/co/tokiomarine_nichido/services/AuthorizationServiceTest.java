@@ -4,7 +4,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.Test;
 
 // TODO: CDIを使用したテストを出来るようにする（Arquillian）
-// TODO: Junit5でArquillianを使用できるようにする
 // TODO: サンプルの問題でURL生成時刻のチェックNGになるのでテスト方法を工夫する
 //@RunWith(Arquillian.class)
 @RunAsClient

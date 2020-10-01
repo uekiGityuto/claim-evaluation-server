@@ -44,8 +44,8 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 
 		if (user == null || !user.isUserId()) {
 			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
-			logger.error(pm.get("E007"));
-			// throw new IOException(pm.get("E007"));
+			logger.error(pm.getLogMessage("E007"));
+			// throw new IOException(pm.getLogMessage("E007"));
 		}
 	}
 

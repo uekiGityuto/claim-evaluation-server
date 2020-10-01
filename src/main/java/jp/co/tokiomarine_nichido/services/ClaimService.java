@@ -55,8 +55,9 @@ public class ClaimService {
 			claims = gson.fromJson(result, ClaimList.class);
 			// TODO: catchする例外が十分かどうか確認
 		} catch (JsonSyntaxException | NumberFormatException e) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E005"), bodyStr,result));
+			// TODO: プレースホルダーにセットする情報が十分か要検討。
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
 		}
 
 		// 受信結果のValidatation
@@ -64,8 +65,9 @@ public class ClaimService {
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
 		if (validationResult.size() != 0) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E005"), bodyStr, result));
+			// TODO: プレースホルダーにセットする情報が十分か要検討
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
 		}
 
 		return claims;
@@ -96,8 +98,9 @@ public class ClaimService {
 			scores = gson.fromJson(result, Scores.class);
 			// TODO: catchする例外が十分かどうか確認
 		} catch (JsonSyntaxException | NumberFormatException e) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E006"), bodyStr,result));
+			// TODO: プレースホルダーにセットする情報が十分か要検討。
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result), e);
 		}
 
 		// 受信結果のValidatation
@@ -105,8 +108,9 @@ public class ClaimService {
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
 		if (validationResult.size() != 0) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。eも渡す必要があるか確認。
-			throw new AuthorizationFailedException(MessageFormat.format(pm.get("E006"), bodyStr,result));
+			// TODO: プレースホルダーにセットする情報が十分か要検討。
+			throw new AuthorizationFailedException(
+					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
 		}
 
 		return scores;
