@@ -1,6 +1,6 @@
 package jp.co.tokiomarine_nichido.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.time.Instant;
 import java.util.Set;
@@ -10,22 +10,22 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.google.gson.Gson;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 
-class DecryptedResultTest {
+public class DecryptedResultTest {
 
 	@Test
-	void testIsAuthority1() {
+	public void testIsAuthority1() {
 		DecryptedResult result = new DecryptedResult("1", "1234567890", "2020-08-18T13:11:43.887Z");
 		assertTrue(result.isAuthority());
 	}
 
 	@Test
-	void testIsAuthority2() {
+	public void testIsAuthority2() {
 		DecryptedResult result = new DecryptedResult("0", "1234567890", "2020-08-18T13:11:43.887Z");
 		assertTrue(!(result.isAuthority()));
 	}
@@ -35,7 +35,7 @@ class DecryptedResultTest {
 	 * 正常系
 	 */
 	@Test
-	void testIsCorrectDate1() {
+	public void testIsCorrectDate1() {
 		String createDate = Instant.now().toString();
 //		System.out.println(createDate);
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
@@ -53,7 +53,7 @@ class DecryptedResultTest {
 	 * 正常系（境界値）※比較までにラグがあるので10秒ぴったりは出来ない
 	 */
 	@Test
-	void testIsCorrectDate2() {
+	public void testIsCorrectDate2() {
 		String createDate = Instant.now().minusSeconds(9).toString();
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
 		try {
@@ -69,7 +69,7 @@ class DecryptedResultTest {
 	 * 異常系（境界値）
 	 */
 	@Test
-	void testIsCorrectDate3() {
+	public void testIsCorrectDate3() {
 		String createDate = Instant.now().minusSeconds(11).toString();
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
 		try {
@@ -81,7 +81,7 @@ class DecryptedResultTest {
 	}
 
 	@Test
-	void testCreateAuthResult() {
+	public void testCreateAuthResult() {
 		DecryptedResult result = new DecryptedResult("0", "1234567890", "2020-08-18T13:11:43.887Z");
 		AuthorizationResult authResult = result.createAuthorizationResult("aaa");
 		System.out.println(authResult);
@@ -92,7 +92,7 @@ class DecryptedResultTest {
 	 * 正常系
 	 */
 	@Test
-	void validationTest1() {
+	public void validationTest1() {
 		// テスト準備
         // Validatorを取得
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -115,7 +115,7 @@ class DecryptedResultTest {
 	 * 異常系
 	 */
 	@Test
-	void validationTest2() {
+	public void validationTest2() {
 		// テスト準備
         // Validatorを取得
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

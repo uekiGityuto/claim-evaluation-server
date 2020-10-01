@@ -1,6 +1,6 @@
 package jp.co.tokiomarine_nichido.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -11,9 +11,9 @@ import java.util.Map;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class SignatureCreatorTest {
+public class SignatureCreatorTest {
 
 	SignatureCreator creator = new SignatureCreator();
 

@@ -96,14 +96,13 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.1.5.Final</version>
 		</dependency>
-		<!-- TODO: ValidationメッセージにEL式を使用するため。
-		EL式は使用しないが追加しないとExceptionが発生するので追加 -->
+		<!-- TODO: ValidationメッセージにEL式を使用するため。 EL式は使用しないが追加しないとExceptionが発生するので追加 -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<!-- TODO: 中山さんに追加して良いか確認 END-->
+		<!-- TODO: 中山さんに追加して良いか確認 END -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -159,22 +158,33 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.6.2</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Test時、javax.ws.rs.client.ClientBuilderを利用てしも内部的にjerseyのClientを必要としているため記載 -->
-		<!-- <dependency> <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+		<!--
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId> <version>2.31</version>
-			<scope>test</scope> </dependency> <dependency> <groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId> <version>2.31</version> <scope>test</scope>
-			</dependency> <dependency> <groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId> <version>2.31</version>
-			<scope>test</scope> </dependency> -->
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>2.31</version> <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.31</version>
+			<scope>test</scope>
+		</dependency> -->
 		<!-- REST-APIに対するjUnitテストで使用。JAX-RSのクライアントを使用する場合、Class Loadで原因不明のエラーになるため、汎用的なHTTPのクライアントを使用 -->
 		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId>
-			<version>4.5.12</version> <scope>test</scope> </dependency> -->
+			<version>4.5.12</version> <scope>test</scope>
+		</dependency> -->
 	</dependencies>
 
 	<build>

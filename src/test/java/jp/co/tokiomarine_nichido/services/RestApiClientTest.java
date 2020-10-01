@@ -1,11 +1,11 @@
 package jp.co.tokiomarine_nichido.services;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class RestApiClientTest {
+public class RestApiClientTest {
 
 	@Test
-	void testInquiry1() {
+	public void testInquiry1() {
 		// テスト準備
 //		String path = "/prd/inqiry";
 //		TargetClaim bodyObj = new TargetClaim("AAA123456", "1234567890");

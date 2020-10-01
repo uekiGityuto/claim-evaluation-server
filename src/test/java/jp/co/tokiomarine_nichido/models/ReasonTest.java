@@ -1,6 +1,6 @@
 package jp.co.tokiomarine_nichido.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -9,17 +9,17 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import jp.co.tokiomarine_nichido.models.scores.Reason;
 
-class ReasonTest {
+public class ReasonTest {
 
 	@Test
-	void gsonTest1() {
+	public void gsonTest1() {
 		// テスト準備
 		String reasonString = "{\"REASON\": \"\", \"FEATURENAME\": \"特徴量1\", \"FEATUREDESCRIPTION\": \"説明1\"}";
 		Gson gson = new Gson();
@@ -35,7 +35,7 @@ class ReasonTest {
 	}
 
 	@Test
-	void validateTest1() {
+	public void validateTest1() {
 		// テスト準備
         // Validator取得
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -54,7 +54,7 @@ class ReasonTest {
 	}
 
 	@Test
-	void validateTest2() {
+	public void validateTest2() {
 		// テスト準備
         // Validator取得
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
