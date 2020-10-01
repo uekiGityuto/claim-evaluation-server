@@ -62,10 +62,11 @@ public class DecryptedResult {
 
 		Instant createDate = Instant.parse(this.createDate);
 		Instant currentDate = Instant.now();
-		if (createDate.plusSeconds(10).compareTo(currentDate) < 0) {
+		int timeLimit = Integer.parseInt(pm.get("url.timeLimit"));
+		if (createDate.plusSeconds(timeLimit).compareTo(currentDate) < 0) {
 			// TODO: eも渡す必要があるか確認。
 			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.get("E003"), createDate, currentDate, pm.get("E003.interval")));
+					MessageFormat.format(pm.get("E003"), createDate, currentDate, pm.get("url.timeLimit")));
 		}
 		return true;
 	}
