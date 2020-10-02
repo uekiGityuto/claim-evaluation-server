@@ -13,7 +13,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
-import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.codec.binary.Hex;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
@@ -50,7 +51,7 @@ public class DecryptionService {
 			}
 
 			// 暗号データ(Hex)をバイト配列に変換
-			byte[] encryptedByte = DatatypeConverter.parseHexBinary(encryptedString);
+			byte[] encryptedByte = Hex.decodeHex(encryptedString.toCharArray());
 
 			// 秘密鍵と初期化ベクトルをバイト配列へ変換
 			byte[] byteKey = KEY.getBytes("UTF-8");
@@ -74,7 +75,7 @@ public class DecryptionService {
 
 			return decryptedString;
 		} catch (AuthorizationFailedException | IllegalArgumentException | UnsupportedEncodingException
-				| NullPointerException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+				| NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
 				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
 			throw new AuthorizationFailedException(
 					MessageFormat.format(pm.getLogMessage("E002"), userId), e);
