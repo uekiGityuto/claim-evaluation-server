@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.models.scores;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -7,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.gson.annotations.SerializedName;
 
-// TODO: Date型に変更するか検討（横並びチェック、ISO8601の場合、Gsonをnewするときに工夫が必要？）
 @XmlRootElement
 public class DetailClaim {
 
@@ -37,11 +37,11 @@ public class DetailClaim {
 
 	@NotNull
     @SerializedName("LOSSDATE")
-    public String lossDate;
+    public Date lossDate;
 
 	@NotNull
     @SerializedName("UPDATEDATE")
-    public String updateDate;
+    public Date updateDate;
 
 	@NotNull
     @SerializedName("FRAUDSCOREHISTORY")

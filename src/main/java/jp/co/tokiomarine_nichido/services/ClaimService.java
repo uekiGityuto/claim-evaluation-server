@@ -11,6 +11,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
@@ -43,7 +44,8 @@ public class ClaimService {
 
 		// REST APIにリクエストするための情報をセット
 		String path = pm.get("api.path.cliams");
-		Gson gson = new Gson();
+		// Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 		String bodyStr = gson.toJson(bodyObj);
 
 		// REST APIにスコア詳細をリクエスト
@@ -86,7 +88,8 @@ public class ClaimService {
 
 		// REST APIにリクエストするための情報をセット
 		String path = pm.get("api.path.scores");
-		Gson gson = new Gson();
+		//		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 		String bodyStr = gson.toJson(bodyObj);
 
 		// REST APIに事案一覧をリクエスト

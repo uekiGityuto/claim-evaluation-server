@@ -1,5 +1,6 @@
 package jp.co.tokiomarine_nichido.models.scores;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,7 @@ public class FraudScore {
 
 	@NotNull
     @SerializedName("SCORINGDATE")
-    public String scoringDate;
+    public Date scoringDate;
 
 	@NotNull
     @SerializedName("CLAIMCATEGORY")

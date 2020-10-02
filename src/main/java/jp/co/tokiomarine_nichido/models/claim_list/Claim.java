@@ -1,5 +1,7 @@
 package jp.co.tokiomarine_nichido.models.claim_list;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,11 +44,11 @@ public class Claim {
 
 	@NotNull
 	@SerializedName("LASTUPDATEDATE")
-    public String lastUpdateDate;
+    public Date lastUpdateDate;
 
 	@NotNull
 	@SerializedName("LOSSDATE")
-    public String lossDate;
+    public Date lossDate;
 
 	@NotNull
 	@SerializedName("CLAIMCATEGORY")
