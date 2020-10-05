@@ -1,4 +1,4 @@
-package jp.co.tokiomarine_nichido.models;
+package jp.co.tokiomarine_nichido.models.target_claim_list;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,10 +11,10 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 @XmlRootElement
-public class ClaimCategory {
+public class InsuranceKind {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある
-	@SerializedName("CLAIMCATEGORY")
-	public String claimCategory;
+	@SerializedName("INSURANCEKIND")
+	public String insuranceKind;
 
 }

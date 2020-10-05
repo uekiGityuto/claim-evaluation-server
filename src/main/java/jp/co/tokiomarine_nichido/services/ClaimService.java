@@ -16,9 +16,9 @@ import com.google.gson.JsonSyntaxException;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.TargetClaim;
-import jp.co.tokiomarine_nichido.models.TargetClaimList;
 import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
 import jp.co.tokiomarine_nichido.models.scores.Scores;
+import jp.co.tokiomarine_nichido.models.target_claim_list.TargetClaimList;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**

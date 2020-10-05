@@ -12,9 +12,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import jp.co.tokiomarine_nichido.models.TargetClaimList;
 import jp.co.tokiomarine_nichido.models.User;
 import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
+import jp.co.tokiomarine_nichido.models.target_claim_list.TargetClaimList;
 import jp.co.tokiomarine_nichido.services.ClaimService;
 
 /**

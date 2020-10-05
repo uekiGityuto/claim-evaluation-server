@@ -41,7 +41,6 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		System.out.println(user.isAuthFlag());
 
 		if (user == null || !user.isAuthFlag()) {
 			String userId = requestContext.getHeaders().getFirst("Uid");

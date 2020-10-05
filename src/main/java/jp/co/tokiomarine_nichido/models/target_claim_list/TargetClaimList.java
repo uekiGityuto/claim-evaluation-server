@@ -1,4 +1,4 @@
-package jp.co.tokiomarine_nichido.models;
+package jp.co.tokiomarine_nichido.models.target_claim_list;
 
 import java.util.List;
 

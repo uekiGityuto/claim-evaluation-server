@@ -31,12 +31,8 @@ public class Claim {
     public String contractorNameKana;
 
 	@NotNull
-	@SerializedName("BUTENKANJI")
-    public String butenKanji;
-
-	@NotNull
-	@SerializedName("KYOTENKANJI")
-    public String kyotenKanji;
+	@SerializedName("BASE")
+    public String base;
 
 	@NotNull
 	@SerializedName("INSURANCEKIND")
