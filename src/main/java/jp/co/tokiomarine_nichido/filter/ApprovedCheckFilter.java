@@ -43,8 +43,9 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 		User user = (User) session.getAttribute("user");
 
 		if (user == null || !user.isUserId()) {
+			String userId = requestContext.getHeaders().getFirst("Uid");
+			logger.error(pm.getLogMessage("E007"), userId);
 			requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
-			logger.error(pm.getLogMessage("E007"));
 		}
 	}
 
