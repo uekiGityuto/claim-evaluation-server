@@ -26,11 +26,11 @@ public class EncryptionService {
 
 	public String encrypt(String targetString) throws Exception {
 
-		try {
-			PropertyManager pm = new PropertyManager();
-			final String KEY = pm.get("decryption.key");
-			final String IV = pm.get("decryption.iv");
+		PropertyManager pm = new PropertyManager();
+		final String KEY = pm.get("decryption.key");
+		final String IV = pm.get("decryption.iv");
 
+		try {
 			// 暗号化対象文字列をバイト配列へ変換
 			byte[] targetByte = targetString.getBytes("UTF-8");
 

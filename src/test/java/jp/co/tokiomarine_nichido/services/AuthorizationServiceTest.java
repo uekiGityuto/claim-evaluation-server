@@ -34,8 +34,8 @@ public class AuthorizationServiceTest {
 		String authFlag = "1";
 		String claimNumber = "1234567890";
 		String createDate = Instant.now().toString();
-		String targetString = "{\"Authflag\":\"" + authFlag + "\",\"ClaimNo\":\"" + claimNumber + "\",\"CreateDate\":\""
-				+ createDate + "\"}";
+		String targetString = "{\"Authflag\":\"" + authFlag + "\",\"ClaimNo\":\"" + claimNumber
+				+ "\",\"CreateDate\":\"" + createDate + "\"}";
 		System.out.println(targetString);
 
 		EncryptionService encryptionService = new EncryptionService();
