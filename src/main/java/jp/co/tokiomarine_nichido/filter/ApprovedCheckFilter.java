@@ -25,7 +25,7 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  * @author SKK231527 植木宥登
  *
  */
-@Priority(Priorities.AUTHENTICATION)
+@Priority(Priorities.AUTHORIZATION)
 public class ApprovedCheckFilter implements ContainerRequestFilter {
 
 	@Inject
@@ -37,7 +37,7 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
-		System.out.println("フィルタ確認1");
+		System.out.println("フィルタ確認2");
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");

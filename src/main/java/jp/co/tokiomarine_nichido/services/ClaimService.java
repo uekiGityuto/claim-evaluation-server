@@ -57,9 +57,7 @@ public class ClaimService {
 		Scores scores;
 		try {
 			scores = gson.fromJson(result, Scores.class);
-			// TODO: catchする例外が十分かどうか確認
 		} catch (JsonSyntaxException | NumberFormatException e) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。
 			throw new WebApplicationException(
 					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
 		}

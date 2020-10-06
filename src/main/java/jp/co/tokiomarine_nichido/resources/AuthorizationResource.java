@@ -46,7 +46,6 @@ public class AuthorizationResource {
 		System.out.println("受信確認1");
 
 		if(userId == null || userId.isEmpty()) {
-			// TODO: 適切なExceptionを検討
 			throw new WebApplicationException(pm.getLogMessage("E019"));
 		}
 

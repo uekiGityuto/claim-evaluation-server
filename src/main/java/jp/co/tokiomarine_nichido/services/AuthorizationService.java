@@ -75,7 +75,6 @@ public class AuthorizationService {
 		AuthorizationResult authorizationResult = decryptedResult.createAuthorizationResult(userId);
 
 		// INFOログ出力
-		// TODO: 文字化けするので対策
 		logger.info(pm.getLogMessage("I001"), userId);
 
 		return authorizationResult;

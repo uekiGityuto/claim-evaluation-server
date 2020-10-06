@@ -37,7 +37,6 @@ public class DecryptionServiceTest {
 			System.out.println("decryptedString:" + decryptedString);
 			fail();
 		} catch (Exception e) {
-			// TODO: 文字化けするので要対応
 			e.getMessage();
 			e.printStackTrace();
 		}

@@ -56,8 +56,6 @@ public class RestApiClient {
 			headers = creator.getAuthorization(headers, body, host, path);
 		} catch (InvalidKeyException | UnsupportedEncodingException | NoSuchAlgorithmException | IllegalStateException
 				| URISyntaxException e) {
-			// TODO: 適切なExceptionを検討
-			// TODO: プレースホルダーにセットする情報が十分か要検討。
 			throw new Exception(
 					MessageFormat.format(pm.getLogMessage("E020"), body), e);
 		}
@@ -67,8 +65,6 @@ public class RestApiClient {
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
 		// DEBUGログ出力
-		// TODO: HTTPリクエスト全量を出せるように要検討
-		// logger.debug(pm.getLogMessage("D016"), path, headers);
 		logger.debug(pm.getLogMessage("D016"), path, body);
 
 		// リクエスト
@@ -79,8 +75,6 @@ public class RestApiClient {
 				.post(Entity.json(body));
 
 		if (response.getStatus() != 200) {
-			// TODO: 適切なExceptionを検討
-			// TODO: プレースホルダーにセットする情報が十分か要検討。
 			throw new WebApplicationException(
 					MessageFormat.format(pm.getLogMessage("E004"), path, response.getStatus()));
 		}
@@ -90,9 +84,6 @@ public class RestApiClient {
 		String result = response.readEntity(String.class);
 
 		// DEBUGログ出力
-		// TODO: HTTPリクエスト全量を出せるように要検討
-		// logger.debug(pm.getLogMessage("D017"), response.getStatus());
-		// logger.debug(pm.getLogMessage("D017"), response.getHeaders());
 		logger.debug(pm.getLogMessage("D017"), path, result);
 		return result;
 
