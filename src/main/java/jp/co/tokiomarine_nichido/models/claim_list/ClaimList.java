@@ -19,11 +19,11 @@ public class ClaimList {
     public String order;
 
 	@NotNull
-    @SerializedName("FROMPAGES")
+    @SerializedName("DISPLAYFROM")
     public Integer fromPages;
 
 	@NotNull
-    @SerializedName("TOPAGES")
+    @SerializedName("DISPLAYTO")
     public Integer toPages;
 
 	@NotNull

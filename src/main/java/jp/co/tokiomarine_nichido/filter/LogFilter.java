@@ -43,18 +43,20 @@ public class LogFilter implements ContainerRequestFilter {
 		}
 		path += queryParam;
 
-
 		// HTTPリクエストボディを取得
-		InputStream is = requestContext.getEntityStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		StringBuilder sb = new StringBuilder();
-		sb.delete(0, sb.length());
-		String line;
-		while ((line = br.readLine()) != null) {
-		    sb.append(line);
+		String body = "";
+		if (requestContext.getEntityStream() != null) {
+			InputStream is = requestContext.getEntityStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			sb.delete(0, sb.length());
+			String line;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+			body = sb.toString();
+			br.close();
 		}
-		String body = sb.toString();
-		br.close();
 
 		// INFOログ出力
 		logger.info(pm.getLogMessage("I021"), userId, path, body);
