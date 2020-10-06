@@ -15,7 +15,7 @@ public class ClaimList {
     public List<Claim> claim;
 
 	@NotNull
-    @SerializedName("ORDER")
+    @SerializedName("ORDERTYPE")
     public String order;
 
 	@NotNull

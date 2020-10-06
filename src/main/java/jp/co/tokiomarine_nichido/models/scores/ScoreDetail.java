@@ -15,7 +15,7 @@ public class ScoreDetail {
     public String modelType;
 
 	@NotNull
-    @SerializedName("RANK")
+    @SerializedName("SCORERANK")
     public String rank;
 
 	@NotNull

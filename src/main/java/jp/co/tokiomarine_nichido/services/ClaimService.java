@@ -9,12 +9,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.claim_list.ClaimList;
 import jp.co.tokiomarine_nichido.models.scores.Scores;
@@ -33,48 +33,6 @@ public class ClaimService {
 	private RestApiClient client;
 	@Inject
 	private PropertyManager pm;
-
-	/**
-	 * 一覧画面リストデータ取得
-	 *
-	 * @return IF15事案一覧照会APIから取得した事案一覧
-	 * @throws Exception
-	 */
-	public ClaimList getClaimList(TargetClaimList bodyObj) throws Exception {
-
-		// REST APIにリクエストするための情報をセット
-		String path = pm.get("api.path.cliams");
-		// Gson gson = new Gson();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-		String bodyStr = gson.toJson(bodyObj);
-
-		// REST APIにスコア詳細をリクエスト
-		String result = client.post(path, bodyStr);
-
-		// 受信結果をオブジェクトにマッピング
-		ClaimList claims;
-		try {
-			claims = gson.fromJson(result, ClaimList.class);
-			// TODO: catchする例外が十分かどうか確認
-		} catch (JsonSyntaxException | NumberFormatException e) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。
-			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
-		}
-
-		// 受信結果のValidatation
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
-		if (validationResult.size() != 0) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討
-			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
-		}
-
-		return claims;
-
-	}
 
 	/**
 	 * 詳細画面データ取得
@@ -102,8 +60,8 @@ public class ClaimService {
 			// TODO: catchする例外が十分かどうか確認
 		} catch (JsonSyntaxException | NumberFormatException e) {
 			// TODO: プレースホルダーにセットする情報が十分か要検討。
-			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result), e);
+			throw new WebApplicationException(
+					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
 		}
 
 		// 受信結果のValidatation
@@ -111,11 +69,50 @@ public class ClaimService {
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
 		if (validationResult.size() != 0) {
-			// TODO: プレースホルダーにセットする情報が十分か要検討。
-			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
+			throw new WebApplicationException(
+					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
 		}
 
 		return scores;
 	}
+
+	/**
+	 * 一覧画面リストデータ取得
+	 *
+	 * @return IF15事案一覧照会APIから取得した事案一覧
+	 * @throws Exception
+	 */
+	public ClaimList getClaimList(TargetClaimList bodyObj) throws Exception {
+
+		// REST APIにリクエストするための情報をセット
+		String path = pm.get("api.path.cliams");
+		// Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+		String bodyStr = gson.toJson(bodyObj);
+
+		// REST APIにスコア詳細をリクエスト
+		String result = client.post(path, bodyStr);
+
+		// 受信結果をオブジェクトにマッピング
+		ClaimList claims;
+		try {
+			claims = gson.fromJson(result, ClaimList.class);
+		} catch (JsonSyntaxException | NumberFormatException e) {
+			throw new WebApplicationException(
+					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result), e);
+		}
+
+		// 受信結果のValidatation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
+		if (validationResult.size() != 0) {
+			throw new WebApplicationException(
+					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
+		}
+
+		return claims;
+
+	}
+
 }
