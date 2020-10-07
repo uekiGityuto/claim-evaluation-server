@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jp.co.tokiomarine_nichido</groupId>
-	<artifactId>fraud-detection</artifactId>
+	<artifactId>claim-evaluation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -35,7 +35,7 @@
 				<log.level>TRACE</log.level>
 				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
-				<test.context.uri>/fraud-detection/api</test.context.uri>
+				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
 		</profile>
 		<profile>
@@ -48,7 +48,7 @@
 				<log.level>TRACE</log.level>
 				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
-				<test.context.uri>/fraud-detection/api</test.context.uri>
+				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
 		</profile>
 		<profile>
@@ -61,7 +61,7 @@
 				<log.level>INFO</log.level>
 				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
-				<test.context.uri>/fraud-detection/api</test.context.uri>
+				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
 		</profile>
 	</profiles>
@@ -211,8 +211,8 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<!-- TODO: デプロイ資源を間違わないように、profileをファイル名につけれるようにする。 -->
-					<!-- <warName>fraud-detection-${project.activeProfiles[0].id}</warName> -->
-					<warName>fraud-detection</warName>
+					<!-- <warName>claim-evaluation-${project.activeProfiles[0].id}</warName> -->
+					<warName>claim-evaluation</warName>
 				</configuration>
 				<executions>
 					<execution>
@@ -223,8 +223,8 @@
 						<configuration>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
 							<!-- TODO: デプロイ資源を間違わないように、profileをファイル名につけれるようにする。 -->
-							<!-- <warName>fraud-detection-${project.activeProfiles[0].id}</warName> -->
-							<warName>fraud-detection</warName>
+							<!-- <warName>claim-evaluation-${project.activeProfiles[0].id}</warName> -->
+							<warName>claim-evaluation</warName>
 						</configuration>
 					</execution>
 				</executions>
