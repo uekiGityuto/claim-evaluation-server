@@ -19,6 +19,12 @@ import org.apache.logging.log4j.Logger;
 import jp.co.tokiomarine_nichido.services.RestApiClient;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
+/**
+ * 全アクセス時のログをINFOログとして出力するためのフィルタ。
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 @Priority(Priorities.AUTHENTICATION)
 public class LogFilter implements ContainerRequestFilter {
 
@@ -26,6 +32,9 @@ public class LogFilter implements ContainerRequestFilter {
 	private PropertyManager pm;
 	private static final Logger logger = LogManager.getLogger(RestApiClient.class);
 
+	/**
+	 * INFOログを出力する。
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
@@ -46,16 +55,7 @@ public class LogFilter implements ContainerRequestFilter {
 		// HTTPリクエストボディを取得
 		String body = "";
 		if (requestContext.getEntityStream() != null) {
-			InputStream is = requestContext.getEntityStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			StringBuilder sb = new StringBuilder();
-			sb.delete(0, sb.length());
-			String line;
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-			}
-			body = sb.toString();
-			br.close();
+			body = getBody(requestContext);
 		}
 
 		// INFOログ出力
@@ -63,6 +63,26 @@ public class LogFilter implements ContainerRequestFilter {
 
 		// HTTPリクエストボディを再セット
 		requestContext.setEntityStream(new ByteArrayInputStream(body.getBytes("utf-8")));
+
+	}
+
+	/**
+	 * HTTPリクエストボディを取得する。
+	 *
+	 * @param requestContext
+	 * @return HTTPリクエストボディ
+	 * @throws IOException
+	 */
+	public String getBody(ContainerRequestContext requestContext) throws IOException {
+		try (InputStream is = requestContext.getEntityStream();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+			return sb.toString();
+		}
 
 	}
 

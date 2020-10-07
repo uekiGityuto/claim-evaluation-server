@@ -26,7 +26,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * API GateWayでIAM認証するためのヘッダーを付与するためのクラス
+ * API GateWayでIAM認証するためのヘッダーを付与するためのクラス。
  *
  * @author SKK231527 植木宥登
  *

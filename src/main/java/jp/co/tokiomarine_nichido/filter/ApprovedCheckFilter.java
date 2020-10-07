@@ -20,7 +20,7 @@ import jp.co.tokiomarine_nichido.services.RestApiClient;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * 認可済みチェックフィルタ
+ * 認可済みチェックフィルタ。
  *
  * @author SKK231527 植木宥登
  *
@@ -34,6 +34,9 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 	@Context
 	HttpServletRequest request;
 
+	/**
+	 * 認可済みかどうかをセッションにユーザIDが存在するかどうかでチェックする。
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 

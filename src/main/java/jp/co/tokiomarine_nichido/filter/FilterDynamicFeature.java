@@ -8,9 +8,18 @@ import javax.ws.rs.ext.Provider;
 import jp.co.tokiomarine_nichido.resources.ClaimListResource;
 import jp.co.tokiomarine_nichido.resources.ScoresResource;
 
+/**
+ * フィルタを動的に登録するクラス。
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 @Provider
 public class FilterDynamicFeature implements DynamicFeature {
 
+	/**
+	 * フィルタを登録する。
+	 */
 	@Override
 	public void configure(ResourceInfo resourceInfo, FeatureContext context) {
 

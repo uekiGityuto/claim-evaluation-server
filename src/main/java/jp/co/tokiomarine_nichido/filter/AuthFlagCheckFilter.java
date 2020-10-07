@@ -20,7 +20,7 @@ import jp.co.tokiomarine_nichido.services.RestApiClient;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * 損業権限チェックフィルタ
+ * 損業権限チェックフィルタ。
  *
  * @author SKK231527 植木宥登
  *
@@ -34,6 +34,9 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 	@Context
 	HttpServletRequest request;
 
+	/**
+	 * 損業権限を有しているかチェックする。
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
