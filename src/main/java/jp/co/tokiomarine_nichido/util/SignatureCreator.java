@@ -52,7 +52,6 @@ public class SignatureCreator {
 			String host, String path) throws URISyntaxException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, IllegalStateException {
 
 		/* 1. 正規リクエスト(CanonicalRequest)の生成 */
-
 		// 正規URI（パスをRFC3986 に従って2回URIエンコードした結果）
 		String encodedPath = uriEncode("https", path).substring(6);
 		encodedPath = uriEncode("https", encodedPath).substring(6);
@@ -90,31 +89,29 @@ public class SignatureCreator {
 						// ハッシュされたペイロード
 						+ payloadShaHex;
 
-//		logger.info("正規リクエスト(canonicalRequest):{}", canonicalRequest);
 
-		/* 2. 署名文字列(StringToSign)の生成 */
-
+		/* 2. 署名文字列(stringToSign)の生成 */
 		// AWS APIリクエスト先のリージョン
-		String algorithm = "AWS4-HMAC-SHA256";
-		String regionName = "ap-northeast-1";
+		String algorithm = pm.get("api.signatureString.algorithm");
+		String regionName = pm.get("api.regionName");
 		// リクエスト先のサービス名
-		String serviceName = "execute-api";
-		// 認証情報スコープ（aws4_requestは固定文字）
-		String credentialScope = xAmzDate.substring(0, 8) + "/" + regionName + "/" + serviceName + "/aws4_request";
+		String serviceName = pm.get("api.serviceName");
+		// 終了文字列
+		String endString = pm.get("api.endString");
+		// 認証情報スコープ
+		String credentialScope = xAmzDate.substring(0, 8) + "/" + regionName + "/" + serviceName + "/" + endString;
 		String stringToSign =
 				// アルゴリズム
 				algorithm + "\n"
-				// x-amz-date（ISO8601 基本形式）
+						// x-amz-date（ISO8601 基本形式）
 						+ xAmzDate + "\n"
-						// 認証情報スコープ（aws4_requestは固定文字）
+						// 認証情報スコープ
 						+ credentialScope + "\n"
 						// 正規リクエストのハッシュ
 						+ DigestUtils.sha256Hex(canonicalRequest);
 
-//		logger.info("署名文字列(StringToSign):{}", stringToSign);
 
 		/* 3. 署名(signature)の生成 */
-
 		// シークレットアクセスキー
 		String secretAccessKey = pm.get("api.secretAccessKey");
 		// 固定文字（AWS4）→X-Amz-Date→リージョン→サービス名→固定文字(aws4_request)の順でハッシュ化
@@ -122,7 +119,6 @@ public class SignatureCreator {
 		// 署名
 		String signature = getSignature(signingKey, stringToSign);
 
-//		logger.info("署名(signature):{}", signature);
 
 		/* 4. Authorizationヘッダー文字列の生成 */
 		String accessKeyId = pm.get("api.accessKey");
@@ -130,8 +126,6 @@ public class SignatureCreator {
 				+ "Credential=" + accessKeyId + "/" + credentialScope + ", "
 				+ "SignedHeaders=" + signedHeaders + ", "
 				+ "Signature=" + signature;
-
-//		logger.info("Authorizationヘッダー:{}", authorization);
 
 		// ヘッダーにAuthorizationを追加
 		headers.putSingle("AUTHORIZATION", authorization);
@@ -266,11 +260,13 @@ public class SignatureCreator {
 	 * @throws InvalidKeyException
 	 */
 	public byte[] getSignatureKey(String key, String xAmzDate, String regionName, String serviceName) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException {
-		byte[] kSecret = ("AWS4" + key).getBytes("UTF-8");
+		String startString = pm.get("api.startString");
+		byte[] kSecret = (startString + key).getBytes("UTF-8");
 		byte[] kDate = hmacSHA256(xAmzDate, kSecret);
 		byte[] kRegion = hmacSHA256(regionName, kDate);
 		byte[] kService = hmacSHA256(serviceName, kRegion);
-		return hmacSHA256("aws4_request", kService);
+		String endString = pm.get("api.endString");
+		return hmacSHA256(endString, kService);
 	}
 
 	/**
@@ -283,7 +279,7 @@ public class SignatureCreator {
 	 * @throws NoSuchAlgorithmException
 	 */
 	public byte[] hmacSHA256(String data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
-		String algorithm = "HmacSHA256";
+		String algorithm = pm.get("api.signatureKey.algorithm");
 		Mac mac = Mac.getInstance(algorithm);
 		mac.init(new SecretKeySpec(key, algorithm));
 		return mac.doFinal(data.getBytes("UTF-8"));

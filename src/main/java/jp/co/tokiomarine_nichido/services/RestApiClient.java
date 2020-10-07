@@ -68,8 +68,9 @@ public class RestApiClient {
 		logger.debug(pm.getLogMessage("D016"), path, body);
 
 		// リクエスト
+		String scheme = pm.get("api.scheme");
 		Response response = ClientBuilder.newClient().register(RequestClientWriterInterceptor.class)
-				.target("https://" + host).path(path)
+				.target(scheme + "//" + host).path(path)
 				.request(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.post(Entity.json(body));
@@ -79,12 +80,12 @@ public class RestApiClient {
 					MessageFormat.format(pm.getLogMessage("E004"), path, response.getStatus()));
 		}
 
-		// responseのbody部を取得し、responseを閉じる
-		// （response.reaEntityを実施するとresponseが閉じる）
+		// レスポンス結果取得
 		String result = response.readEntity(String.class);
 
 		// DEBUGログ出力
 		logger.debug(pm.getLogMessage("D017"), path, result);
+
 		return result;
 
 	}

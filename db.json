@@ -1,12 +1,4 @@
 {
-  "authorize": {
-    "userId": "BBB123456",
-    "authFlag": true,
-    "claimNumber": "1234567890"
-  },
-  "claimList": {
-    "test": "test"
-  },
   "scores": {
     "CLAIM": {
       "CLAIMNUMBER": "1234567890",
@@ -15,30 +7,105 @@
       "CONTRACTORNAMEKANJI": "田中一郎",
       "CONTRACTORNAMEKANA": "タナカイチロウアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
       "INSURANCEKIND_EXT": "スポ協",
-      "LOSSDATE": "2020-07-01T01:19:00.000Z",
+      "LOSSDATE": "2020-06-01T01:19:00.000Z",
       "UPDATEDATE": "2020-09-01T01:19:00.000Z",
       "FRAUDSCOREHISTORY": [
+        {
+          "SCORINGDATE": "2020-06-01T01:19:00.000Z",
+          "CLAIMCATEGORY": "",
+          "SCOREDETAIL": [
+            {
+              "MODELTYPE": "特殊事案推定モデル",
+              "SCORERANK": "Low",
+              "SCORE": 0.1,
+              "REASONS": [
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "REASON": 0.2,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": -0.2,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                }
+              ]
+            }
+          ],
+          "SCORECATEGORIES": [
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "低"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "低"
+            }
+          ]
+        },
         {
           "SCORINGDATE": "2020-07-01T01:19:00.000Z",
           "CLAIMCATEGORY": "中",
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
-              "RANK": "middle",
-              "SCORE": 50,
+              "SCORERANK": "Middle",
+              "SCORE": 0.5,
               "REASONS": [
                 {
-                  "REASON": 20,
+                  "REASON": 0.2,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 40,
+                  "REASON": 0.4,
                   "FEATURENAME": "特徴量2",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 },
                 {
-                  "REASON": -10,
+                  "REASON": -0.1,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
@@ -46,21 +113,21 @@
             },
             {
               "MODELTYPE": "NC/PD推定モデル",
-              "RANK": "low",
-              "SCORE": 20,
+              "SCORERANK": "Low",
+              "SCORE": 0.2,
               "REASONS": [
                 {
-                  "REASON": 20,
+                  "REASON": 0.2,
                   "FEATURENAME": "特徴量1",
                   "FEATUREDESCRIPTION": "特徴量1の説明"
                 },
                 {
-                  "REASON": 10,
+                  "REASON": 0.1,
                   "FEATURENAME": "特徴量2",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 },
                 {
-                  "REASON": -10,
+                  "REASON": -0.1,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
@@ -121,21 +188,21 @@
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
-              "RANK": "high",
-              "SCORE": 70,
+              "SCORERANK": "High",
+              "SCORE": 0.7,
               "REASONS": [
                 {
-                  "REASON": 30,
+                  "REASON": 0.3,
                   "FEATURENAME": "特徴量1",
                   "FEATUREDESCRIPTION": "特徴量1の説明"
                 },
                 {
-                  "REASON": 50,
+                  "REASON": 0.5,
                   "FEATURENAME": "特徴量2",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 },
                 {
-                  "REASON": -10,
+                  "REASON": -0.1,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
@@ -143,21 +210,21 @@
             },
             {
               "MODELTYPE": "NC/PD推定モデル",
-              "RANK": "middle",
-              "SCORE": 40,
+              "SCORERANK": "Middle",
+              "SCORE": 0.4,
               "REASONS": [
                 {
-                  "REASON": 20,
+                  "REASON": 0.2,
                   "FEATURENAME": "特徴量1",
                   "FEATUREDESCRIPTION": "特徴量1の説明"
                 },
                 {
-                  "REASON": 40,
+                  "REASON": 0.4,
                   "FEATURENAME": "特徴量2",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 },
                 {
-                  "REASON": -20,
+                  "REASON": -0.2,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
@@ -218,56 +285,56 @@
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
-              "RANK": "high",
-              "SCORE": 80,
+              "SCORERANK": "High",
+              "SCORE": 0.8,
               "REASONS": [
                 {
-                  "REASON": 40,
+                  "REASON": 0.4,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 90,
+                  "REASON": 0.9,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": -30,
+                  "REASON": -0.3,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": -40,
+                  "REASON": -0.4,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 40,
+                  "REASON": 0.4,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": -80,
+                  "REASON": -0.8,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 20,
+                  "REASON": 0.2,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 10,
+                  "REASON": 0.1,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 50,
+                  "REASON": 0.5,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 5,
+                  "REASON": 0.05,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 }
@@ -275,21 +342,21 @@
             },
             {
               "MODELTYPE": "NC/PD推定モデル",
-              "RANK": "middle",
-              "SCORE": 50,
+              "SCORERANK": "Middle",
+              "SCORE": 0.5,
               "REASONS": [
                 {
-                  "REASON": 30,
+                  "REASON": 0.3,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 40,
+                  "REASON": 0.4,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": -20,
+                  "REASON": -0.2,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 }
@@ -355,8 +422,7 @@
         "INSUREDNAMEKANJI": "山田太郎",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -368,8 +434,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -381,8 +446,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -394,8 +458,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -407,8 +470,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -420,8 +482,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -433,8 +494,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -446,8 +506,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -459,8 +518,7 @@
         "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
@@ -472,17 +530,16 @@
         "INSUREDNAMEKANA": "アアアアアアアアア",
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "イイイイイイイイイ",
-        "BUTENKANJI": "第一部署",
-        "KYOTENKANJI": "東京",
+        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
         "CLAIMCATEGORY": "高"
       }
     ],
-    "ORDER": "受付番号",
-    "FROMPAGES": 1,
-    "TOPAGES": 10,
+    "ORDERTYPE": "受付番号",
+    "DISPLAYFROM": 1,
+    "DISPLAYTO": 10,
     "TOTALNUMBER": 11
   }
 }
