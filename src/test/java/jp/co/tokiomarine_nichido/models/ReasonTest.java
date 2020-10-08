@@ -2,13 +2,6 @@ package jp.co.tokiomarine_nichido.models;
 
 import static org.junit.Assert.*;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -31,45 +24,6 @@ public class ReasonTest {
 		} catch (JsonSyntaxException | NumberFormatException e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	@Test
-	public void validateTest1() {
-		// テスト準備
-        // Validator取得
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-
-		// Validate対象Bean作成
-		String reasonString = "{\"REASON\": \"50\", \"FEATURENAME\": \"特徴量1\", \"FEATUREDESCRIPTION\": \"説明1\"}";
-		Gson gson = new Gson();
-		Reason reason = gson.fromJson(reasonString, Reason.class);
-
-		// テスト実行
-		// バリデーション実行
-		Set<ConstraintViolation<Reason>> validationResult = validator.validate(reason);
-		assertEquals(validationResult.size(), 0);
-
-	}
-
-	@Test
-	public void validateTest2() {
-		// テスト準備
-        // Validator取得
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-
-		// Validate対象Bean作成
-		String reasonString = "{\"REASON\":null , \"FEATURENAME\": \"特徴量1\", \"FEATUREDESCRIPTION\": \"説明1\"}";
-		Gson gson = new Gson();
-		Reason reason = gson.fromJson(reasonString, Reason.class);
-
-		// テスト実行
-		// バリデーション実行
-		Set<ConstraintViolation<Reason>> validationResult = validator.validate(reason);
-		System.out.println("スコア:" + reason.reason);
-		assertEquals(validationResult.size(), 1);
 
 	}
 

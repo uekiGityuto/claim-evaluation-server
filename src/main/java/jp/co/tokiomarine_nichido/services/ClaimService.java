@@ -1,14 +1,9 @@
 package jp.co.tokiomarine_nichido.services;
 
 import java.text.MessageFormat;
-import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import javax.ws.rs.WebApplicationException;
 
 import com.google.gson.Gson;
@@ -62,14 +57,14 @@ public class ClaimService {
 					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
 		}
 
-		// 受信結果のValidatation
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
-		if (validationResult.size() != 0) {
-			throw new WebApplicationException(
-					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
-		}
+//		// 受信結果のValidatation
+//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//		Validator validator = factory.getValidator();
+//		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
+//		if (validationResult.size() != 0) {
+//			throw new WebApplicationException(
+//					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
+//		}
 
 		return scores;
 	}
@@ -100,14 +95,14 @@ public class ClaimService {
 					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result), e);
 		}
 
-		// 受信結果のValidatation
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
-		if (validationResult.size() != 0) {
-			throw new WebApplicationException(
-					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
-		}
+//		// 受信結果のValidatation
+//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//		Validator validator = factory.getValidator();
+//		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
+//		if (validationResult.size() != 0) {
+//			throw new WebApplicationException(
+//					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
+//		}
 
 		return claims;
 

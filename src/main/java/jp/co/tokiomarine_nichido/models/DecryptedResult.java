@@ -3,9 +3,6 @@ package jp.co.tokiomarine_nichido.models;
 import java.text.MessageFormat;
 import java.time.Instant;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.google.gson.annotations.SerializedName;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
@@ -22,23 +19,15 @@ public class DecryptedResult {
 	// @Inject
 	// private PropertyManager pm;
 
-	// private static final Logger logger = LogManager.getLogger(DecryptedResult.class);
-
 	// 損業権限フラグ（0:担当者権限、1:損業権限）
-	@NotNull
-	@Size(min=1)
 	@SerializedName("Authflag")
 	private String authFlag;
 
 	// 受付番号
-	@NotNull
-	@Size(min=1)
 	@SerializedName("ClaimNo")
 	private String claimNumber;
 
 	// URL生成時刻
-	@NotNull
-	@Size(min=1)
 	@SerializedName("CreateDate")
 	private String createDate;
 
