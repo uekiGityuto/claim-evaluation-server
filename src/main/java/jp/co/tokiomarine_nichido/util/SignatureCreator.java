@@ -21,8 +21,8 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -297,7 +297,7 @@ public class SignatureCreator {
 	 */
 	public String getSignature(byte[] signatureKey, String stringToSign) throws InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, UnsupportedEncodingException {
 		byte[] signature = hmacSHA256(stringToSign, signatureKey);
-		return DatatypeConverter.printHexBinary(signature).toLowerCase();
+		return new String(Hex.encodeHex(signature)).toLowerCase();
 	}
 
 }
