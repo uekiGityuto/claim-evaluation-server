@@ -1,4 +1,3 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -9,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>TMNF Fraud Detection Application</name>
+	<name>Claim Evaluation Application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -127,6 +126,23 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.15</version>
 		</dependency>
+		<!-- GsonMessageBodyReaderWriterを使えるようになったら削除 start -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<!-- GsonMessageBodyReaderWriterを使えるようになったら削除 end -->
 		<!-- Unit Test Coverageを実行するために、arquillian containerはembeddedである必要がある。managedやremoteの場合は別プロセスのwildflyにデプロイするので、テストで実行されたコードが分からないため。 -->
 		<dependency>
 			<groupId>org.wildfly.arquillian</groupId>
@@ -146,27 +162,16 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Test時、javax.ws.rs.client.ClientBuilderを利用てしも内部的にjerseyのClientを必要としているため記載 -->
-		<!--
-		<dependency>
-			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+		<!-- <dependency> <groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId> <version>2.31</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>2.31</version> <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.31</version>
-			<scope>test</scope>
-		</dependency> -->
+			<scope>test</scope> </dependency> <dependency> <groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId> <version>2.31</version> <scope>test</scope>
+			</dependency> <dependency> <groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId> <version>2.31</version>
+			<scope>test</scope> </dependency> -->
 		<!-- REST-APIに対するjUnitテストで使用。JAX-RSのクライアントを使用する場合、Class Loadで原因不明のエラーになるため、汎用的なHTTPのクライアントを使用 -->
 		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId>
-			<version>4.5.12</version> <scope>test</scope>
-		</dependency> -->
+			<version>4.5.12</version> <scope>test</scope> </dependency> -->
 	</dependencies>
 
 	<build>

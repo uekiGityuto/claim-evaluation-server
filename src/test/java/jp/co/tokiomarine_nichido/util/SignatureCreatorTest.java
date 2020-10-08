@@ -32,7 +32,7 @@ public class SignatureCreatorTest {
 	public void uriEncodeTest2() {
 		try {
 			String encodedPath = creator.uriEncode("https", "/documents and settings/").substring(6);
-			assertEquals(encodedPath, "/documents%20and%20settings/", "encodedPath:" + encodedPath);
+			assertEquals("/documents%20and%20settings/", encodedPath);
 			encodedPath = creator.uriEncode("https", encodedPath).substring(6);
 			assertEquals("/documents%2520and%2520settings/", encodedPath);
 		} catch (URISyntaxException e) {
