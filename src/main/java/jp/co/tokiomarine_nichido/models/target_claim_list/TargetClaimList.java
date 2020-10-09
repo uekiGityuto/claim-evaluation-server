@@ -2,18 +2,14 @@ package jp.co.tokiomarine_nichido.models.target_claim_list;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.google.gson.annotations.SerializedName;
 
-
 /**
- * 事案一覧照会のリクエストボディをマッピングするBean
+ * IF15事案一覧照会APIへのリクエストボディをマッピングするクラス。
  *
  * @author SKK231527 植木宥登
  *
  */
-@XmlRootElement
 public class TargetClaimList {
 
 	// JAX-RSでアンマーシャリングするためにpublicにする必要がある

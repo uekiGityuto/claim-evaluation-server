@@ -1,10 +1,13 @@
 package jp.co.tokiomarine_nichido.models.scores;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.google.gson.annotations.SerializedName;
 
-@XmlRootElement
+/**
+ * IF08スコア照会APIから取得したレスポンスを格納するクラス。
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 public class ScoreCategory {
 
     @SerializedName("TOKUSHUSCORECLASS")

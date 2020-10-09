@@ -126,23 +126,6 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.15</version>
 		</dependency>
-		<!-- GsonMessageBodyReaderWriterを使えるようになったら削除 start -->
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-core</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<!-- GsonMessageBodyReaderWriterを使えるようになったら削除 end -->
 		<!-- Unit Test Coverageを実行するために、arquillian containerはembeddedである必要がある。managedやremoteの場合は別プロセスのwildflyにデプロイするので、テストで実行されたコードが分からないため。 -->
 		<dependency>
 			<groupId>org.wildfly.arquillian</groupId>

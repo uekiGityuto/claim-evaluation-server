@@ -1,7 +1,5 @@
 package jp.co.tokiomarine_nichido.models;
 
-import javax.enterprise.context.SessionScoped;
-
 /***
  * ユーザ情報を格納するクラス。
  *
@@ -9,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
  * @author SKK231527 植木宥登
  *
  */
-@SessionScoped
+//@SessionScoped
 public class User {
 	// IF09から連携される、抜本認証からのユーザID
 	private String userId;

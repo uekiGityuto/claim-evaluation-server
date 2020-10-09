@@ -2,11 +2,14 @@ package jp.co.tokiomarine_nichido.models.claim_list;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.google.gson.annotations.SerializedName;
 
-@XmlRootElement
+/**
+ * IF15事案一覧照会APIから取得したレスポンスを格納するクラス。
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 public class ClaimList {
 
     @SerializedName("CLAIM")
