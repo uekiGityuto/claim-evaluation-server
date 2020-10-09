@@ -43,7 +43,7 @@
 			</activation>
 			<properties>
 				<mode>development</mode>
-				<log.path>/var/log/wildfly</log.path>
+				<log.path>/log/main/apl/online</log.path>
 				<log.level>TRACE</log.level>
 				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
