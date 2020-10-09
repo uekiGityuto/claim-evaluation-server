@@ -38,7 +38,6 @@ public class AuthorizationResource {
 	 * @return クエリパラメータにユーザIDと暗号データをセットしたリダイレクト先URL
 	 */
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response dataFederation(
 			@HeaderParam("Uid") String userId,
 			@QueryParam("param") String encryptedParam) {
@@ -49,7 +48,7 @@ public class AuthorizationResource {
 			throw new WebApplicationException(pm.getLogMessage("E019"));
 		}
 
-		String uri = pm.get("url.webServer");
+		String uri = pm.get("url.ui");
 		try {
 			return Response.temporaryRedirect(
 					new URI(uri + "?Uid=" + userId + "&param=" + encryptedParam)).build();
