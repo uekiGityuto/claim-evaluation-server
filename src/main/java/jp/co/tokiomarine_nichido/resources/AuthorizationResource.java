@@ -20,7 +20,7 @@ import jp.co.tokiomarine_nichido.services.AuthorizationService;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- *  認可処理アプリのコントローラー
+ *  認可処理アプリのコントローラー。
  *
  *  @author SKK231527 植木宥登
  *

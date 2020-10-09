@@ -8,16 +8,9 @@
     <Console name="console">
       <PatternLayout pattern="${logLayout}" />
     </Console>
-    <RollingFile name="file" fileName="${log.path}/fraud_detection.log"
-      filePattern="${log.path}/speechmining_%d{yyyyMMdd}.log">
+    <File name="file" fileName="${log.path}/claim-evaluation.log">
       <PatternLayout pattern="${logLayout}" />
-      <Policies>
-        <OnStartupTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="100 MB" />
-        <TimeBasedTriggeringPolicy interval="1"/>
-      </Policies>
-      <DefaultRolloverStrategy max="10" />
-    </RollingFile>
+    </File>
   </Appenders>
   <Loggers>
     <Root level="${log.level}">
