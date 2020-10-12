@@ -54,7 +54,7 @@ public class DecryptedResult {
 		int timeLimit = Integer.parseInt(pm.get("url.timeLimit"));
 		if (createDate.plusSeconds(timeLimit).compareTo(currentDate) < 0) {
 			throw new AuthorizationFailedException(
-					MessageFormat.format(pm.get("E003"), createDate, currentDate, pm.get("url.timeLimit")));
+					MessageFormat.format(pm.getLogMessage("E003"), createDate, currentDate, pm.get("url.timeLimit")));
 		}
 		return true;
 	}
