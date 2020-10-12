@@ -2624,10 +2624,10 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    authorize_url: 'api/authorize/authorize',
-    scores_url: 'api/scores',
-    transition_url: 'api/claims/transition',
-    claims_url: 'api/claims/get',
+    authorize_url: '../api/authorize/authorize',
+    scores_url: '../api/scores',
+    transition_url: '../api/claims/transition',
+    claims_url: '../api/claims/get',
     help_url: 'https://angular.jp/docs',
     priority_model: '特殊事案推定モデル',
     secondary_model: 'NC/PD推定モデル',
