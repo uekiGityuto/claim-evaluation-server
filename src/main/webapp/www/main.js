@@ -1119,13 +1119,13 @@ var DetailComponent = /** @class */ (function () {
             // モデルが1つしかない場合に対応するための処理
             _this.claim.fraudScoreHistory = _this.setModel(_this.claim.fraudScoreHistory);
             // 不正請求スコア履歴を算出日の古い順にソート
-            _this.claim.fraudScoreHistory = _this.fraudScoreSort(_this.claim.fraudScoreHistory);
+            _this.claim.fraudScoreHistory = _this.sortFraudScoreHistoryInAsc(_this.claim.fraudScoreHistory);
             // 最新の推論結果を元にビュー要素を取得
             var end = _this.claim.fraudScoreHistory.length - 1;
             var fraudScoreView = _this.claim.fraudScoreHistory[end];
             _this.getScoreInfo(fraudScoreView);
             // チャート作成
-            _this.chartCreate(_this.claim.fraudScoreHistory);
+            _this.createChart(_this.claim.fraudScoreHistory);
         }, function (error) {
             console.log('照会エラーメッセージ表示');
             _this.isError = true;
@@ -1150,7 +1150,7 @@ var DetailComponent = /** @class */ (function () {
         return history;
     };
     // 不正請求スコア履歴を算出日の古い順（昇順）にソート
-    DetailComponent.prototype.fraudScoreSort = function (history) {
+    DetailComponent.prototype.sortFraudScoreHistoryInAsc = function (history) {
         history.sort(function (a, b) {
             return (new Date(a.scoringDate) > new Date(b.scoringDate) ? 1 : -1);
         });
@@ -1168,7 +1168,7 @@ var DetailComponent = /** @class */ (function () {
         // 事案カテゴリマトリクスをセット
         this.categoryMatrix = this.setCategoryMatrix(fraudScoreView.scoreCategories);
         // モデルのソート
-        fraudScoreView = this.modelSort(fraudScoreView);
+        fraudScoreView = this.sortModel(fraudScoreView);
         // スコア詳細のセット
         this.scoreDetails = [];
         fraudScoreView.scoreDetail.forEach(function (scoreDetail, i) {
@@ -1177,7 +1177,7 @@ var DetailComponent = /** @class */ (function () {
             // console.log('categoryClass', this.scoreDetails[i].categoryClass);
         });
         // 推論結果の要因をソート
-        this.raiseLowerReasons = this.reasonSort(this.scoreDetails);
+        this.raiseLowerReasons = this.sortReasonInAbsoluteDesc(this.scoreDetails);
     };
     // 事案カテゴリマトリクスのセット
     DetailComponent.prototype.setCategoryMatrix = function (scoreCategorys) {
@@ -1237,14 +1237,14 @@ var DetailComponent = /** @class */ (function () {
         return categoryMatrix;
     };
     // モデルのソート
-    DetailComponent.prototype.modelSort = function (fraudScoreView) {
+    DetailComponent.prototype.sortModel = function (fraudScoreView) {
         fraudScoreView.scoreDetail.sort(function (a, b) {
             return (a.modelType === _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].priority_model) ? -1 : 1;
         });
         return fraudScoreView;
     };
     // 推論結果の要因をソート
-    DetailComponent.prototype.reasonSort = function (scoreDetails) {
+    DetailComponent.prototype.sortReasonInAbsoluteDesc = function (scoreDetails) {
         var raiseLowerReasons = [];
         // モデル毎に上昇要因と減少要因に分けて、絶対値の降順に並び変える
         scoreDetails.forEach(function (scoreDetail, i) {
@@ -1265,7 +1265,7 @@ var DetailComponent = /** @class */ (function () {
         return raiseLowerReasons;
     };
     // チャート作成
-    DetailComponent.prototype.chartCreate = function (history) {
+    DetailComponent.prototype.createChart = function (history) {
         var _this = this;
         // canvasの取得
         var context = this.elementRef.nativeElement.getContext('2d');
@@ -1686,7 +1686,7 @@ function ListComponent_ng_container_60_ng_container_1_Template(rf, ctx) { if (rf
     var _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementContainerStart"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "table", 33);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("matSortChange", function ListComponent_ng_container_60_ng_container_1_Template_table_matSortChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r16); var ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r15.listSort($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("matSortChange", function ListComponent_ng_container_60_ng_container_1_Template_table_matSortChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r16); var ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r15.sortList($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "tr", 34);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "th", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "\u53D7\u4ED8\u756A\u53F7");
@@ -1839,7 +1839,7 @@ var ListComponent = /** @class */ (function () {
         // console.log('this.searchControl(初期化後)', this.searchControl.value);
     };
     // ソート処理
-    ListComponent.prototype.listSort = function (sort) {
+    ListComponent.prototype.sortList = function (sort) {
         // console.log(this.param);
         this.param.labelType = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"][sort.active];
         this.param.order = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"][sort.direction];

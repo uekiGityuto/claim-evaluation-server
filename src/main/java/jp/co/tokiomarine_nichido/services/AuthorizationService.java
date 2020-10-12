@@ -37,6 +37,7 @@ public class AuthorizationService {
 	 * @throws Exception
 	 */
 	// TODO: HttpServletRequestを引数にとるとテストしづらいので要検討
+	// （出来ればHttpServletRequestではなくCDIで注入したい）
 	public AuthorizationResult authorize(String encryptedParam, String userId, HttpServletRequest request)
 			throws Exception {
 
