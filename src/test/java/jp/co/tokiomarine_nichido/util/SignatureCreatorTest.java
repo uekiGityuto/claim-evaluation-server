@@ -23,7 +23,6 @@ public class SignatureCreatorTest {
 			String encodedPath = creator.uriEncode("https", "/prd/inqiry");
 			assertEquals("https:/prd/inqiry", encodedPath);
 		} catch (URISyntaxException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}
@@ -36,7 +35,6 @@ public class SignatureCreatorTest {
 			encodedPath = creator.uriEncode("https", encodedPath).substring(6);
 			assertEquals("/documents%2520and%2520settings/", encodedPath);
 		} catch (URISyntaxException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}
@@ -243,7 +241,6 @@ public class SignatureCreatorTest {
 			String signature = creator.getSignature(signingKey, stringToSign);
 			assertEquals(expectedSignature, signature);
 		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}
@@ -270,7 +267,6 @@ public class SignatureCreatorTest {
 //			assertTrue(headers.containsKey("X-Amz-Date"));
 //			System.out.println("headers:" + headers);
 //		} catch (Exception e) {
-//			// TODO 自動生成された catch ブロック
 //			e.printStackTrace();
 //		}
 //	}

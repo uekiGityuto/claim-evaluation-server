@@ -13,6 +13,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -28,11 +29,8 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
 @ApplicationScoped
 public class DecryptionService {
 
-	//	@Inject
-	//	private PropertyManager pm;
-
-	//	private static final String KEY = "O89JfeVNMR23KuE4";
-	//	private static final String IV = "1Q43Te234IJJDPWE";
+	@Inject
+	private PropertyManager pm;
 
 	/**
 	 * @param decryptedString 暗号データ
@@ -40,8 +38,7 @@ public class DecryptionService {
 	 * @throws Exception
 	 */
 	public String decrypt(String encryptedString, String userId) throws Exception {
-		// TODO: Arquillianを利用したテストが出来るようになればInjectするように変更
-		PropertyManager pm = new PropertyManager();
+//		PropertyManager pm = new PropertyManager();
 		final String KEY = pm.get("decryption.key");
 		final String IV = pm.get("decryption.iv");
 

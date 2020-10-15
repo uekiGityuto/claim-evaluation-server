@@ -18,7 +18,6 @@ public class RestApiClientTest {
 //			String response = client.inquire(path, bodyStr);
 //			System.out.println("response:" + response);
 //		} catch (Exception e) {
-//			// TODO 自動生成された catch ブロック
 //			e.printStackTrace();
 //		}
 //		Gson gson = new Gson();

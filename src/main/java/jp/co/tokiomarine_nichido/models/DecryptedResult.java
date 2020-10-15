@@ -16,9 +16,6 @@ import jp.co.tokiomarine_nichido.util.PropertyManager;
  */
 public class DecryptedResult {
 
-	// @Inject
-	// private PropertyManager pm;
-
 	// 損業権限フラグ（0:担当者権限、1:損業権限）
 	@SerializedName("Authflag")
 	private String authFlag;
@@ -46,7 +43,6 @@ public class DecryptedResult {
 
 	// 現在時刻 - URL生成時刻 <= 10であるかどうかチェック
 	public boolean isCorrectDate() throws AuthorizationFailedException {
-		// TODO: Arquillianを利用したテストが出来るようになればInjectするように変更
 		PropertyManager pm = new PropertyManager();
 
 		Instant createDate = Instant.parse(this.createDate);

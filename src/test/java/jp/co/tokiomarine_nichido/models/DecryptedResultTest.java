@@ -60,18 +60,17 @@ public class DecryptedResultTest {
 	 * 生成時刻チェック
 	 * 異常系（境界値）
 	 */
-	// TODO: Arqillianのセットアップが出来たら実施
-//	@Test
-//	public void testIsCorrectDate3() {
-//		String createDate = Instant.now().minusSeconds(11).toString();
-//		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
-//		try {
-//			System.out.println(result.isCorrectDate());
-//			fail();
-//		} catch (AuthorizationFailedException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testIsCorrectDate3() {
+		String createDate = Instant.now().minusSeconds(11).toString();
+		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
+		try {
+			System.out.println(result.isCorrectDate());
+			fail();
+		} catch (AuthorizationFailedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void testCreateAuthResult() {

@@ -24,7 +24,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import jp.co.tokiomarine_nichido.util.PropertyManager;
-import jp.co.tokiomarine_nichido.util.RequestClientWriterInterceptor;
 import jp.co.tokiomarine_nichido.util.SignatureCreator;
 
 @ApplicationScoped
@@ -69,7 +68,7 @@ public class RestApiClient {
 
 		// リクエスト
 		String scheme = pm.get("api.scheme");
-		Response response = ClientBuilder.newClient().register(RequestClientWriterInterceptor.class)
+		Response response = ClientBuilder.newClient()
 				.target(scheme + "//" + host).path(path)
 				.request(MediaType.APPLICATION_JSON)
 				.headers(headers)

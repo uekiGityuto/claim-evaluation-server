@@ -86,7 +86,7 @@
           ]
         },
         {
-          "SCORINGDATE": "2020-07-01T01:19:00.000Z",
+          "SCORINGDATE": "2020-07-01T12:00:00.000Z",
           "CLAIMCATEGORY": "中",
           "SCOREDETAIL": [
             {
@@ -128,6 +128,103 @@
                 },
                 {
                   "REASON": -0.1,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                }
+              ]
+            }
+          ],
+          "SCORECATEGORIES": [
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "高"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "低"
+            },
+            {
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "低"
+            }
+          ]
+        },
+        {
+          "SCORINGDATE": "2020-07-01T01:19:00.000Z",
+          "CLAIMCATEGORY": "低",
+          "SCOREDETAIL": [
+            {
+              "MODELTYPE": "特殊事案推定モデル",
+              "SCORERANK": "Low",
+              "SCORE": 0.2,
+              "REASONS": [
+                {
+                  "REASON": 0.2,
+                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
+                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                },
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                }
+              ]
+            },
+            {
+              "MODELTYPE": "NC/PD推定モデル",
+              "SCORERANK": "Low",
+              "SCORE": 0.1,
+              "REASONS": [
+                {
+                  "REASON": 0.2,
+                  "FEATURENAME": "特徴量1",
+                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                },
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": -0.2,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
