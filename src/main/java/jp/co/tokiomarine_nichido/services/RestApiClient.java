@@ -26,6 +26,12 @@ import org.apache.logging.log4j.Logger;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 import jp.co.tokiomarine_nichido.util.SignatureCreator;
 
+/**
+ * REST APIにリクエストするクラス。
+ *
+ * @author SKK231527 植木宥登
+ *
+ */
 @ApplicationScoped
 public class RestApiClient {
 	@Inject

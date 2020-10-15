@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 import jp.co.tokiomarine_nichido.models.Exclude;
 
 /***
- * Gsonメッセージ変換（シリアライズ、デシリアライズ）クラス
+ * Gsonメッセージ変換（シリアライズ、デシリアライズ）クラス。
  *
  * @author SKK229873 中山真吾
  * @param

@@ -16,7 +16,7 @@ import jp.co.tokiomarine_nichido.models.scores.Scores;
 import jp.co.tokiomarine_nichido.services.ClaimService;
 
 /**
- * CE-S01スコア詳細画面からのリクエストを受け取るコントローラー
+ * CE-S01スコア詳細画面からのリクエストを受け取るコントローラー。
  *
  * @author SKK231527 植木宥登
  *

@@ -1,7 +1,7 @@
 package jp.co.tokiomarine_nichido.models;
 
 /**
- * 認可処理の結果をまとめるクラス
+ * 認可処理の結果をまとめるクラス。
  *
  * @author SKK231527 植木宥登
  *

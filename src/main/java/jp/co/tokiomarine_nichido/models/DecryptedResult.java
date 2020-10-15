@@ -9,7 +9,7 @@ import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
- * 暗号データの復号結果をマッピングするクラス
+ * 暗号データの復号結果をマッピングするクラス。
  *
  * @author SKK231527 植木宥登
  *
