@@ -10,11 +10,11 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.AuthorizationResult;
 import jp.co.tokiomarine_nichido.services.AuthorizationService;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
@@ -36,16 +36,17 @@ public class AuthorizationResource {
 	 * @param userId ユーザID
 	 * @param encryptedParam 暗号データ
 	 * @return クエリパラメータにユーザIDと暗号データをセットしたリダイレクト先URL
+	 * @throws AuthorizationFailedException
 	 */
 	@GET
 	public Response dataFederation(
 			@HeaderParam("Uid") String userId,
-			@QueryParam("param") String encryptedParam) {
+			@QueryParam("param") String encryptedParam) throws AuthorizationFailedException {
 
 		System.out.println("受信確認1");
 
 		if(userId == null || userId.isEmpty()) {
-			throw new WebApplicationException(pm.getLogMessage("E019"));
+			throw new AuthorizationFailedException(pm.getLogMessage("E019"));
 		}
 
 		String uri = pm.get("url.ui");

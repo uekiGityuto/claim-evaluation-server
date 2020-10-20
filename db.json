@@ -5,32 +5,54 @@
       "INSUREDNAMEKANJI": "山田太郎",
       "INSUREDNAMEKANA": "ヤマダタロウ",
       "CONTRACTORNAMEKANJI": "田中一郎",
-      "CONTRACTORNAMEKANA": "タナカイチロウアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-      "INSURANCEKIND_EXT": "スポ協",
-      "LOSSDATE": "2020-06-01T01:19:00.000Z",
-      "UPDATEDATE": "2020-09-01T01:19:00.000Z",
+      "CONTRACTORNAMEKANA": "タナカイチロウ",
+      "INSURANCEKIND_EXT": "スポ安",
+      "LOSSDATE": "2020-01-01T00:00:00.000Z",
+      "UPDATEDATE": "2020-03-01T00:00:00.000Z",
       "FRAUDSCOREHISTORY": [
         {
-          "SCORINGDATE": "2020-06-01T01:19:00.000Z",
-          "CLAIMCATEGORY": "",
+          "SCORINGDATE": "2020-01-01T00:00:00.000Z",
+          "CLAIMCATEGORY": "低",
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
               "SCORERANK": "Low",
-              "SCORE": 0.1,
+              "SCORE": "異常値",
               "REASONS": [
                 {
-                  "REASON": 0.1,
+                  "REASON": 0.4,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
                 {
-                  "REASON": 0.2,
+                  "REASON": 0.1,
                   "FEATURENAME": "特徴量2",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 },
                 {
                   "REASON": -0.2,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                }
+              ]
+            },
+            {
+              "MODELTYPE": "NC/PD推定モデル",
+              "SCORERANK": "Low",
+              "SCORE": 0.2,
+              "REASONS": [
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "特徴量1",
+                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                },
+                {
+                  "REASON": 0.4,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                },
+                {
+                  "REASON": -0.3,
                   "FEATURENAME": "特徴量3",
                   "FEATUREDESCRIPTION": "特徴量3の説明"
                 }
@@ -86,7 +108,7 @@
           ]
         },
         {
-          "SCORINGDATE": "2020-07-01T12:00:00.000Z",
+          "SCORINGDATE": "2020-02-01T00:00:00.000Z",
           "CLAIMCATEGORY": "中",
           "SCOREDETAIL": [
             {
@@ -95,208 +117,14 @@
               "SCORE": 0.5,
               "REASONS": [
                 {
-                  "REASON": 0.2,
+                  "REASON": 0.3,
                   "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
                   "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
                 },
-                {
-                  "REASON": 0.4,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                },
-                {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            },
-            {
-              "MODELTYPE": "NC/PD推定モデル",
-              "SCORERANK": "Low",
-              "SCORE": 0.2,
-              "REASONS": [
-                {
-                  "REASON": 0.2,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
-                },
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                },
-                {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            }
-          ],
-          "SCORECATEGORIES": [
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "低"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "低"
-            }
-          ]
-        },
-        {
-          "SCORINGDATE": "2020-07-01T01:19:00.000Z",
-          "CLAIMCATEGORY": "低",
-          "SCOREDETAIL": [
-            {
-              "MODELTYPE": "特殊事案推定モデル",
-              "SCORERANK": "Low",
-              "SCORE": 0.2,
-              "REASONS": [
-                {
-                  "REASON": 0.2,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                },
-                {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            },
-            {
-              "MODELTYPE": "NC/PD推定モデル",
-              "SCORERANK": "Low",
-              "SCORE": 0.1,
-              "REASONS": [
-                {
-                  "REASON": 0.2,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
-                },
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                },
-                {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            }
-          ],
-          "SCORECATEGORIES": [
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "低"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "低"
-            }
-          ]
-        },
-        {
-          "SCORINGDATE": "2020-08-01T01:19:00.000Z",
-          "CLAIMCATEGORY": "高",
-          "SCOREDETAIL": [
-            {
-              "MODELTYPE": "特殊事案推定モデル",
-              "SCORERANK": "High",
-              "SCORE": 0.7,
-              "REASONS": [
                 {
                   "REASON": 0.3,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
-                },
-                {
-                  "REASON": 0.5,
                   "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                  "FEATUREDESCRIPTION": "特徴量2の説明"
                 },
                 {
                   "REASON": -0.1,
@@ -377,85 +205,96 @@
           ]
         },
         {
-          "SCORINGDATE": "2020-09-01T01:19:00.000Z",
+          "SCORINGDATE": "2020-03-01T00:00:00.000Z",
           "CLAIMCATEGORY": "高",
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
               "SCORERANK": "High",
-              "SCORE": 0.8,
+              "SCORE": 0.7,
               "REASONS": [
                 {
-                  "REASON": 0.4,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "REASON": 0.5,
+                  "FEATURENAME": "特徴量1",
+                  "FEATUREDESCRIPTION": "特徴量1の説明"
                 },
                 {
-                  "REASON": 0.9,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "REASON": 0.8,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": -0.2,
+                  "FEATURENAME": "特徴量4",
+                  "FEATUREDESCRIPTION": "特徴量4の説明"
                 },
                 {
                   "REASON": -0.3,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": -0.4,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.4,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": -0.8,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.2,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.5,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.05,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "FEATURENAME": "特徴量5",
+                  "FEATUREDESCRIPTION": "特徴量4の説明"
                 }
+
               ]
             },
             {
               "MODELTYPE": "NC/PD推定モデル",
-              "SCORERANK": "Middle",
-              "SCORE": 0.5,
+              "SCORERANK": "High",
+              "SCORE": 0.8,
               "REASONS": [
                 {
-                  "REASON": 0.3,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "REASON": 0.5,
+                  "FEATURENAME": "特徴量1",
+                  "FEATUREDESCRIPTION": "特徴量1の説明"
                 },
                 {
-                  "REASON": 0.4,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "REASON": 0.5,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                },
+                {
+                  "REASON": 0.2,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "特徴量4",
+                  "FEATUREDESCRIPTION": "特徴量4の説明"
+                },
+                {
+                  "REASON": 0.3,
+                  "FEATURENAME": "特徴量5",
+                  "FEATUREDESCRIPTION": "特徴量5の説明"
+                },
+                {
+                  "REASON": -0.3,
+                  "FEATURENAME": "特徴量6",
+                  "FEATUREDESCRIPTION": "特徴量6の説明"
                 },
                 {
                   "REASON": -0.2,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "FEATURENAME": "特徴量7",
+                  "FEATUREDESCRIPTION": "特徴量7の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量8",
+                  "FEATUREDESCRIPTION": "特徴量8の説明"
+                },
+                {
+                  "REASON": -0.2,
+                  "FEATURENAME": "特徴量9",
+                  "FEATUREDESCRIPTION": "特徴量9の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量10",
+                  "FEATUREDESCRIPTION": "特徴量10の説明"
                 }
               ]
             }

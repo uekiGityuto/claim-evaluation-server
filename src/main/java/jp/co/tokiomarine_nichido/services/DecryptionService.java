@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
@@ -71,9 +72,11 @@ public class DecryptionService {
 			String decryptedString = new String(decryptedByte, "UTF-8");
 
 			return decryptedString;
-		} catch (AuthorizationFailedException | IllegalArgumentException | UnsupportedEncodingException
-				| NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
+			// TODO: 全部catchして403エラーにするかは要検討（入力値以外の要因で例外を出す場合もある）
+		} catch (AuthorizationFailedException | DecoderException | UnsupportedEncodingException
+				| IllegalArgumentException | NullPointerException | NoSuchAlgorithmException
+				| NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException
+				| IllegalBlockSizeException | BadPaddingException e) {
 			throw new AuthorizationFailedException(
 					MessageFormat.format(pm.getLogMessage("E002"), userId), e);
 		}
