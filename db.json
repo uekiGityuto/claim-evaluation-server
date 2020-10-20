@@ -17,7 +17,7 @@
             {
               "MODELTYPE": "特殊事案推定モデル",
               "SCORERANK": "Low",
-              "SCORE": "異常値",
+              "SCORE": 0.3,
               "REASONS": [
                 {
                   "REASON": 0.4,

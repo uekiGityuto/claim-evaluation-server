@@ -32,6 +32,16 @@
 				<buildValidation.git.dirty>true</buildValidation.git.dirty>
 				<log.path>log</log.path>
 				<log.level>TRACE</log.level>
+				<decryption.key>O89JfeVNMR23KuE4</decryption.key>
+				<decryption.iv>1Q43Te234IJJDPWE</decryption.iv>
+				<api.scheme>http:</api.scheme>
+				<api.host>localhost:3000</api.host>
+				<api.regionName>ap-northeast-1</api.regionName>
+				<api.apikey>p0jFqdShkh3GOUXzjyuCk3x253LywCgp5MakxRlg</api.apikey>
+				<api.secretAccessKey>OiOWc/9+a1VVL3zttiL3GtUSKSZcGFREVUx/ALTA</api.secretAccessKey>
+				<api.accessKey>AKIA5PJHT26DXZC4KWM4</api.accessKey>
+				<api.path.scores>/scores</api.path.scores>
+				<api.path.cliams>/claims</api.path.cliams>
 				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
@@ -45,6 +55,16 @@
 				<mode>development</mode>
 				<log.path>/log/main/apl/online</log.path>
 				<log.level>TRACE</log.level>
+				<decryption.key>O89JfeVNMR23KuE4</decryption.key>
+				<decryption.iv>1Q43Te234IJJDPWE</decryption.iv>
+				<api.scheme>https:</api.scheme>
+				<api.host>9ezjgm3sc4.execute-api.ap-northeast-1.amazonaws.com</api.host>
+				<api.regionName>ap-northeast-1</api.regionName>
+				<api.apikey>xMFb6pKs5e9wgtBqTJZPI5YWAVQImzYpb6VwZwv4</api.apikey>
+				<api.secretAccessKey>8RMGtLNYLsGAxO8gt4wO2OiE1hhJTt+N/Khb6I8S</api.secretAccessKey>
+				<api.accessKey>AKIAWDAFBP5K4TUR7FWU</api.accessKey>
+				<api.path.scores>/prd/inqiry</api.path.scores>
+				<api.path.cliams>/prd/listinqiry</api.path.cliams>
 				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
@@ -58,6 +78,16 @@
 				<mode>production</mode>
 				<log.path>/var/log/wildfly</log.path>
 				<log.level>INFO</log.level>
+				<decryption.key></decryption.key>
+				<decryption.iv></decryption.iv>
+				<api.scheme>https:</api.scheme>
+				<api.host></api.host>
+				<api.regionName>ap-northeast-1</api.regionName>
+				<api.apikey></api.apikey>
+				<api.secretAccessKey></api.secretAccessKey>
+				<api.accessKey></api.accessKey>
+				<api.path.scores>/prd/inqiry</api.path.scores>
+				<api.path.cliams>/prd/listinqiry</api.path.cliams>
 				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
