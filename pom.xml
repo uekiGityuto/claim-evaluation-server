@@ -42,7 +42,6 @@
 				<api.accessKey>AKIA5PJHT26DXZC4KWM4</api.accessKey>
 				<api.path.scores>/scores</api.path.scores>
 				<api.path.cliams>/claims</api.path.cliams>
-				<url.fraudScore>http://localhost:3000/scores</url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
@@ -65,7 +64,6 @@
 				<api.accessKey>AKIAWDAFBP5K4TUR7FWU</api.accessKey>
 				<api.path.scores>/prd/inqiry</api.path.scores>
 				<api.path.cliams>/prd/listinqiry</api.path.cliams>
-				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
@@ -88,7 +86,6 @@
 				<api.accessKey></api.accessKey>
 				<api.path.scores>/prd/inqiry</api.path.scores>
 				<api.path.cliams>/prd/listinqiry</api.path.cliams>
-				<url.fraudScore></url.fraudScore>
 				<test.base.uri>http://localhost:9998</test.base.uri>
 				<test.context.uri>/claim-evaluation/api</test.context.uri>
 			</properties>
