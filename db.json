@@ -473,7 +473,7 @@
         "CLAIMCATEGORY": "高"
       }
     ],
-    "ORDERTYPE": "降順",
+    "ORDERTYPE": "受付番号",
     "DISPLAYFROM": 1,
     "DISPLAYTO": 10,
     "TOTALNUMBER": 11

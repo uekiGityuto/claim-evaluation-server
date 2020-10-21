@@ -1090,8 +1090,10 @@ var DetailComponent = /** @class */ (function () {
         this.getLatestClaimInfo(this.claimNumber);
     };
     DetailComponent.prototype.ngAfterViewInit = function () {
-        // チャート作成
-        this.createChart(this.claim.fraudScoreHistory);
+        if (!this.isError) {
+            // チャート作成
+            this.createChart(this.claim.fraudScoreHistory);
+        }
     };
     // 最新のスコア詳細取得
     DetailComponent.prototype.getLatestClaimInfo = function (claimNumber) {
@@ -1099,6 +1101,11 @@ var DetailComponent = /** @class */ (function () {
         // スコア詳細取得
         this.route.data.subscribe(function (response) {
             console.log('取得結果:', response);
+            if (!response.detail) {
+                console.log('照会エラーメッセージ表示');
+                _this.isError = true;
+                return;
+            }
             console.log('推論結果取得OK');
             _this.isError = false;
             // 取得結果をシャーローコピー
@@ -2588,7 +2595,13 @@ var ClaimListClientService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailResolverService", function() { return DetailResolverService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _scores_client_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scores-client.service */ "./src/app/service/scores-client.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _scores_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scores-client.service */ "./src/app/service/scores-client.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+
+
+
 
 
 
@@ -2597,14 +2610,20 @@ __webpack_require__.r(__webpack_exports__);
  * @author SKK231527 植木
  */
 var DetailResolverService = /** @class */ (function () {
-    function DetailResolverService(client) {
+    function DetailResolverService(client, router) {
         this.client = client;
+        this.router = router;
     }
     DetailResolverService.prototype.resolve = function (route, state) {
         var claimNumber = route.paramMap.get('claimNumber');
-        return this.client.post(claimNumber);
+        return this.client.post(claimNumber)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (error) {
+            // this.router.navigate(['/list/error']);
+            // return EMPTY;
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }));
     };
-    DetailResolverService.ɵfac = function DetailResolverService_Factory(t) { return new (t || DetailResolverService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_scores_client_service__WEBPACK_IMPORTED_MODULE_1__["ScoresClientService"])); };
+    DetailResolverService.ɵfac = function DetailResolverService_Factory(t) { return new (t || DetailResolverService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_scores_client_service__WEBPACK_IMPORTED_MODULE_3__["ScoresClientService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"])); };
     DetailResolverService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DetailResolverService, factory: DetailResolverService.ɵfac, providedIn: 'root' });
     return DetailResolverService;
 }());
@@ -2614,7 +2633,7 @@ var DetailResolverService = /** @class */ (function () {
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _scores_client_service__WEBPACK_IMPORTED_MODULE_1__["ScoresClientService"] }]; }, null); })();
+    }], function () { return [{ type: _scores_client_service__WEBPACK_IMPORTED_MODULE_3__["ScoresClientService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }]; }, null); })();
 
 
 /***/ }),
