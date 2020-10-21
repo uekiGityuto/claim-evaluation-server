@@ -70,7 +70,7 @@ public class RestApiClient {
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
 		// DEBUGログ出力
-		logger.debug(pm.getLogMessage("D016"), path, body);
+		logger.debug(pm.getLogMessage("D016"), path, getHeaderString(headers), body);
 
 		// リクエスト
 		String scheme = pm.get("api.scheme");
@@ -82,17 +82,30 @@ public class RestApiClient {
 
 		if (response.getStatus() != 200) {
 			throw new WebApplicationException(
-					MessageFormat.format(pm.getLogMessage("E004"), path, response.getStatus()));
+					MessageFormat.format(pm.getLogMessage("E004"), path,
+							getHeaderString(response.getHeaders()), response.getStatus()));
 		}
 
 		// レスポンス結果取得
 		String result = response.readEntity(String.class);
 
 		// DEBUGログ出力
-		logger.debug(pm.getLogMessage("D017"), path, result);
+		logger.debug(pm.getLogMessage("D017"), path, getHeaderString(response.getHeaders()), result);
 
 		return result;
 
+	}
+
+	/**
+	 * @param headers
+	 * @return headersを文字列に変換して返す
+	 */
+	private String getHeaderString(MultivaluedMap<String, Object> headers) {
+		String header = "{";
+		for (String key : headers.keySet()) {
+			header += key + "=" + headers.getFirst(key);
+		}
+		return header += "}";
 	}
 
 }
