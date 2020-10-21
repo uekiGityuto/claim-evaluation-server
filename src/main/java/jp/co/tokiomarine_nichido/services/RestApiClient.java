@@ -8,6 +8,7 @@ import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -101,11 +102,12 @@ public class RestApiClient {
 	 * @return headersを文字列に変換して返す
 	 */
 	private String getHeaderString(MultivaluedMap<String, Object> headers) {
-		String header = "{";
+		StringJoiner joiner = new StringJoiner(",", "{", "}");
+
 		for (String key : headers.keySet()) {
-			header += key + "=" + headers.getFirst(key);
+			joiner.add(key + "=" + headers.getFirst(key));
 		}
-		return header += "}";
+		return joiner.toString();
 	}
 
 }
