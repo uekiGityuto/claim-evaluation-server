@@ -581,49 +581,49 @@
           ],
           "SCORECATEGORIES": [
             {
-              "TOKUSHUSCORECLASS": "01",
-              "NCPDSCORECLASS": "01",
-              "CLAIMCATEGORYTYPE": "01"
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "高"
             },
             {
-              "TOKUSHUSCORECLASS": "01",
-              "NCPDSCORECLASS": "02",
-              "CLAIMCATEGORYTYPE": "01"
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "高"
             },
             {
-              "TOKUSHUSCORECLASS": "01",
-              "NCPDSCORECLASS": "03",
-              "CLAIMCATEGORYTYPE": "01"
+              "TOKUSHUSCORECLASS": "High",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "高"
             },
             {
-              "TOKUSHUSCORECLASS": "02",
-              "NCPDSCORECLASS": "01",
-              "CLAIMCATEGORYTYPE": "02"
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
             },
             {
-              "TOKUSHUSCORECLASS": "02",
-              "NCPDSCORECLASS": "02",
-              "CLAIMCATEGORYTYPE": "02"
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "中"
             },
             {
-              "TOKUSHUSCORECLASS": "02",
-              "NCPDSCORECLASS": "03",
-              "CLAIMCATEGORYTYPE": "02"
+              "TOKUSHUSCORECLASS": "Middle",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "中"
             },
             {
-              "TOKUSHUSCORECLASS": "03",
-              "NCPDSCORECLASS": "01",
-              "CLAIMCATEGORYTYPE": "03"
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "High",
+              "CLAIMCATEGORYTYPE": "中"
             },
             {
-              "TOKUSHUSCORECLASS": "03",
-              "NCPDSCORECLASS": "02",
-              "CLAIMCATEGORYTYPE": "03"
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Middle",
+              "CLAIMCATEGORYTYPE": "低"
             },
             {
-              "TOKUSHUSCORECLASS": "03",
-              "NCPDSCORECLASS": "03",
-              "CLAIMCATEGORYTYPE": "03"
+              "TOKUSHUSCORECLASS": "Low",
+              "NCPDSCORECLASS": "Low",
+              "CLAIMCATEGORYTYPE": "低"
             }
           ]
         }
