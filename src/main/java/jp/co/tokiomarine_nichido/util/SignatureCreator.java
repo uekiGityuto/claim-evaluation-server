@@ -139,7 +139,7 @@ public class SignatureCreator {
 	 * @return RFC3986でURIエンコードした文字列
 	 * @throws URISyntaxException
 	 */
-	public String uriEncode(String scheme, String path) throws URISyntaxException {
+	private String uriEncode(String scheme, String path) throws URISyntaxException {
 		URI uri = new URI(scheme, path, null);
 		return uri.toASCIIString();
 	}
@@ -147,7 +147,7 @@ public class SignatureCreator {
 	/**
 	 * @return 「YYYYMMDD'T'HHMMSS'Z'」形式の日付文字列
 	 */
-	public String getXAmzDate() {
+	private String getXAmzDate() {
 		OffsetDateTime dateUtc = OffsetDateTime.now(ZoneId.of("UTC"));
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
 		return dateUtc.format(formatter);
@@ -157,7 +157,7 @@ public class SignatureCreator {
 	 * @param headers
 	 * @return ヘッダを正規化出来るように変換したmap
 	 */
-	public LinkedHashMap<String, String> normalizeHeaders(MultivaluedMap<String, Object> headers) {
+	private LinkedHashMap<String, String> normalizeHeaders(MultivaluedMap<String, Object> headers) {
 		// keyを小文字に変換し、valueの前後のスペースと連続スペースを取り除く
 		Map<String, String> normalizedHeaders = normalizeKeyValue(headers);
 
@@ -177,7 +177,7 @@ public class SignatureCreator {
 	 * @param headers
 	 * @return 小文字に変換したkeyと前後のスペースと連続スペースを取り除いたvalueのmap
 	 */
-	public Map<String, String> normalizeKeyValue(MultivaluedMap<String, Object> headers) {
+	private Map<String, String> normalizeKeyValue(MultivaluedMap<String, Object> headers) {
 		Map<String, String> normalizedHeaders = new HashMap<String, String>();
 		for (String key : headers.keySet()) {
 			// valueの前後のスペースと連続スペースを取り除く
@@ -193,7 +193,7 @@ public class SignatureCreator {
 	 * @param headers
 	 * @return 前後のスペースと連続スペースを取り除いたヘッダー値
 	 */
-	public List<String> trimSpace(String key, MultivaluedMap<String, Object> headers) {
+	private List<String> trimSpace(String key, MultivaluedMap<String, Object> headers) {
 		List<String> valueList = new ArrayList<>();
 		for (Object value : headers.get(key)) {
 			// 前後の半角スペースを削除
@@ -209,7 +209,7 @@ public class SignatureCreator {
 	 * @param normalizedHeaders
 	 * @return keyの文字コード順でsortしたリスト
 	 */
-	public List<Map.Entry<String, String>> sortHeader(Map<String, String> normalizedHeaders) {
+	private List<Map.Entry<String, String>> sortHeader(Map<String, String> normalizedHeaders) {
 		List<Map.Entry<String, String>> sortedHeadersList = new LinkedList<>(normalizedHeaders.entrySet());
 		Collections.sort(sortedHeadersList, (a, b) -> a.getKey().compareTo(b.getKey()));
 		return sortedHeadersList;
@@ -219,7 +219,7 @@ public class SignatureCreator {
 	 * @param canonicalHeadersMap
 	 * @return 正規ヘッダー（「key:value\n」をkeyの数だけ連結した文字列）
 	 */
-	public String getCanonicalHeaders(Map<String, String> canonicalHeadersMap) {
+	private String getCanonicalHeaders(Map<String, String> canonicalHeadersMap) {
 		String canonicalHeaders = "";
 		for(String key : canonicalHeadersMap.keySet()) {
 			canonicalHeaders += key + ":" + canonicalHeadersMap.get(key) + "\n";
@@ -231,7 +231,7 @@ public class SignatureCreator {
 	 * @param canonicalHeadersMap
 	 * @return 署名付きヘッダー（keyを;で連結した文字列）
 	 */
-	public String getSignedHeaders(Map<String, String> canonicalHeadersMap) {
+	private String getSignedHeaders(Map<String, String> canonicalHeadersMap) {
 		List<String> keyList = new ArrayList<>();
 		for (String key : canonicalHeadersMap.keySet()) {
 			keyList.add(key);
@@ -244,7 +244,7 @@ public class SignatureCreator {
 	 * @param param
 	 * @return SHA256でハッシュし、小文字の16進文字列にエンコードした文字列
 	 */
-	public String getBodyHash(String param) {
+	private String getBodyHash(String param) {
 		return DigestUtils.sha256Hex(param).toLowerCase();
 	}
 
@@ -259,7 +259,7 @@ public class SignatureCreator {
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeyException
 	 */
-	public byte[] getSignatureKey(String key, String xAmzDate, String regionName, String serviceName) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException {
+	private byte[] getSignatureKey(String key, String xAmzDate, String regionName, String serviceName) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException {
 		String startString = pm.get("api.startString");
 		byte[] kSecret = (startString + key).getBytes("UTF-8");
 		byte[] kDate = hmacSHA256(xAmzDate, kSecret);
@@ -278,7 +278,7 @@ public class SignatureCreator {
 	 * @throws IllegalStateException
 	 * @throws NoSuchAlgorithmException
 	 */
-	public byte[] hmacSHA256(String data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
+	private byte[] hmacSHA256(String data, byte[] key) throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
 		String algorithm = pm.get("api.signatureKey.algorithm");
 		Mac mac = Mac.getInstance(algorithm);
 		mac.init(new SecretKeySpec(key, algorithm));
@@ -295,7 +295,7 @@ public class SignatureCreator {
 	 * @throws InvalidKeyException
 	 * @throws Exception
 	 */
-	public String getSignature(byte[] signatureKey, String stringToSign) throws InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, UnsupportedEncodingException {
+	private String getSignature(byte[] signatureKey, String stringToSign) throws InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, UnsupportedEncodingException {
 		byte[] signature = hmacSHA256(stringToSign, signatureKey);
 		return new String(Hex.encodeHex(signature)).toLowerCase();
 	}

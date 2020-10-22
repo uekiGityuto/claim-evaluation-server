@@ -10,12 +10,20 @@ import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 
 public class DecryptedResultTest {
 
+	/**
+	 * isAuthorityメソッドの機能確認。
+	 * テスト観点：損業権限フラグが1の場合にtrueになること。
+	 */
 	@Test
 	public void testIsAuthority1() {
 		DecryptedResult result = new DecryptedResult("1", "1234567890", "2020-08-18T13:11:43.887Z");
 		assertTrue(result.isAuthority());
 	}
 
+	/**
+	 * isAuthorityメソッドの機能確認。
+	 * テスト観点：損業権限フラグが0の場合にfalseになること。
+	 */
 	@Test
 	public void testIsAuthority2() {
 		DecryptedResult result = new DecryptedResult("0", "1234567890", "2020-08-18T13:11:43.887Z");
@@ -23,13 +31,12 @@ public class DecryptedResultTest {
 	}
 
 	/**
-	 * 生成時刻チェック
-	 * 正常系
+	 * isCorrectDateメソッドの機能確認。
+	 * テスト観点：生成時刻が現在時刻の10秒以内の場合にTrueになること。
 	 */
 	@Test
 	public void testIsCorrectDate1() {
 		String createDate = Instant.now().toString();
-//		System.out.println(createDate);
 		DecryptedResult result = new DecryptedResult("0", "1234567890", createDate);
 		try {
 			assertTrue(result.isCorrectDate());
@@ -41,8 +48,9 @@ public class DecryptedResultTest {
 
 
 	/**
-	 * 生成時刻チェック
-	 * 正常系（境界値）※比較までにラグがあるので10秒ぴったりは出来ない
+	 * isCorrectDateメソッドの機能確認。
+	 * テスト観点：生成時刻が現在時刻より9秒早い場合にTrueになること。
+	 * （境界値は10秒だが、10秒ぴったりのテストは難しいため9秒でのテストを実施）
 	 */
 	@Test
 	public void testIsCorrectDate2() {
@@ -57,8 +65,8 @@ public class DecryptedResultTest {
 	}
 
 	/**
-	 * 生成時刻チェック
-	 * 異常系（境界値）
+	 * isCorrectDateメソッドの機能確認。
+	 * テスト観点：生成時刻が現在時刻より11秒早い場合にfalseになること。
 	 */
 	@Test
 	public void testIsCorrectDate3() {
@@ -72,6 +80,10 @@ public class DecryptedResultTest {
 		}
 	}
 
+	/**
+	 * createAuthorizationResultメソッドの機能確認。
+	 * テスト観点：AuthorizationResultが生成出来ること。
+	 */
 	@Test
 	public void testCreateAuthResult() {
 		DecryptedResult result = new DecryptedResult("0", "1234567890", "2020-08-18T13:11:43.887Z");

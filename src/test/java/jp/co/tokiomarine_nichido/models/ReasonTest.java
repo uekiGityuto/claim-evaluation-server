@@ -11,6 +11,9 @@ import jp.co.tokiomarine_nichido.models.scores.Reason;
 
 public class ReasonTest {
 
+	/**
+	 * スコアが文字列の時にエラーになることを確認するテスト。
+	 */
 	@Test
 	public void gsonTest1() {
 		// テスト準備
@@ -19,7 +22,7 @@ public class ReasonTest {
 
 		// テスト実行
 		try {
-		Reason reason = gson.fromJson(reasonString, Reason.class);
+		gson.fromJson(reasonString, Reason.class);
 		fail();
 		} catch (JsonSyntaxException | NumberFormatException e) {
 			e.printStackTrace();

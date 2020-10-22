@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
-//TODO: Arqillianのセットアップが出来たらIgnoreしているテストも実施
-//@ExtendWith(Arquillian.class)
 public class DecryptionServiceTest {
 
-	// 復号処理（正常系テスト）
+	/**
+	 * decryptメソッドの機能確認。
+	 * 引数に復号可能な値をセットした場合に正常に復号できること。
+	 */
 	@Ignore
 	@Test
 	public void testDecrypt1() {
@@ -26,7 +27,10 @@ public class DecryptionServiceTest {
 
 	}
 
-	// 復号処理（空文字テスト）
+	/**
+	 * decryptメソッドの機能確認。
+	 * 引数に復号不可能な値をセットした場合に例外がthrowされること。
+	 */
 	@Ignore
 	@Test
 	public void testDecrypt2() {
@@ -38,10 +42,8 @@ public class DecryptionServiceTest {
 			System.out.println("decryptedString:" + decryptedString);
 			fail();
 		} catch (Exception e) {
-			e.getMessage();
 			e.printStackTrace();
 		}
 	}
-
 
 }
