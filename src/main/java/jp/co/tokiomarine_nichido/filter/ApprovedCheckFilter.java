@@ -40,7 +40,7 @@ public class ApprovedCheckFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
-		System.out.println("フィルタ確認2");
+		logger.trace(pm.getLogMessage("T002"));
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");

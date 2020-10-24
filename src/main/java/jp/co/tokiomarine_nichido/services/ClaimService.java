@@ -41,7 +41,6 @@ public class ClaimService {
 
 		// REST APIにリクエストするための情報をセット
 		String path = pm.get("api.path.scores");
-		//		Gson gson = new Gson();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 		String bodyStr = gson.toJson(bodyObj);
 
@@ -57,15 +56,6 @@ public class ClaimService {
 					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result), e);
 		}
 
-//		// 受信結果のValidatation
-//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//		Validator validator = factory.getValidator();
-//		Set<ConstraintViolation<Scores>> validationResult = validator.validate(scores);
-//		if (validationResult.size() != 0) {
-//			throw new WebApplicationException(
-//					MessageFormat.format(pm.getLogMessage("E005"), bodyStr, result));
-//		}
-
 		return scores;
 	}
 
@@ -79,7 +69,6 @@ public class ClaimService {
 
 		// REST APIにリクエストするための情報をセット
 		String path = pm.get("api.path.cliams");
-		// Gson gson = new Gson();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 		String bodyStr = gson.toJson(bodyObj);
 
@@ -94,15 +83,6 @@ public class ClaimService {
 			throw new WebApplicationException(
 					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result), e);
 		}
-
-//		// 受信結果のValidatation
-//		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//		Validator validator = factory.getValidator();
-//		Set<ConstraintViolation<ClaimList>> validationResult = validator.validate(claims);
-//		if (validationResult.size() != 0) {
-//			throw new WebApplicationException(
-//					MessageFormat.format(pm.getLogMessage("E006"), bodyStr, result));
-//		}
 
 		return claims;
 

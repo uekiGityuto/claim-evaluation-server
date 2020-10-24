@@ -38,7 +38,7 @@ public class LogFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
-		System.out.println("フィルタ確認1");
+		logger.trace(pm.getLogMessage("T001"));
 
 		String userId = requestContext.getHeaders().getFirst("Uid");
 

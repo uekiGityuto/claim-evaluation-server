@@ -40,7 +40,7 @@ public class AuthFlagCheckFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
-		System.out.println("フィルタ確認3");
+		logger.trace(pm.getLogMessage("T003"));
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");

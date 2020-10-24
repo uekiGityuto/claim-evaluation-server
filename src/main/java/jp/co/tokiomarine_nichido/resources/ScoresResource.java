@@ -9,11 +9,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jp.co.tokiomarine_nichido.models.TargetClaim;
 import jp.co.tokiomarine_nichido.models.User;
 import jp.co.tokiomarine_nichido.models.scores.Scores;
 import jp.co.tokiomarine_nichido.services.ClaimService;
+import jp.co.tokiomarine_nichido.services.RestApiClient;
+import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
  * CE-S01スコア詳細画面からのリクエストを受け取るコントローラー。
@@ -25,6 +31,9 @@ import jp.co.tokiomarine_nichido.services.ClaimService;
 public class ScoresResource {
 	@Inject
 	private ClaimService claimService;
+	@Inject
+	private PropertyManager pm;
+	private static final Logger logger = LogManager.getLogger(RestApiClient.class);
 
 	/**
 	 * @param request
@@ -36,9 +45,10 @@ public class ScoresResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Scores get(
 			@Context HttpServletRequest request,
+			@Context UriInfo uriInfo,
 			TargetClaim targetClaim) throws Exception {
 
-		System.out.println("受信確認3");
+		logger.trace(pm.getLogMessage("T004"), uriInfo.getPath());
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -46,6 +56,8 @@ public class ScoresResource {
 		targetClaim.userId = user.getUserId();
 
 		Scores scores = claimService.getScores(targetClaim);
+
+		logger.trace(pm.getLogMessage("T005"), uriInfo.getPath());
 		return scores;
 	}
 

@@ -67,7 +67,6 @@ public class RestApiClient {
 		}
 
 		// hostヘッダを付与するとwarningが出るので以下をセット
-		// TODO: hostヘッダがなくともapi gatewayは（少なくともモックでは）認可するので要検討
 		System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
 		// DEBUGログ出力

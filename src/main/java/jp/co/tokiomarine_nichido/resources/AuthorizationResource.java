@@ -10,13 +10,19 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jp.co.tokiomarine_nichido.exceptions.AuthorizationFailedException;
 import jp.co.tokiomarine_nichido.models.AuthorizationResult;
 import jp.co.tokiomarine_nichido.services.AuthorizationService;
+import jp.co.tokiomarine_nichido.services.RestApiClient;
 import jp.co.tokiomarine_nichido.util.PropertyManager;
 
 /**
@@ -31,31 +37,36 @@ public class AuthorizationResource {
 	private AuthorizationService authorizeService;
 	@Inject
 	private PropertyManager pm;
+	private static final Logger logger = LogManager.getLogger(RestApiClient.class);
 
 	/**
 	 * @param userId ユーザID
 	 * @param encryptedParam 暗号データ
 	 * @return クエリパラメータにユーザIDと暗号データをセットしたリダイレクト先URL
 	 * @throws AuthorizationFailedException
+	 * @throws WebApplicationException
 	 */
 	@GET
 	public Response dataFederation(
 			@HeaderParam("Uid") String userId,
-			@QueryParam("param") String encryptedParam) throws AuthorizationFailedException {
+			@QueryParam("param") String encryptedParam,
+			@Context UriInfo uriInfo) throws AuthorizationFailedException, WebApplicationException {
 
-		System.out.println("受信確認1");
+		logger.trace(pm.getLogMessage("T004"), uriInfo.getPath());
 
 		if(userId == null || userId.isEmpty()) {
+			logger.trace(pm.getLogMessage("T005"), uriInfo.getPath());
 			throw new AuthorizationFailedException(pm.getLogMessage("E019"));
 		}
 
 		String uri = pm.get("url.ui");
 		try {
+			logger.trace(pm.getLogMessage("T005"), uriInfo.getPath());
 			return Response.temporaryRedirect(
 					new URI(uri + "?Uid=" + userId + "&param=" + encryptedParam)).build();
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+			logger.trace(pm.getLogMessage("T005"), uriInfo.getPath());
+			throw new WebApplicationException(pm.getLogMessage("E022"), e);
 		}
 	}
 
@@ -74,12 +85,14 @@ public class AuthorizationResource {
 	public AuthorizationResult authorize(
 			@Context HttpServletRequest request,
 			@QueryParam("param") String encryptedParam,
-			@QueryParam("userId") String userId) throws Exception {
+			@QueryParam("userId") String userId,
+			@Context UriInfo uriInfo) throws Exception {
 
-		System.out.println("受信確認2");
+		logger.trace(pm.getLogMessage("T004"), uriInfo.getPath());
 
 		AuthorizationResult authResult = authorizeService.authorize(encryptedParam, userId, request);
 
+		logger.trace(pm.getLogMessage("T005"), uriInfo.getPath());
 		return authResult;
 	}
 }

@@ -39,7 +39,6 @@ public class DecryptionService {
 	 * @throws Exception
 	 */
 	public String decrypt(String encryptedString, String userId) throws Exception {
-//		PropertyManager pm = new PropertyManager();
 		final String KEY = pm.get("decryption.key");
 		final String IV = pm.get("decryption.iv");
 
@@ -72,7 +71,6 @@ public class DecryptionService {
 			String decryptedString = new String(decryptedByte, "UTF-8");
 
 			return decryptedString;
-			// TODO: 全部catchして403エラーにするかは要検討（入力値以外の要因で例外を出す場合もある）
 		} catch (AuthorizationFailedException | DecoderException | UnsupportedEncodingException
 				| IllegalArgumentException | NullPointerException | NoSuchAlgorithmException
 				| NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException
