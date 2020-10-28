@@ -1,300 +1,580 @@
 {
   "scores": {
     "CLAIM": {
-      "CLAIMNUMBER": "1234567890",
-      "INSUREDNAMEKANJI": "山田太郎",
-      "INSUREDNAMEKANA": "ヤマダタロウ",
-      "CONTRACTORNAMEKANJI": "田中一郎",
-      "CONTRACTORNAMEKANA": "タナカイチロウ",
-      "INSURANCEKIND_EXT": "スポ安",
-      "LOSSDATE": "2020-01-01T00:00:00.000Z",
-      "UPDATEDATE": "2020-03-01T00:00:00.000Z",
+      "CLAIMNUMBER": "1910925317 ",
+      "INSUREDNAMEKANJI": "傷害",
+      "INSUREDNAMEKANA": "ショウガイ",
+      "CONTRACTORNAMEKANJI": "傷害",
+      "CONTRACTORNAMEKANA": "ショウガイ",
+      "INSURANCEKIND_EXT": "A1",
+      "LOSSDATE": "2020-11-30T15:00:00.000Z",
+      "UPDATEDATE": "2022-04-18T06:58:21.474Z",
       "FRAUDSCOREHISTORY": [
         {
-          "SCORINGDATE": "2020-01-01T00:00:00.000Z",
-          "CLAIMCATEGORY": "低",
-          "SCOREDETAIL": [
-            {
-              "MODELTYPE": "特殊事案推定モデル",
-              "SCORERANK": "Low",
-              "SCORE": 0.3,
-              "REASONS": [
-                {
-                  "REASON": 0.4,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
-                },
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                },
-                {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            },
-            {
-              "MODELTYPE": "NC/PD推定モデル",
-              "SCORERANK": "Low",
-              "SCORE": 0.2,
-              "REASONS": [
-                {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
-                },
-                {
-                  "REASON": 0.4,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量2の説明"
-                },
-                {
-                  "REASON": -0.3,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            }
-          ],
-          "SCORECATEGORIES": [
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "低"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "低"
-            }
-          ]
-        },
-        {
-          "SCORINGDATE": "2020-02-01T00:00:00.000Z",
+          "SCORINGDATE": "2020-10-18T11:12:02.402Z",
           "CLAIMCATEGORY": "中",
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
               "SCORERANK": "Middle",
-              "SCORE": 0.5,
+              "SCORE": 0.47,
               "REASONS": [
                 {
-                  "REASON": 0.3,
-                  "FEATURENAME": "ああああああああああああああああああいいいいいいいいいいいいいいいいいい",
-                  "FEATUREDESCRIPTION": "あああああああああああああああああああああああいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううう"
+                  "REASON": 0.02,
+                  "FEATURENAME": "補償内容変更回数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
                 },
                 {
-                  "REASON": 0.3,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                  "REASON": 0.06,
+                  "FEATURENAME": "事故日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：483 \r\n事故日：2020\/12\/01\r\n事故受付日：2022\/03\/28"
                 },
                 {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                  "REASON": 0.04,
+                  "FEATURENAME": "通院限度日数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "スケールOS（入院日数）",
+                  "FEATUREDESCRIPTION": "特徴量：13\r\n補足説明：受傷部位症状と入院有無から算出\r\nされた標準的な入院保険金スケールＯＳ額\r\n主要受傷部位：肩・上腕\r\n主要受傷症状：骨折\r\n入院有無：入院あり"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故日不明",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "通院対象日数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "スケールOS",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：入院・通院保険金スケールOS額の\r\n合計額\r\n通院日額：-\r\nスケールOS（通院日数）：21\r\n入院日額：-\r\nスケールOS（入院日数）：13"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "傷病者の氏名生年月日重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.08,
+                  "FEATURENAME": "始期年月日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：818 \r\n始期年月日：2020\/01\/01\r\n事故受付日：2020\/01\/01"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "家族区分",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故地区分",
+                  "FEATUREDESCRIPTION": "特徴量：契約者住所を引込む"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "死亡フラグ",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
+                },
+                {
+                  "REASON": -0.37,
+                  "FEATURENAME": "二重登録",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "主要受傷部位",
+                  "FEATUREDESCRIPTION": "特徴量：上肢\r\n受傷部位：肩・上腕"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "申込年月日から補償始期年月日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：-644\r\n申込年月日：2021\/10\/07\r\n補償始期年：2020\/01\/01"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故時間不明",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
+                },
+                {
+                  "REASON": 0.15,
+                  "FEATURENAME": "入院日額",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n保険種類：A1\r\n家族区分：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷害疾病区分",
+                  "FEATUREDESCRIPTION": "特徴量：傷害"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の携帯電話番号重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "通院日額",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n保険種類：A1\r\n家族区分：-"
+                },
+                {
+                  "REASON": 0.07,
+                  "FEATURENAME": "始期年月日から事故日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：336 \r\n始期年月日：2020\/01\/01\r\n事故日：2020\/12\/01"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "傷病者の携帯電話番号重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "スケールOS（通院日数）",
+                  "FEATUREDESCRIPTION": "特徴量：21\r\n補足説明：受傷部位症状と入院有無から算出\r\nされた標準的な通院保険金スケールＯＳ額\r\n主要受傷部位：肩・上腕\r\n主要受傷症状：骨折\r\n入院有無：入院あり"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "請求歴件数（その他）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：自動車保険および自賠責保険、傷\r\n害保険以外の過去請求件数"
+                },
+                {
+                  "REASON": 0.06,
+                  "FEATURENAME": "申込年月日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：173 \r\n申込年月日：2021\/10\/07\r\n事故受付日：2022\/03\/28"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故区分３",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の性別",
+                  "FEATUREDESCRIPTION": "特徴量：男"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "保険料払込回数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の自宅電話番号重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "入院有無",
+                  "FEATUREDESCRIPTION": "特徴量：入院あり"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "手術有無",
+                  "FEATUREDESCRIPTION": "特徴量：なし"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "保険料払込方法",
+                  "FEATUREDESCRIPTION": "特徴量：口座振替\r\n保険料収納チャネル：10\r\n保険種類枝番：000"
+                },
+                {
+                  "REASON": -0.15,
+                  "FEATURENAME": "事故区分２",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.05,
+                  "FEATURENAME": "責任期間の長さ（日数）",
+                  "FEATUREDESCRIPTION": "特徴量：0\r\n責任期間エリアのプルダウン(年\/月\/日)：-\r\n責任期間エリアの期間の入力値：-\r\n補足説明：当該証券の責任期間を日数ベース\r\nに再計算したもの"
+                },
+                {
+                  "REASON": -0.02,
+                  "FEATURENAME": "請求歴件数",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：請求歴件数（自動車）・請求歴件\r\n数（傷害）・請求歴件数（その他）の合計件\r\n数"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "申込年月日から事故日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：-309\r\n申込年月日：2021\/10\/07\r\n事故日：2020\/12\/01"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "請求歴件数（傷害）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：傷害保険の過去請求件数"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "報告方法",
+                  "FEATUREDESCRIPTION": "特徴量：ＴＥＬ"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "受傷症状",
+                  "FEATUREDESCRIPTION": "特徴量：骨折"
+                },
+                {
+                  "REASON": -0.05,
+                  "FEATURENAME": "受傷部位左右",
+                  "FEATUREDESCRIPTION": "特徴量：左"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故区分１",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": -0.36,
+                  "FEATURENAME": "傷病者の事故日時点年齢",
+                  "FEATUREDESCRIPTION": "特徴量：39"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "入通院日数区分",
+                  "FEATUREDESCRIPTION": "特徴量：入通院５日未満"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "主要受傷症状",
+                  "FEATUREDESCRIPTION": "特徴量：骨折\r\n受傷症状：骨折"
+                },
+                {
+                  "REASON": 0.04,
+                  "FEATURENAME": "スポ協加入支部",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.09,
+                  "FEATURENAME": "受傷部位",
+                  "FEATUREDESCRIPTION": "特徴量：肩・上腕"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "請求歴件数（自動車）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：自動車保険および自賠責保険の過\r\n去請求件数"
+                },
+                {
+                  "REASON": -0.07,
+                  "FEATURENAME": "傷病者の自宅電話番号重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.02,
+                  "FEATURENAME": "保険期間",
+                  "FEATUREDESCRIPTION": "特徴量：367 \r\n始期：2020\/01\/01\r\n終期：2021\/01\/01"
+                },
+                {
+                  "REASON": -0.07,
+                  "FEATURENAME": "ご家族明細番号",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "他契約有無",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：TNet内「契約内容照会画面」\r\nの「前契約・告知タブ」の情報"
+                },
+                {
+                  "REASON": 0.02,
+                  "FEATURENAME": "競技種目１",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.04,
+                  "FEATURENAME": "傷病者の氏名生年月日重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.03,
+                  "FEATURENAME": "競技種目２",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故地都道府県",
+                  "FEATUREDESCRIPTION": "特徴量：北海道"
                 }
               ]
             },
             {
-              "MODELTYPE": "NC/PD推定モデル",
+              "MODELTYPE": "NC\/PD推定モデル",
               "SCORERANK": "Middle",
-              "SCORE": 0.4,
+              "SCORE": 0.47,
               "REASONS": [
                 {
-                  "REASON": 0.2,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                  "REASON": 0.02,
+                  "FEATURENAME": "補償内容変更回数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
                 },
                 {
-                  "REASON": 0.4,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                  "REASON": 0.04,
+                  "FEATURENAME": "通院限度日数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
                 },
                 {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
-                }
-              ]
-            }
-          ],
-          "SCORECATEGORIES": [
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "High",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "高"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Middle",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "High",
-              "CLAIMCATEGORYTYPE": "中"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Middle",
-              "CLAIMCATEGORYTYPE": "低"
-            },
-            {
-              "TOKUSHUSCORECLASS": "Low",
-              "NCPDSCORECLASS": "Low",
-              "CLAIMCATEGORYTYPE": "低"
-            }
-          ]
-        },
-        {
-          "SCORINGDATE": "2020-03-01T00:00:00.000Z",
-          "CLAIMCATEGORY": "高",
-          "SCOREDETAIL": [
-            {
-              "MODELTYPE": "特殊事案推定モデル",
-              "SCORERANK": "High",
-              "SCORE": 0.7,
-              "REASONS": [
-                {
-                  "REASON": 0.5,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                  "REASON": 0.05,
+                  "FEATURENAME": "事故日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：483 \r\n事故日：2020\/12\/01\r\n事故受付日：2022\/03\/28"
                 },
                 {
-                  "REASON": 0.8,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "スケールOS（入院日数）",
+                  "FEATUREDESCRIPTION": "特徴量：13\r\n補足説明：受傷部位症状と入院有無から算出\r\nされた標準的な入院保険金スケールＯＳ額\r\n主要受傷部位：肩・上腕\r\n主要受傷症状：骨折\r\n入院有無：入院あり"
                 },
                 {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                  "REASON": 0.01,
+                  "FEATURENAME": "スケールOS",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：入院・通院保険金スケールOS額の\r\n合計額\r\n通院日額：-\r\nスケールOS（通院日数）：21\r\n入院日額：-\r\nスケールOS（入院日数）：13"
                 },
                 {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量4",
-                  "FEATUREDESCRIPTION": "特徴量4の説明"
+                  "REASON": 0.01,
+                  "FEATURENAME": "傷病者の氏名生年月日重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
                 },
                 {
-                  "REASON": -0.3,
-                  "FEATURENAME": "特徴量5",
-                  "FEATUREDESCRIPTION": "特徴量4の説明"
-                }
-
-              ]
-            },
-            {
-              "MODELTYPE": "NC/PD推定モデル",
-              "SCORERANK": "High",
-              "SCORE": 0.8,
-              "REASONS": [
-                {
-                  "REASON": 0.5,
-                  "FEATURENAME": "特徴量1",
-                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "事故日不明",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
                 },
                 {
-                  "REASON": 0.5,
-                  "FEATURENAME": "特徴量2",
-                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "通院対象日数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
                 },
                 {
-                  "REASON": 0.2,
-                  "FEATURENAME": "特徴量3",
-                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "事故地区分",
+                  "FEATUREDESCRIPTION": "特徴量：契約者住所を引込む"
                 },
                 {
-                  "REASON": 0.1,
-                  "FEATURENAME": "特徴量4",
-                  "FEATUREDESCRIPTION": "特徴量4の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "死亡フラグ",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
                 },
                 {
-                  "REASON": 0.3,
-                  "FEATURENAME": "特徴量5",
-                  "FEATUREDESCRIPTION": "特徴量5の説明"
+                  "REASON": 0.07,
+                  "FEATURENAME": "始期年月日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：818 \r\n始期年月日：2020\/01\/01\r\n事故受付日：2020\/01\/01"
                 },
                 {
-                  "REASON": -0.3,
-                  "FEATURENAME": "特徴量6",
-                  "FEATUREDESCRIPTION": "特徴量6の説明"
+                  "REASON": 0.01,
+                  "FEATURENAME": "家族区分",
+                  "FEATUREDESCRIPTION": "特徴量：-"
                 },
                 {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量7",
-                  "FEATUREDESCRIPTION": "特徴量7の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "主要受傷部位",
+                  "FEATUREDESCRIPTION": "特徴量：上肢\r\n受傷部位：肩・上腕"
                 },
                 {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量8",
-                  "FEATUREDESCRIPTION": "特徴量8の説明"
+                  "REASON": -0.37,
+                  "FEATURENAME": "二重登録",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
                 },
                 {
-                  "REASON": -0.2,
-                  "FEATURENAME": "特徴量9",
-                  "FEATUREDESCRIPTION": "特徴量9の説明"
+                  "REASON": 0,
+                  "FEATURENAME": "申込年月日から補償始期年月日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：-644\r\n申込年月日：2021\/10\/07\r\n補償始期年：2020\/01\/01"
                 },
                 {
-                  "REASON": -0.1,
-                  "FEATURENAME": "特徴量10",
-                  "FEATUREDESCRIPTION": "特徴量10の説明"
+                  "REASON": 0.15,
+                  "FEATURENAME": "入院日額",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n保険種類：A1\r\n家族区分：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故時間不明",
+                  "FEATUREDESCRIPTION": "特徴量：いいえ"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷害疾病区分",
+                  "FEATUREDESCRIPTION": "特徴量：傷害"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の携帯電話番号重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "通院日額",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n保険種類：A1\r\n家族区分：-"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "傷病者の携帯電話番号重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.06,
+                  "FEATURENAME": "始期年月日から事故日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：336 \r\n始期年月日：2020\/01\/01\r\n事故日：2020\/12\/01"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "スケールOS（通院日数）",
+                  "FEATUREDESCRIPTION": "特徴量：21\r\n補足説明：受傷部位症状と入院有無から算出\r\nされた標準的な通院保険金スケールＯＳ額\r\n主要受傷部位：肩・上腕\r\n主要受傷症状：骨折\r\n入院有無：入院あり"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "請求歴件数（その他）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：自動車保険および自賠責保険、傷\r\n害保険以外の過去請求件数"
+                },
+                {
+                  "REASON": 0.06,
+                  "FEATURENAME": "申込年月日から事故受付日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：173 \r\n申込年月日：2021\/10\/07\r\n事故受付日：2022\/03\/28"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の性別",
+                  "FEATUREDESCRIPTION": "特徴量：男"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故区分３",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "傷病者の自宅電話番号重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "保険料払込回数",
+                  "FEATUREDESCRIPTION": "特徴量：0"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "入院有無",
+                  "FEATUREDESCRIPTION": "特徴量：入院あり"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "保険料払込方法",
+                  "FEATUREDESCRIPTION": "特徴量：口座振替\r\n保険料収納チャネル：10\r\n保険種類枝番：000"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "手術有無",
+                  "FEATUREDESCRIPTION": "特徴量：なし"
+                },
+                {
+                  "REASON": -0.15,
+                  "FEATURENAME": "事故区分２",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": -0.02,
+                  "FEATURENAME": "請求歴件数",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：請求歴件数（自動車）・請求歴件\r\n数（傷害）・請求歴件数（その他）の合計件\r\n数"
+                },
+                {
+                  "REASON": 0.04,
+                  "FEATURENAME": "責任期間の長さ（日数）",
+                  "FEATUREDESCRIPTION": "特徴量：0\r\n責任期間エリアのプルダウン(年\/月\/日)：-\r\n責任期間エリアの期間の入力値：-\r\n補足説明：当該証券の責任期間を日数ベース\r\nに再計算したもの"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "申込年月日から事故日までの経過日数",
+                  "FEATUREDESCRIPTION": "特徴量：-309\r\n申込年月日：2021\/10\/07\r\n事故日：2020\/12\/01"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "請求歴件数（傷害）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：傷害保険の過去請求件数"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "受傷症状",
+                  "FEATUREDESCRIPTION": "特徴量：骨折"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "報告方法",
+                  "FEATUREDESCRIPTION": "特徴量：ＴＥＬ"
+                },
+                {
+                  "REASON": -0.05,
+                  "FEATURENAME": "受傷部位左右",
+                  "FEATUREDESCRIPTION": "特徴量：左"
+                },
+                {
+                  "REASON": -0.36,
+                  "FEATURENAME": "傷病者の事故日時点年齢",
+                  "FEATUREDESCRIPTION": "特徴量：39"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故区分１",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "入通院日数区分",
+                  "FEATUREDESCRIPTION": "特徴量：入通院５日未満"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "主要受傷症状",
+                  "FEATUREDESCRIPTION": "特徴量：骨折\r\n受傷症状：骨折"
+                },
+                {
+                  "REASON": -0.01,
+                  "FEATURENAME": "請求歴件数（自動車）",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：自動車保険および自賠責保険の過\r\n去請求件数"
+                },
+                {
+                  "REASON": -0.07,
+                  "FEATURENAME": "傷病者の自宅電話番号重複契約システム判定結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.03,
+                  "FEATURENAME": "スポ協加入支部",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.08,
+                  "FEATURENAME": "受傷部位",
+                  "FEATUREDESCRIPTION": "特徴量：肩・上腕"
+                },
+                {
+                  "REASON": -0.07,
+                  "FEATURENAME": "ご家族明細番号",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.02,
+                  "FEATURENAME": "保険期間",
+                  "FEATUREDESCRIPTION": "特徴量：367 \r\n始期：2020\/01\/01\r\n終期：2021\/01\/01"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "他契約有無",
+                  "FEATUREDESCRIPTION": "特徴量：-\r\n補足説明：TNet内「契約内容照会画面」\r\nの「前契約・告知タブ」の情報"
+                },
+                {
+                  "REASON": 0.04,
+                  "FEATURENAME": "傷病者の氏名生年月日重複契約確認結果",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0.01,
+                  "FEATURENAME": "競技種目１",
+                  "FEATUREDESCRIPTION": "特徴量：-"
+                },
+                {
+                  "REASON": 0,
+                  "FEATURENAME": "事故地都道府県",
+                  "FEATUREDESCRIPTION": "特徴量：北海道"
+                },
+                {
+                  "REASON": 0.02,
+                  "FEATURENAME": "競技種目２",
+                  "FEATUREDESCRIPTION": "特徴量：-"
                 }
               ]
             }
@@ -359,114 +639,6 @@
         "CONTRACTORNAMEKANJI": "田中一郎",
         "CONTRACTORNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
         "BASE": "いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567890",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "タナカイチロウ",
-        "BASE": "東京",
-        "INSURANCEKIND": "自動車",
-        "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
-        "LOSSDATE": "2020-09-01T01:19:00.000Z",
-        "CLAIMCATEGORY": "高"
-      },
-      {
-        "CLAIMNUMBER": "1234567891",
-        "INSUREDNAMEKANJI": "山田太郎",
-        "INSUREDNAMEKANA": "アアアアアアアアア",
-        "CONTRACTORNAMEKANJI": "田中一郎",
-        "CONTRACTORNAMEKANA": "イイイイイイイイイ",
-        "BASE": "東京",
         "INSURANCEKIND": "自動車",
         "LASTUPDATEDATE": "2020-09-01T01:19:00.000Z",
         "LOSSDATE": "2020-09-01T01:19:00.000Z",
