@@ -33,7 +33,7 @@ public class Claim {
 	@SerializedName("INSURANCEKIND")
     public String insuranceKind;
 
-	@SerializedName("LASTUPDATEDATE")
+	@SerializedName("LASTUPDATED")
     public Date lastUpdateDate;
 
 	@SerializedName("LOSSDATE")
