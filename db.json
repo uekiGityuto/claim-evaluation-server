@@ -206,7 +206,7 @@
         },
         {
           "SCORINGDATE": "2020-03-01T00:00:00.000Z",
-          "CLAIMCATEGORY": "",
+          "CLAIMCATEGORY": "高",
           "SCOREDETAIL": [
             {
               "MODELTYPE": "特殊事案推定モデル",
@@ -237,6 +237,64 @@
                   "REASON": -0.3,
                   "FEATURENAME": "特徴量5",
                   "FEATUREDESCRIPTION": "特徴量4の説明"
+                }
+
+              ]
+            },
+            {
+              "MODELTYPE": "NC/PD推定モデル",
+              "SCORERANK": "High",
+              "SCORE": 0.8,
+              "REASONS": [
+                {
+                  "REASON": 0.5,
+                  "FEATURENAME": "特徴量1",
+                  "FEATUREDESCRIPTION": "特徴量1の説明"
+                },
+                {
+                  "REASON": 0.5,
+                  "FEATURENAME": "特徴量2",
+                  "FEATUREDESCRIPTION": "特徴量2の説明"
+                },
+                {
+                  "REASON": 0.2,
+                  "FEATURENAME": "特徴量3",
+                  "FEATUREDESCRIPTION": "特徴量3の説明"
+                },
+                {
+                  "REASON": 0.1,
+                  "FEATURENAME": "特徴量4",
+                  "FEATUREDESCRIPTION": "特徴量4の説明"
+                },
+                {
+                  "REASON": 0.3,
+                  "FEATURENAME": "特徴量5",
+                  "FEATUREDESCRIPTION": "特徴量5の説明"
+                },
+                {
+                  "REASON": -0.3,
+                  "FEATURENAME": "特徴量6",
+                  "FEATUREDESCRIPTION": "特徴量6の説明"
+                },
+                {
+                  "REASON": -0.2,
+                  "FEATURENAME": "特徴量7",
+                  "FEATUREDESCRIPTION": "特徴量7の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量8",
+                  "FEATUREDESCRIPTION": "特徴量8の説明"
+                },
+                {
+                  "REASON": -0.2,
+                  "FEATURENAME": "特徴量9",
+                  "FEATUREDESCRIPTION": "特徴量9の説明"
+                },
+                {
+                  "REASON": -0.1,
+                  "FEATURENAME": "特徴量10",
+                  "FEATUREDESCRIPTION": "特徴量10の説明"
                 }
               ]
             }
