@@ -11,6 +11,8 @@ target/
 # Others
 node_modules
 .sts4-cache
+/www/
+favicon.ico
 
 # Mac
 .DS_Store
